@@ -4,8 +4,23 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import TasksScreen from '../screens/TasksScreen';
+import LoginScreen from '../screens/LoginScreen';
+
+
+const LoginStack = createStackNavigator({
+  Login: LoginScreen,
+});
+
+LoginStack.navigationOptions = {
+  tabBarLabel: 'Login',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-contact' : 'md-contact'}
+    />
+  ),
+};
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -16,45 +31,27 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name={Platform.OS === 'ios' ? 'ios-home' : 'md-home' }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const TasksStack = createStackNavigator({
+  Tasks: TasksScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+TasksStack.navigationOptions = {
+  tabBarLabel: 'Tasks',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-megaphone' : 'md-megaphone'} 
     />
   ),
 };
 
 export default createBottomTabNavigator({
+  LoginStack,
   HomeStack,
-  // LinksStack,
-  // SettingsStack,
+  TasksStack,
 });

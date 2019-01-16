@@ -11,10 +11,10 @@ import SearchBar from '../components/SearchBar';
 export default class HomeScreen extends Component {
   render() {
     return (
-      <Container style={{backgroundColor: "#87cefa"}}>
+      
         <Header transparent>
           <Body>
-            <Title>User Dashboard</Title>
+            <Title>Header Component</Title>
           </Body>
           <Right>
             <Button transparent>
@@ -22,12 +22,7 @@ export default class HomeScreen extends Component {
             </Button>
           </Right>
         </Header>
-        <Content padder>
-          <Text>
-            Some kind of Content below
-          </Text>
-        </Content>
-      </Container>
+      
     );
   }
 }
