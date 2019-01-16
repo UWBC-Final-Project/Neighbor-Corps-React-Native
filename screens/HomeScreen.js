@@ -22,18 +22,19 @@ export default class HomeScreen extends React.Component {
 
   state = {
     recipes: [],
+    users: [],
     text: ''
   }
 
-  // componentDidMount(){
-  //   axios
-  //   .get("http://www.recipepuppy.com/api?q=chicken")
-  //   .then(({ data: { results } }) => {
-  //   // console.log(results)
-  //     this.setState({recipes: results})
-  //   })
-  //   .catch(err => res.status(422).json(err));
-  // }
+  componentDidMount(){
+    axios
+    .get("https://young-sands-49140.herokuapp.com/api/users")
+    .then(({ data: { results } }) => {
+    console.log(results)
+      this.setState({recipes: results})
+    })
+    .catch(err => res.status(422).json(err));
+  }
 
   searchRecipe = (event) => {
     event.preventDefault();
@@ -41,7 +42,7 @@ export default class HomeScreen extends React.Component {
     axios
     .get("http://www.recipepuppy.com/api/", {params: {q: this.state.text}})
     .then(({ data: { results } }) => {
-    // console.log(results)
+    console.log(results)
       this.setState({recipes: results})
     })
     .catch(err => res.status(422).json(err));
@@ -56,9 +57,9 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <SearchBar search={this.searchRecipe} handleInputChange={this.handleInputChange} />
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          {this.state.recipes.map(recipe => {
+          {this.state.users.map(user => {
             return (
-            <RecipeCard key={recipe.title} data={recipe}/>
+            <RecipeCard key={user.username} data={user}/>
             )
             // </div>
           })}
