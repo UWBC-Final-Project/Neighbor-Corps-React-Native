@@ -9,9 +9,6 @@ import SearchBar from '../components/SearchBar';
 
 
 export default class HomeScreen extends Component {
-  static Navigation = {
-    title: 'Home Screen'
-  }
 
   render() {
     return (

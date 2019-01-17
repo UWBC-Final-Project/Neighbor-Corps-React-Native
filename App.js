@@ -2,21 +2,25 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View, Text, Button } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
-import CreateTask from './screens/CreateTaskScreen'
+import ContactScreen from './screens/ContactScreen';
 import CreateTaskScreen from './screens/CreateTaskScreen';
+import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import SingleTaskScreen from './screens/SingleTaskScreen';
+import TasksScreen from './screens/TasksScreen';
+import UserProfileScreen from './screens/UserProfileScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
+import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
+
 // import { Button } from 'native-base';
 
 class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
-
-  goToCreateTask = () => {
-    this.props.navigation.navigate('CreateTask');
-  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -31,11 +35,61 @@ class App extends React.Component {
       return (
         <View style={styles.container}>
           <Text>
-            TESTING
+            All Navigation Pages for Testing
           </Text>
           <Button
-            onPress={this.goToCreateTask}
+            onPress={() => {
+              this.props.navigation.navigate('CreateTask');
+            }}
             title="Create Task"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('Contact');
+            }}
+            title="Contact"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('HomeScreen');
+            }}
+            title="Home Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('LoginScreen');
+            }}
+            title="Login Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('SignUpScreen');
+            }}
+            title="Sign Up Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('SingleTaskScreen');
+            }}
+            title="Single Task Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('TasksScreen');
+            }}
+            title="Tasks Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('WelcomeScreen');
+            }}
+            title="Welcome Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('UserProfileScreen');
+            }}
+            title="User Profile Screen"
           />
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
@@ -78,14 +132,67 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StackNavigator({
-  // Login: {
-  //   screen: LoginScreen
-  // },
+const Screens = createStackNavigator({
   Home: {
-    screen: App
+    screen: App,
+    navigationOptions: ({ navigation }) => {
+      title: 'App Test Home'
+    }
   },
   CreateTask: {
-    screen: CreateTaskScreen
+    screen: CreateTaskScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Create Task'
+    }
+  },
+  LoginScreen: {
+    screen: LoginScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Login Screen'
+    }
+  },
+  Contact: {
+    screen: ContactScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Contact'
+    }
+  },
+  HomeScreen: {
+    screen: HomeScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Home Screen'
+    }
+  },
+  SignUpScreen: {
+    screen: SignUpScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Sign Up Screen'
+    }
+  },
+  SingleTaskScreen: {
+    screen: SingleTaskScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Sign Up Screen'
+    }
+  },
+  TasksScreen: {
+    screen: TasksScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Tasks Screen'
+    }
+  },
+  WelcomeScreen: {
+    screen: WelcomeScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Welcome Screen'
+    }
+  },
+  UserProfileScreen: {
+    screen: UserProfileScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'User Profile Screen'
+    }
   },
 })
+
+export default Screens;
