@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Item, Input } from 'native-base';
-const util = require('util')
+import { View, Text } from 'react-native';
 
-export default class RoundedTextboxExample extends Component {
-  static navigationOptions = {
-    title: 'createTask',
-  }
-  
+export default class CreateTaskScreen extends Component {
   render() {
     return (
-      <Container>
-        <Header />
-        <Content>
-          <Item rounded>
-            <Input placeholder='Rounded Textbox'/>
-          </Item>
-        </Content>
-      </Container>
-    );
+      
+        <View>
+        <Text>Create Task</Text>
+        <Text>YUSSSSSSS</Text>
+        </View>
+      
+    )
   }
 }

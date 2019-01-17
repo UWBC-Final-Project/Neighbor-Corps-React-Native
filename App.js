@@ -1,12 +1,22 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, Button } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import { StackNavigator } from 'react-navigation';
 
-export default class App extends React.Component {
+import CreateTask from './screens/CreateTaskScreen'
+import CreateTaskScreen from './screens/CreateTaskScreen';
+import LoginScreen from './screens/LoginScreen';
+// import { Button } from 'native-base';
+
+class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
+
+  goToCreateTask = () => {
+    this.props.navigation.navigate('CreateTask');
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -20,8 +30,15 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          <Text>
+            TESTING
+          </Text>
+          <Button
+            onPress={this.goToCreateTask}
+            title="Create Task"
+          />
+          {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
+          {/* <AppNavigator /> */}
         </View>
       );
     }
@@ -60,3 +77,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export default StackNavigator({
+  // Login: {
+  //   screen: LoginScreen
+  // },
+  Home: {
+    screen: App
+  },
+  CreateTask: {
+    screen: CreateTaskScreen
+  },
+})

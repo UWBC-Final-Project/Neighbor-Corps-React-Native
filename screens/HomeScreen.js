@@ -9,6 +9,10 @@ import SearchBar from '../components/SearchBar';
 
 
 export default class HomeScreen extends Component {
+  static Navigation = {
+    title: 'Home Screen'
+  }
+
   render() {
     return (
       <Container style={{backgroundColor: "#87cefa"}}>
@@ -26,6 +30,10 @@ export default class HomeScreen extends Component {
           <Text>
             Some kind of Content below
           </Text>
+          <Button
+            onPress={() => { }}
+            title= "Create Task"
+            />
         </Content>
       </Container>
     );
