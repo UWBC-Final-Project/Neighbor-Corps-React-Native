@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button, Item, Input } from 'native-base';
+import { Button } from 'react-native';
+import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
+import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 
@@ -12,7 +14,32 @@ const Task = t.struct({
   position: t.String
 });
 
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    marginTop: 50,
+    padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  }
+});
+
 export default class CreateTaskScreen extends Component {
+
   // Setting our component's initial state
   state = {
     tasks: [],
@@ -82,7 +109,19 @@ export default class CreateTaskScreen extends Component {
 
   };
 
+  // supplied by tutorial for tcomb-form-native
+  handleSubmit = () => {
+    const value = this.refs.form.getValue(); // use that ref to get the form value
+    console.log('value: ', value);
+  }
 
+  onPress = () => {
+    // call getValue() to get the values of the form
+    var value = this.refs.form.getValue();
+    if (value) { // if validation fails, value will be null
+      console.log(value); // value here is an instance of Person
+    }
+  }
 
   render() {
     return (
@@ -90,25 +129,14 @@ export default class CreateTaskScreen extends Component {
       <Container>
         <Header />
         <Content>
-          <Form type={Task} />
-          {/* <Form>
-            <Item rounded>
-              <Input placeholder='Task Title' />
-            </Item>
-            <br></br>
-            <Item rounded>
-              <Input placeholder='Task Description' />
-            </Item>
-            <br></br>
-            <Item rounded>
-              <Input placeholder='Task Image' />
-            </Item>
-            <br></br>
-            <Item rounded>
-              <Input placeholder='Task Position' />
-            </Item>
-            <br></br>
-          </Form> */}
+          <Form
+            ref="form"
+            type={Task}
+          />
+          <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableHighlight>
+
           <List>
             <ListItem thumbnail>
               <Left>
@@ -119,9 +147,6 @@ export default class CreateTaskScreen extends Component {
                 <Text note numberOfLines={1}>Its time to build a difference . .</Text>
               </Body>
               <Right>
-                <Button transparent>
-                  <Text>View</Text>
-                </Button>
               </Right>
             </ListItem>
           </List>
@@ -130,4 +155,5 @@ export default class CreateTaskScreen extends Component {
 
     )
   }
+  
 }
