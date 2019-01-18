@@ -13,7 +13,8 @@ const User = t.struct({
   email: t.String,
   userName: t.String,
   password: t.String,
-  about: t.maybe(t.String),
+  aboutMe: t.maybe(t.String),
+  zipcode: t.Number,
   terms: t.Boolean
 });
 
@@ -53,22 +54,12 @@ export default class SignUpScreen extends Component {
 
   // Setting our component's initial state
   state = {
-    tasks: [],
-    // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
-    title: "",
-    description: "",
-    imageURL: "",
-    postion: "", // save what we grasp from Google map pinned location
-    // tags:[],
-    // postedBy: "",
-    // comments: [],
-    // postDate: "", 
-    // lastUpdated: ""
+    
   };
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
   componentDidMount() {
-    
+    // probably need a UAuth func in here
   }
 
   // Handles updating component state when the Task types into the input field
@@ -85,16 +76,7 @@ export default class SignUpScreen extends Component {
     event.preventDefault();
 
     API.saveUser({
-      title: this.state.title,
-      description: this.state.description,
-      imageURL: this.state.imageURL,
-      postion: this.state.postion, // save what we grasp from Google map pinned location
-      // tags:[],
-      // postedBy:this.state.postedBy,
-      // comments: [],
-      // postDate: this.state.postDate, 
-      // lastUpdated:this.state.lastUpdated
-      // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
+      
     })
       .catch(err => console.log(err));
 
@@ -123,6 +105,7 @@ export default class SignUpScreen extends Component {
           <Form
             ref="form"
             type={User}
+            options={options}
           />
           <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Save</Text>
