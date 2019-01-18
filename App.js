@@ -15,7 +15,7 @@ import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
-// import { Button } from 'native-base';
+
 
 class App extends React.Component {
   state = {
