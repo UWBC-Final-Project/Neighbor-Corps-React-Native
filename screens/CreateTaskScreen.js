@@ -14,29 +14,8 @@ const Task = t.struct({
   position: t.String
 });
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    marginTop: 50,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  }
-});
+const reactStyles = require('../react_native_styles/styles');
+const styles = reactStyles.default;
 
 export default class CreateTaskScreen extends Component {
 
@@ -59,6 +38,7 @@ export default class CreateTaskScreen extends Component {
   // When the component mounts, load all Tasks and save them to this.state.Tasks
   componentDidMount() {
     this.loadTasks();
+    console.log(styles);
   }
 
   // Loads all Tasks  and sets them to this.state.Tasks
@@ -126,7 +106,6 @@ export default class CreateTaskScreen extends Component {
 
   render() {
     return (
-
       <Container>
         <Header page={this.state.page} />
         <Content>
@@ -137,20 +116,6 @@ export default class CreateTaskScreen extends Component {
           <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
-
-          <List>
-            <ListItem thumbnail>
-              <Left>
-                <Thumbnail square source={{ uri: 'Image URL' }} />
-              </Left>
-              <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>Its time to build a difference . .</Text>
-              </Body>
-              <Right>
-              </Right>
-            </ListItem>
-          </List>
         </Content>
       </Container>
 
