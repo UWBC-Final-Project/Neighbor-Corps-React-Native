@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2399,
-  "expoServerNgrokUrl": "https://pi-3st.anonymous.neighbor-corps-react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.pi-3st.anonymous.neighbor-corps-react-native.exp.direct",
-  "ngrokPid": 2414
+  "packagerPid": 2612,
+  "expoServerNgrokUrl": "https://pi-3st.anonymous.p3-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.pi-3st.anonymous.p3-react-native.exp.direct",
+  "ngrokPid": 11828
 }
