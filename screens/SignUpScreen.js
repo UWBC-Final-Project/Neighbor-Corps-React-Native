@@ -5,6 +5,9 @@ import Header from '../components/Header'
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 
+const reactStyles = require('../react_native_styles/styles');
+const styles = reactStyles.default;
+
 const Form = t.form.Form;
 
 const User = t.struct({
@@ -25,30 +28,6 @@ const options = {
     },
   },
 };
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    marginTop: 50,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  }
-});
 
 export default class SignUpScreen extends Component {
 

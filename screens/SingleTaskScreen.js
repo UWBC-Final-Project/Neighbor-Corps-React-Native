@@ -1,15 +1,23 @@
-import React, { Component } from 'react';
-import { Image } from 'react-native';
+import React, {Component} from 'react';
+import { ExpoConfigView } from '@expo/samples';
+import { View } from 'react-native';
 import Header from '../components/Header';
+import { Image } from 'react-native';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 
+const reactStyles = require('../react_native_styles/styles');
+const styles = reactStyles.default;
+
 export default class SingleTaskScreen extends Component {
+  state = {
+    page: "Task View",
+  }
+  
   render() {
     return (
       <Container>
-        <Header />
+        <Header page={this.state.page}/>
         <Content>
-          <Text>SINGLE TASK SCREEN</Text>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
           <Card style={{flex: 0}}>
             <CardItem>

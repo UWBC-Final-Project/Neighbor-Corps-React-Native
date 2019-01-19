@@ -4,9 +4,14 @@ import Header from '../components/Header';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
 import API from '../utils/API';
 
+
+const reactStyles = require('../react_native_styles/styles');
+const styles = reactStyles.default;
+
 export default class Tasks extends Component {
   // Setting our component's initial state
   state = {
+    page: "Tasks",
     tasks: [],
     // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
     title: "",
@@ -86,7 +91,7 @@ export default class Tasks extends Component {
   render() {
     return (
       <Container>
-        <Header />
+        <Header page={this.state.page}/>
         <Content>
 
             {this.state.tasks.length ? (
@@ -99,7 +104,8 @@ export default class Tasks extends Component {
 
 
                     <Card
-                      style={{ flex: 0 }}>
+                      style={{ flex: 0 }}
+                      key={task._id}>
                       <CardItem>
                         <Left>
                           <Thumbnail source={{ uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg' }} />
