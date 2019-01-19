@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { Container, Title, Content, Button, Icon, Left, Right, Body, Text, Platform, StyleSheet } from "native-base";
 import { WebBrowser } from 'expo';
@@ -6,7 +5,8 @@ import axios from "axios";
 import { MonoText } from '../components/StyledText';
 import RecipeCard from '../components/RecipeCard';
 import SearchBar from '../components/SearchBar';
-import Header from '../components/Header'
+import Header from '../components/Header';
+import { MapView } from 'expo';
 
 export default class DashboardScreen extends Component {
 
@@ -33,6 +33,20 @@ export default class DashboardScreen extends Component {
             />
         </Content>
       </Container>
+    );
+  }
+
+  render() {
+    return (
+      <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
     );
   }
 }
