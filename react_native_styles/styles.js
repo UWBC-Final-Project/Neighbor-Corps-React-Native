@@ -3,7 +3,10 @@ import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1, // You should only need this
     justifyContent: 'center',
+    height: '100%', // But these wouldn't hurt.
+    width: '100%',
     marginTop: 50,
     padding: 20,
     backgroundColor: '#ffffff',

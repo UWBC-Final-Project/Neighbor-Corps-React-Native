@@ -31,20 +31,29 @@ export default class UserProfileScreen extends Component {
       .then(res => {
         console.log(res.data)
         this.setState({
-          user: res.data
-      })})
+          _id: res.data._id,
+          username: res.data.username,
+          password: res.data.password,
+          email: res.data.email,
+          phone: res.data.phone,
+          address: res.data.address,
+          meritscore: res.data.meritscore,
+        })
+      })
   }
 
   render() {
     return (
 
-      <View>
+      <View style={styles.container}>
         <Header page={this.state.page} />
         <Content>
+          <Text>TEST</Text>
           <Card>
-            <CardItem>
-              <Text>{this.state.user.email}</Text>
-            </CardItem>
+            <CardItem><Text>TEST</Text></CardItem>
+            <CardItem><Text>{this.state.username}</Text></CardItem>
+            <CardItem><Text>{this.state.phone}</Text></CardItem>
+            <CardItem><Text>{this.state.email}</Text></CardItem>
           </Card>
         </Content>
       </View>

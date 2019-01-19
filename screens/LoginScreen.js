@@ -4,6 +4,7 @@ import { Container, Content, Item, Input, Label, Text } from 'native-base';
 import { TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
 
+// KPH Links to Styles
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
 

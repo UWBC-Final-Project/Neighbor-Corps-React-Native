@@ -118,8 +118,6 @@ export default class CreateTaskScreen extends Component {
           </TouchableHighlight>
         </Content>
       </Container>
-
     )
   }
-
 }
