@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'react-native';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
+import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
 import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
+import Header from '../components/Header';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 
@@ -42,6 +42,7 @@ export default class CreateTaskScreen extends Component {
 
   // Setting our component's initial state
   state = {
+    page: "Create New Task",
     tasks: [],
     // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
     title: "",
@@ -127,7 +128,7 @@ export default class CreateTaskScreen extends Component {
     return (
 
       <Container>
-        <Header />
+        <Header page={this.state.page} />
         <Content>
           <Form
             ref="form"
@@ -155,5 +156,5 @@ export default class CreateTaskScreen extends Component {
 
     )
   }
-  
+
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'react-native';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
-import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
+import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
+import { Button, AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
+import Header from '../components/Header'
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 
@@ -54,7 +54,7 @@ export default class SignUpScreen extends Component {
 
   // Setting our component's initial state
   state = {
-    
+    page: "Sign Up",
   };
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
@@ -100,7 +100,7 @@ export default class SignUpScreen extends Component {
     return (
 
       <Container>
-        <Header />
+        <Header page={this.state.page}/>
         <Content>
           <Form
             ref="form"
