@@ -13,6 +13,7 @@ import SingleTaskScreen from './screens/SingleTaskScreen';
 import TasksScreen from './screens/TasksScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
+import MapScreen from './screens/MapScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
 
@@ -90,6 +91,12 @@ class App extends React.Component {
               this.props.navigation.navigate('UserProfileScreen');
             }}
             title="User Profile Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('MapScreen');
+            }}
+            title="Map Screen"
           />
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
@@ -191,6 +198,12 @@ const Screens = createStackNavigator({
     screen: UserProfileScreen,
     navigationOptions: ({ navigation }) => {
       title: 'User Profile Screen'
+    }
+  },
+  MapScreen: {
+    screen: MapScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Map Screen'
     }
   },
 })
