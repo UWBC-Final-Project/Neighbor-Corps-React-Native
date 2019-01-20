@@ -9,7 +9,7 @@ export default class UploadPhoto extends React.Component {
   };
 
   _pickImageGallery = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
       base64: true
@@ -19,14 +19,13 @@ export default class UploadPhoto extends React.Component {
 
     if (!result.cancelled) {
       this.setState({ image: result.uri });
-      let base64Img = `data:image/jpg;base64,${result.base64}`
-      
-      //Add your cloud name
-      let apiUrl = 'https://api.cloudinary.com/v1_1/dxvngekjv/image/upload/';
+      const base64Img = `data:image/jpg;base64,${result.base64}`
   
-      let data = {
+      const apiUrl = 'https://api.cloudinary.com/v1_1/dqpd5lnnp/image/upload/';
+  
+      const data = {
         "file": base64Img,
-        "upload_preset": "qgwby8ni",
+        "upload_preset": "xv7mknnc",
         "folder": "tasks"
       }
 
@@ -37,7 +36,7 @@ export default class UploadPhoto extends React.Component {
         },
         method: 'POST',
         }).then(async r => {
-          let data = await r.json()
+          const data = await r.json()
           console.log(data.secure_url)
           return data.secure_url
         }).catch(err=>console.log(err))
@@ -46,21 +45,43 @@ export default class UploadPhoto extends React.Component {
   };
 
   _pickFromCamera = async () => {
-    let result = await ImagePicker.launchCameraAsync({
+    const result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
+      base64: true
     });
 
     console.log(result);
 
     if (!result.cancelled) {
       this.setState({ image: result.uri });
+      const base64Img = `data:image/jpg;base64,${result.base64}`
+  
+      const apiUrl = 'https://api.cloudinary.com/v1_1/dqpd5lnnp/image/upload/';
+  
+      const data = {
+        "file": base64Img,
+        "upload_preset": "xv7mknnc",
+        "folder": "tasks"
+      }
+
+      fetch(apiUrl, {
+        body: JSON.stringify(data),
+        headers: {
+          'content-type': 'application/json'
+        },
+        method: 'POST',
+        }).then(async r => {
+          const data = await r.json()
+          console.log(data.secure_url)
+          return data.secure_url
+        }).catch(err=>console.log(err))
     }
   };
 
 
   render() {
-    let { image } = this.state;
+    const { image } = this.state;
 
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

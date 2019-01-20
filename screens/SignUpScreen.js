@@ -58,7 +58,7 @@ export default class SignUpScreen extends Component {
       
     })
       .catch(err => console.log(err));
-
+    console.log("saved")
   };
 
   // supplied by tutorial for tcomb-form-native
