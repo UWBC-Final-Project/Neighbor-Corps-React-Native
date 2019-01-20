@@ -36,9 +36,6 @@ class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <Text>
-            All Navigation Pages for Testing
-          </Text>
           <Button
             onPress={() => {
               this.props.navigation.navigate('CreateTask');
