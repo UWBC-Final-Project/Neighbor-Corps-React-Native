@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '100%', // But these wouldn't hurt.
     width: '100%',
-    marginTop: 50,
+    marginTop: 0,
     padding: 20,
     backgroundColor: '#ffffff',
   },

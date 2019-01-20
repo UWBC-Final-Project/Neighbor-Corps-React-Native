@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
-import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
+import { AppRegistry, StyleSheet, View, TouchableHighlight, Button } from 'react-native';
 import Header from '../components/Header';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
@@ -104,6 +104,7 @@ export default class CreateTaskScreen extends Component {
     }
   }
 
+
   render() {
     return (
       <Container>
@@ -116,6 +117,7 @@ export default class CreateTaskScreen extends Component {
           <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
+
         </Content>
       </Container>
     )
