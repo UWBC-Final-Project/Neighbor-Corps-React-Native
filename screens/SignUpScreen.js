@@ -29,6 +29,10 @@ export default class SignUpScreen extends Component {
   // Setting our component's initial state
   state = {
     page: "Sign Up",
+    // User DB Fields:
+    email: "",
+    userName: "",
+    password: "",
   };
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
@@ -48,40 +52,35 @@ export default class SignUpScreen extends Component {
   // Then reload Tasks from the database
   handleFormSubmit = event => {
     event.preventDefault();
-
-    API.saveUser({
-      
+    const newUserValues = this.refs.form.getValue();
+    this.setState({
+      email: newUserValues.email,
+      userName: newUserValues.userName,
+      password: newUserValues.password,
     })
+    console.log(this.state);
+    API.saveUser({
+      email: this.state.email,
+      userName: this.state.userName,
+      password: this.state.password,
+    })
+      .then(res => console.log(res))
       .catch(err => console.log(err));
     console.log("saved")
   };
-
-  // supplied by tutorial for tcomb-form-native
-  handleSubmit = () => {
-    const value = this.refs.form.getValue(); // use that ref to get the form value
-    console.log('value: ', value);
-  }
-
-  onPress = () => {
-    // call getValue() to get the values of the form
-    var value = this.refs.form.getValue();
-    if (value) { // if validation fails, value will be null
-      console.log(value); // value here is an instance of Person
-    }
-  }
 
   render() {
     return (
 
       <Container>
-        <Header page={this.state.page}/>
+        <Header page={this.state.page} />
         <Content>
           <Form
             ref="form"
             type={User}
             options={options}
           />
-          <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+          <TouchableHighlight style={styles.button} onPress={this.handleFormSubmit} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
         </Content>
