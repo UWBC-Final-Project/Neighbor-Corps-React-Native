@@ -11,14 +11,9 @@ const styles = reactStyles.default;
 const Form = t.form.Form;
 
 const User = t.struct({
-  firstName: t.String,
-  lastName: t.String,
   email: t.String,
   userName: t.String,
   password: t.String,
-  aboutMe: t.maybe(t.String),
-  zipcode: t.Number,
-  terms: t.Boolean
 });
 
 const options = {
