@@ -12,7 +12,7 @@ const Form = t.form.Form;
 
 const User = t.struct({
   email: t.String,
-  userName: t.String,
+  username: t.String,
   password: t.String,
 });
 
@@ -31,7 +31,7 @@ export default class SignUpScreen extends Component {
     page: "Sign Up",
     // User DB Fields:
     email: "",
-    userName: "",
+    username: "",
     password: "",
   };
 
@@ -55,13 +55,13 @@ export default class SignUpScreen extends Component {
     const newUserValues = this.refs.form.getValue();
     this.setState({
       email: newUserValues.email,
-      userName: newUserValues.userName,
+      username: newUserValues.username,
       password: newUserValues.password,
     })
     console.log(this.state);
     API.saveUser({
       email: this.state.email,
-      userName: this.state.userName,
+      username: this.state.username,
       password: this.state.password,
     })
       .then(res => console.log(res))
