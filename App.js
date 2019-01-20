@@ -15,6 +15,8 @@ import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
+// from Jia
+import UploadPhoto from './screens/UploadPhoto';
 
 
 class App extends React.Component {
@@ -93,6 +95,16 @@ class App extends React.Component {
           />
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
+       
+       
+       {/* from Jia */}
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('UploadPhoto');
+            }}
+            title="Upload Photo"
+          />
+       
         </View>
       );
     }
@@ -172,7 +184,7 @@ const Screens = createStackNavigator({
   SingleTaskScreen: {
     screen: SingleTaskScreen,
     navigationOptions: ({ navigation }) => {
-      title: 'Sign Up Screen'
+      title: 'Single Task Screen'
     }
   },
   TasksScreen: {
@@ -193,6 +205,13 @@ const Screens = createStackNavigator({
       title: 'User Profile Screen'
     }
   },
+  // from Jia
+  UploadPhoto: {
+    screen: UploadPhoto,
+    navigationOptions: ({ navigation }) => {
+      title: 'Upload Photo'
+    }
+  }
 })
 
 export default Screens;
