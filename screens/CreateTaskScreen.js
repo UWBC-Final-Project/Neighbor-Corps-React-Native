@@ -52,6 +52,7 @@ export default class CreateTaskScreen extends Component {
 
   updateURL = (url) => {
     this.state.imageURL = url;
+    toggleCamera();
   }
   // // Loads all Tasks  and sets them to this.state.Tasks
   // loadTasks = () => {
@@ -139,8 +140,8 @@ export default class CreateTaskScreen extends Component {
       API.saveTask({
         title: value.title,
         description: value.description,
-        imageURL: value.image,
-        position: value.position
+        imageURL: this.state.imageURL,
+        position: value.position // On the Way!!
       })
         .then(res => this.loadTasks())
         .catch(err => console.log(err));
