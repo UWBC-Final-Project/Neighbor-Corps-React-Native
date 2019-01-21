@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
 import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
+import UploadPhoto from '../screens/UploadPhoto';
 // import Tasks from './TasksScreen'
 import API from '../utils/API';
 import t from 'tcomb-form-native';
@@ -11,8 +12,8 @@ const Form = t.form.Form;
 const Task = t.struct({
   title: t.String,
   description: t.String,
-  image: t.String,
-  position: t.String
+  // image: t.String,
+  // position: t.String
 });
 
 const reactStyles = require('../react_native_styles/styles');
@@ -23,6 +24,7 @@ export default class CreateTaskScreen extends Component {
   // Setting our component's initial state
   state = {
     page: "Create New Task",
+    cameraShowing: true,
     tasks: [],
     // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
     title: "",
@@ -38,21 +40,31 @@ export default class CreateTaskScreen extends Component {
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
   componentDidMount() {
-    this.loadTasks();
+    // launch camera view and allow picture capture
+    // this.loadTasks();
     console.log(styles);
   }
+  toggleCamera = () => {
+    this.setState(prevState => ({
+      cameraShowing: !prevState.cameraShowing
+    }));
+  }
 
-  // Loads all Tasks  and sets them to this.state.Tasks
-  loadTasks = () => {
-    API.getTasks()
-      .then(res =>
-        this.setState({
-          tasks: res.data, title: "", description: "", imageURL: "", postion: "",
-          tags: "", postedBy: "", comments: "", postDate: "", lastUpdated: ""
-        })
-      )
-      .catch(err => console.log(err));
-  };
+  updateURL = (url) => {
+    this.state.imageURL = url;
+    this.toggleCamera();
+  }
+  // // Loads all Tasks  and sets them to this.state.Tasks
+  // loadTasks = () => {
+  //   API.getTasks()
+  //     .then(res =>
+  //       this.setState({
+  //         tasks: res.data, title: "", description: "", imageURL: "", postion: "",
+  //         tags: "", postedBy: "", comments: "", postDate: "", lastUpdated: ""
+  //       })
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
   // // Deletes a Task from the database with a given id, then reloads Tasks  Tasks from the db
   // deleteTask = id => {
@@ -108,38 +120,38 @@ export default class CreateTaskScreen extends Component {
   //     disabled = this.state.validity
   //     console.log("disable button");
   //   }
-  
+
   // }
 
-// from jia
+  // from jia
 
-_createTask = event => {
+  _createTask = event => {
 
-  event.preventDefault();
-  var value = this.refs.form.getValue();
+    event.preventDefault();
+    var value = this.refs.form.getValue();
 
-  if(value){
-    this.props.navigation.navigate('TasksScreen')
-    this.setState({
-      tasks: value
-    });
+    if (value) {
+      this.props.navigation.navigate('TasksScreen')
+      this.setState({
+        tasks: value
+      });
 
-    API.saveTask({
-      title: value.title,
-      description: value.description,
-      imageURL: value.imageURL,
-      position: value.position
-    })
-      .then(res => this.loadTasks())
-      .catch(err => console.log(err));
-      console.log(value); 
+      API.saveTask({
+        title: value.title,
+        description: value.description,
+        imageURL: this.state.imageURL,
+        position: value.position // On the Way!!
+      })
+        .then(res => this.loadTasks())
+        .catch(err => console.log(err));
+      console.log(value);
+    }
+    else {
+      disabled = this.state.validity
+      console.log("disable button");
+    }
+
   }
-  else{
-    disabled = this.state.validity
-    console.log("disable button");
-  }
-
-}
 
 
 
@@ -149,15 +161,22 @@ _createTask = event => {
       <Container>
         <Header page={this.state.page} />
         <Content>
-          <Form
-            ref="form"
-            type={Task}
-          />
-          <TouchableHighlight style={styles.button} 
-          onPress={this._createTask} //from jia
-          underlayColor='#99d9f4'>
-            <Text style={styles.buttonText}>Save</Text>
-          </TouchableHighlight>
+          {this.state.cameraShowing ?
+            <UploadPhoto returnURL={this.updateURL}/>
+            :
+            <View>
+              <Form
+                ref="form"
+                type={Task}
+              />
+              <TouchableHighlight style={styles.button}
+                onPress={this._createTask} //from jia
+                underlayColor='#99d9f4'>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableHighlight>
+            </View>
+          }
+
 
         </Content>
       </Container>
