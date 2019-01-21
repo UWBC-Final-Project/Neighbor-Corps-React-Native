@@ -129,6 +129,10 @@ export default class Tasks extends Component {
                             <Icon name="eye" />
                             <Text>seen by 7</Text>
                           </Button>
+                          <Button transparent textStyle={{ color: '#87838B' }}>
+                          <Icon name="add" />
+                          <Text>Comments</Text>
+                        </Button>
                         </Left>
                       </CardItem>
                     </Card>
