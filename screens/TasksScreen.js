@@ -93,21 +93,15 @@ export default class Tasks extends Component {
       <Container>
         <Header page={this.state.page}/>
         <Content>
-
             {this.state.tasks.length ? (
               <List>
-
-
                 {this.state.tasks.map(task => {
                   return (
-
-
-
-                    <Card
+                    <Card 
                       style={{ flex: 0 }}
                       key={task._id}>
-                      <CardItem>
-                        <Left>
+                      <CardItem >
+                        <Left >
                           <Thumbnail source={{ uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg' }} />
                           <Body>
                             <Text>{task.title}</Text>
@@ -117,7 +111,9 @@ export default class Tasks extends Component {
                       </CardItem>
                       <CardItem>
                         <Body>
-                          <Image source={{ uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg' }} style={{ height: 200, width: 200, flex: 1 }} />
+                          <Image source={{ uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg' }} 
+                          style={{ height: 200, width: 300, flex: 1,marginLeft: 35}} 
+                          />
                           <Text>
                             {task.description}
                           </Text>
@@ -129,12 +125,20 @@ export default class Tasks extends Component {
                             <Icon name="eye" />
                             <Text>seen by 7</Text>
                           </Button>
+                          <Button transparent textStyle={{ color: '#87838B' }}
+                           onPress={() => this.props.navigation.navigate('SingleTaskScreen')}>
+                          <Icon name="add" />
+                          <Text>Comments</Text>
+                        </Button>
+                        <Button transparent textStyle={{ color: '#87838B' }}
+                           onPress={() => this.props.navigation.navigate('SingleTaskScreen')}>
+                          {/*need to find icon for this*/}
+                          {/*<Icon name=" " />*/}
+                          <Text>Learn More</Text>
+                        </Button>
                         </Left>
                       </CardItem>
                     </Card>
-
-
-
                   );
                 })}
 
