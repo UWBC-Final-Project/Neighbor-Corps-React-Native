@@ -12,7 +12,7 @@ const Form = t.form.Form;
 
 const User = t.struct({
   email: t.String,
-  userName: t.String,
+  username: t.String,
   password: t.String,
 });
 
@@ -60,15 +60,29 @@ export default class SignUpScreen extends Component {
   handleSubmit = () => {
     const value = this.refs.form.getValue(); // use that ref to get the form value
     console.log('value: ', value);
+    API.signUp(value)
+      .then((response) => {
+        // console.log(response)
+        if(response.status == 200) {
+          this.props.navigation.navigate('Home');
+        }
+        else {
+          //print status text somewhere so user can see that login failed
+        }
+      })
+      .catch((error) => {
+        //print status text somewhere so user can see that login failed
+        console.log(error);
+      });
   }
 
-  onPress = () => {
-    // call getValue() to get the values of the form
-    var value = this.refs.form.getValue();
-    if (value) { // if validation fails, value will be null
-      console.log(value); // value here is an instance of Person
-    }
-  }
+  // onPress = () => {
+  //   // call getValue() to get the values of the form
+  //   var value = this.refs.form.getValue();
+  //   if (value) { // if validation fails, value will be null
+  //     console.log(value); // value here is an instance of Person
+  //   }
+  // }
 
   render() {
     return (
@@ -81,7 +95,7 @@ export default class SignUpScreen extends Component {
             type={User}
             options={options}
           />
-          <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+          <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
         </Content>
