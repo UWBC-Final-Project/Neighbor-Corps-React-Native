@@ -3,6 +3,28 @@ import axios from "axios";
 const heroku = 'https://young-sands-49140.herokuapp.com'
 
 export default {
+  // Login
+  // `data` is the data to be sent as the request body
+  // this is different than axios.post( address, queryString), which the data is sent as the query parameters
+  logIn: function(body) {
+    return axios({
+      method: 'post',
+      headers: { 'content-type': 'application/json' },
+      url: heroku + '/api/auth/login',
+      data: body
+    });
+  }, 
+
+  // Signup
+  signUp: function(body) {
+    return axios({
+      method: 'post',
+      headers: { 'content-type': 'application/json' },
+      url: heroku + '/api/auth/signup',
+      data: body
+    });
+  }, 
+
   // Gets all books
   getBooks: function() {
     return axios.get(heroku + "/api/books");
