@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
 import { AppRegistry, StyleSheet, View, TouchableHighlight, Button } from 'react-native';
 import Header from '../components/Header';
+// import Tasks from './TasksScreen'
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 
@@ -97,11 +98,17 @@ export default class CreateTaskScreen extends Component {
   }
 
   onPress = () => {
-    // call getValue() to get the values of the form
     var value = this.refs.form.getValue();
-    if (value) { // if validation fails, value will be null
-      console.log(value); // value here is an instance of Person
+
+    if(value){
+      this.props.navigation.navigate('TasksScreen');
+      console.log(value); 
     }
+    else{
+      disabled = this.state.validity
+      console.log("disable button");
+    }
+  
   }
 
 
