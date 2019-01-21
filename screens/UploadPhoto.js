@@ -4,9 +4,18 @@ import { ImagePicker } from 'expo';
 
 
 export default class UploadPhoto extends React.Component {
+  constructor(props) {
+    super(props);
+    this._pickFromCamera = this._pickFromCamera.bind(this);
+    this._pickImageGallery = this._pickImageGallery.bind(this);
+  }
   state = {
     image: null,
   };
+
+  componentDidMount() {
+    this._pickFromCamera();
+  }
 
   _pickImageGallery = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -74,7 +83,8 @@ export default class UploadPhoto extends React.Component {
         }).then(async r => {
           const data = await r.json()
           console.log(data.secure_url)
-          return data.secure_url
+          this.props.returnURL(data.secure_url);
+          // return data.secure_url
         }).catch(err=>console.log(err))
     }
   };

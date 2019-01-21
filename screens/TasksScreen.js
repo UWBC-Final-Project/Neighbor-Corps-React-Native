@@ -111,7 +111,7 @@ export default class Tasks extends Component {
                       </CardItem>
                       <CardItem>
                         <Body>
-                          <Image source={{ uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg' }} 
+                          <Image source={{ uri: task.imageURL }} 
                           style={{ height: 200, width: 300, flex: 1,marginLeft: 35}} 
                           />
                           <Text>
