@@ -129,7 +129,6 @@ export default class CreateTaskScreen extends Component {
 
     event.preventDefault();
     var value = this.refs.form.getValue();
-    var image = 
 
     if (value) {
       this.props.navigation.navigate('TasksScreen')
