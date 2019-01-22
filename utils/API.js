@@ -25,9 +25,9 @@ export default {
     });
   }, 
 
-  // Logout
-  logout: function() {
-    return axios.get(heroku + "api/auth/logout");
+  //Logout
+  logOut: function() {
+    return axios.get(heroku + "/api/auth/logout");
   },
 
   // Gets all books

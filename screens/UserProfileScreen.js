@@ -73,6 +73,18 @@ export default class UserProfileScreen extends Component {
       })
   }
 
+  handleSubmit = () => {
+    API.logOut()
+      .then((response) => {
+        console.log(response)
+        console.log("signed out")
+        this.props.navigation.navigate('Home')
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
 
@@ -90,6 +102,11 @@ export default class UserProfileScreen extends Component {
             <CardItem><Text>{this.state.aboutMe}</Text></CardItem>
             <CardItem><Text>{this.state.zipcode}</Text></CardItem>
           </Card>
+
+          <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Logout</Text>
+          </TouchableHighlight>
+
           <TouchableHighlight style={styles.button} onPress={this.toggleForm} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Update User Info</Text>
           </TouchableHighlight>
