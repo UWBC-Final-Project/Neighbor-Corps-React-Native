@@ -1,7 +1,13 @@
 {
   "hostType": "lan",
   "lanType": "ip",
+<<<<<<< HEAD
   "dev": true,
   "minify": false,
   "urlRandomness": "qq-269"
+=======
+  "dev": false,
+  "minify": true,
+  "urlRandomness": "8q-3jk"
+>>>>>>> b1947d966de56d728529c2b66bf6d9a08ff51921
 }

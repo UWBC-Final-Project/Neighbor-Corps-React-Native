@@ -1,14 +1,35 @@
 import React from 'react';
 import { Button, Image, View } from 'react-native';
-import { ImagePicker } from 'expo';
+import { ImagePicker, Permissions } from 'expo';
 
 
 export default class UploadPhoto extends React.Component {
+  constructor(props) {
+    super(props);
+    this._pickFromCamera = this._pickFromCamera.bind(this);
+    this._pickImageGallery = this._pickImageGallery.bind(this);
+  }
   state = {
     image: null,
+    hasCameraPermission: null,
   };
 
+  componentDidMount() {
+    this._pickFromCamera();
+  }
+
+  async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' });
+  }
+
+
   _pickImageGallery = async () => {
+
+
+      const newPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (newPermission.status === 'granted') {
+
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
@@ -41,16 +62,24 @@ export default class UploadPhoto extends React.Component {
           return data.secure_url
         }).catch(err=>console.log(err))
     }
+
+  }
+
     
   };
 
   _pickFromCamera = async () => {
+
+
+    const newPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (newPermission.status === 'granted') {
+
     const result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
       base64: true
     });
-
+  
     console.log(result);
 
     if (!result.cancelled) {
@@ -74,9 +103,13 @@ export default class UploadPhoto extends React.Component {
         }).then(async r => {
           const data = await r.json()
           console.log(data.secure_url)
-          return data.secure_url
+          this.props.returnURL(data.secure_url);
+          // return data.secure_url
         }).catch(err=>console.log(err))
     }
+
+}
+
   };
 
 
