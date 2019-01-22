@@ -18,10 +18,10 @@ export default class UploadPhoto extends React.Component {
     this._pickFromCamera();
   }
 
-  async componentDidMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
-  }
+  // async componentDidMount() {
+  //   const { status } = await Permissions.askAsync(Permissions.CAMERA);
+  //   this.setState({ hasCameraPermission: status === 'granted' });
+  // }
 
 
   _pickImageGallery = async () => {
@@ -59,7 +59,8 @@ export default class UploadPhoto extends React.Component {
         }).then(async r => {
           const data = await r.json()
           console.log(data.secure_url)
-          return data.secure_url
+          this.props.returnURL(data.secure_url);
+          // return data.secure_url
         }).catch(err=>console.log(err))
     }
 
