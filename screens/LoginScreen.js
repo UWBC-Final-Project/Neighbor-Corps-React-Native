@@ -17,6 +17,14 @@ const Login = t.struct({
   password: t.String
 });
 
+const options = {
+  fields: {
+    email: {
+      error: 'Insert a valid email'
+    }
+  }
+};
+
 export default class LoginScreen extends Component {
   state = {
     page: "Log In"
