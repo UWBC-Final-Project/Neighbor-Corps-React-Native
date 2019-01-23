@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import TasksScreen from '../screens/TasksScreen';
 import SingleTaskScreen from '../screens/SingleTaskScreen';
 import LoginScreen from '../screens/LoginScreen';
+import UserProfileScreen from '../screens/UserProfileScreen';
 
 
 const LoginStack = createStackNavigator({
@@ -65,9 +66,24 @@ SingleTaskStack.navigationOptions = {
   ),
 };
 
+const UserProfileStack = createStackNavigator({
+  UserProfile: UserProfileScreen,
+});
+
+UserProfileStack.navigationOptions = {
+  tabBarLabel: 'UserProfile',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-megaphone' : 'md-megaphone'} 
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   LoginStack,
   HomeStack,
   TasksStack,
   SingleTaskStack,
+  UserProfileStack,
 });
