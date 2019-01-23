@@ -39,7 +39,6 @@ export default class Task extends Component {
             />
             <Text>
               {this.props.taskProps.description}
-              {this.props.taskProps._id}
             </Text>
           </Body>
         </CardItem>
@@ -55,7 +54,7 @@ export default class Task extends Component {
               <Text>Comments</Text>
             </Button>
             <Button transparent textStyle={{ color: '#87838B' }}
-              onPress={() => this.navigation.navigate('SingleTaskScreen')}>
+              onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
               {/*need to find icon for this*/}
               {/*<Icon name=" " />*/}
               <Text>Learn More</Text>
