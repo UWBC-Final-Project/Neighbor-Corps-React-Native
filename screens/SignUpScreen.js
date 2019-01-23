@@ -10,18 +10,34 @@ const styles = reactStyles.default;
 
 const Form = t.form.Form;
 
+var Email = t.refinement(t.String, function (s) {
+  return /@/.test(s);
+});
+
 const User = t.struct({
-  email: t.String,
+  email: Email,
   username: t.String,
   password: t.String,
 });
 
 const options = {
   fields: {
-    terms: {
-      label: 'Agree to Terms',
+    email: {
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      error: 'Insert a valid email',
+      textContentType: 'emailAddress'
     },
-  },
+    username: {
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      textContentType: 'username'
+    },
+    password: {
+      secureTextEntry: true,
+      textContentType: 'password',
+    }
+  }
 };
 
 export default class SignUpScreen extends Component {
