@@ -24,11 +24,27 @@ const User = t.struct({
 
 const options = {
   fields: {
+    email: {
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      error: 'Insert a valid email',
+      textContentType: 'emailAddress'
+    },
+    username: {
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      textContentType: 'username'
+    },
+    password: {
+      secureTextEntry: true,
+      textContentType: 'password',
+    },
     terms: {
       label: 'Agree to Terms',
     },
-  },
+  }
 };
+
 // <<< KPH this is code that drive form field inputs
 
 export default class UserProfileScreen extends Component {
