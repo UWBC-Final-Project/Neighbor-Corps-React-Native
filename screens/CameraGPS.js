@@ -7,6 +7,7 @@ export default class App extends Component {
     mapRegion: { latitude: 37.78825, longitude: -122.4324, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
     locationResult: null,
     location: {coords: { latitude: 37.78825, longitude: -122.4324}},
+    errorMessage: null,
   };
 
   componentDidMount() {
@@ -18,19 +19,28 @@ export default class App extends Component {
   };
 
   _getLocationAsync = async () => {
-   let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
    if (status !== 'granted') {
      this.setState({
-       locationResult: 'Permission to access location was denied',
-       location,
+      errorMessage: 'Permission to access location was denied'
      });
+     return;
    }
 
-   let location = await Location.getCurrentPositionAsync({});
+   const location = await Location.getCurrentPositionAsync({});
    this.setState({ locationResult: JSON.stringify(location), location, });
  };
 
   render() {
+
+    let text = 'Waiting...';
+
+    if (this.state.errorMessage) {
+      text = this.state.errorMessage;
+    } else if (this.state.location) {
+      text = this.state.locationResult;
+    }
+
     return (
       <View style={styles.container}>
         <MapView
@@ -47,7 +57,7 @@ export default class App extends Component {
         </MapView>
       
         <Text>
-          Location: {this.state.locationResult}
+          Location: {text}
         </Text>
       
       </View>
