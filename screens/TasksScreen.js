@@ -31,6 +31,10 @@ export default class Tasks extends Component {
     console.log(this.state.tasks);
   }
 
+  constructor(props){
+    super(props);
+    this.loadTasks = this.loadTasks.bind(this);
+  }
   // Loads all Tasks  and sets them to this.state.Tasks
   loadTasks = () => {
     API.getTasks()
@@ -41,52 +45,55 @@ export default class Tasks extends Component {
           description: "",
           imageURL: "",
           postion: "",
+          _id: ""
           // tags: "",
           // postedBy: "",
           // comments: "",
           // postDate: "",
           // lastUpdated: ""
-        })
+          
+        }),
       )
       .catch(err => console.log(err));
   };
-
+ 
+ 
   // Deletes a Task from the database with a given id, then reloads Tasks  Tasks from the db
-  deleteTask = id => {
-    API.deleteTask(id)
-      .then(res => this.loadTasks())
-      .catch(err => console.log(err));
-  };
+  // deleteTask = id => {
+  //   API.deleteTask(id)
+  //     .then(res => this.loadTasks())
+  //     .catch(err => console.log(err));
+  // };
 
   // Handles updating component state when the Task types into the input field
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+  // handleInputChange = event => {
+  //   const { name, value } = event.target;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
 
   // When the form is submitted, use the API.saveTask method to save the Task data
   // Then reload Tasks from the database
-  handleFormSubmit = event => {
-    event.preventDefault();
+  // handleFormSubmit = event => {
+  //   event.preventDefault();
 
-    API.saveTask({
-      title: this.state.title,
-      description: this.state.description,
-      imageURL: this.state.imageURL,
-      postion: this.state.postion, // save what we grasp from Google map pinned location
-      // tags:[],
-      // postedBy:this.state.postedBy,
-      // comments: [],
-      // postDate: this.state.postDate, 
-      // lastUpdated:this.state.lastUpdated
-      // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
-    })
-      .then(res => this.loadTasks())
-      .catch(err => console.log(err));
+  //   API.saveTask({
+  //     title: this.state.title,
+  //     description: this.state.description,
+  //     imageURL: this.state.imageURL,
+  //     postion: this.state.postion, // save what we grasp from Google map pinned location
+  //     // tags:[],
+  //     // postedBy:this.state.postedBy,
+  //     // comments: [],
+  //     // postDate: this.state.postDate, 
+  //     // lastUpdated:this.state.lastUpdated
+  //     // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
+  //   })
+  //     .then(res => this.loadTasks())
+  //     .catch(err => console.log(err));
 
-  };
+  // };
 
   render() {
     return (

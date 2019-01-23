@@ -13,6 +13,33 @@ export default class SingleTaskScreen extends Component {
     page: "Task View",
   }
   
+  componentDidMount() {
+    this.loadTasks();
+    console.log(this.state.tasks);
+
+  }
+
+  loadTasks = () => {
+    API.getTasks()
+      .then(res =>
+        this.setState({
+          tasks: res.data,
+          title: "",
+          description: "",
+          imageURL: "",
+          postion: "",
+          // tags: "",
+          // postedBy: "",
+          // comments: "",
+          // postDate: "",
+          // lastUpdated: ""
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+ 
+
   render() {
     return (
       <Container>
@@ -20,15 +47,25 @@ export default class SingleTaskScreen extends Component {
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
           <Card style={{flex: 0}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg'}} />
-                <Body>
-                  <Text>Garbage on 4th St</Text>
-                  <Text note>Added: April 15, 2016</Text>
-                </Body>
-              </Left>
-            </CardItem>
+          <CardItem >
+          <Left >
+            <Thumbnail source={{ uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg' }} />
+            <Body>
+              <Text>{task.title}</Text>
+              <Text note>{task.postDate}</Text>
+            </Body>
+          </Left>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Image source={{ uri: task.imageURL }} 
+            style={{ height: 200, width: 300, flex: 1,marginLeft: 35}} 
+            />
+            <Text>
+              {task.description}
+            </Text>
+          </Body>
+        </CardItem>
             <CardItem>
               <Body>
                 <Image source={{uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg'}} style={{ height: 200, width: 300, flex: 1,marginLeft: 35}} />
