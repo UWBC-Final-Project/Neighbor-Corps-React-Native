@@ -17,6 +17,18 @@ const Login = t.struct({
   password: t.String
 });
 
+const options = {
+  fields: {
+    username: {
+      autoCapitalize: 'none',
+      autoCorrect: false,
+    },
+    password: {
+      secureTextEntry: true,
+    }
+  }
+};
+
 export default class LoginScreen extends Component {
   state = {
     page: "Log In"
@@ -57,6 +69,7 @@ export default class LoginScreen extends Component {
           <Form
             ref="form"
             type={Login}
+            options={options}
           />
           <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Log In</Text>

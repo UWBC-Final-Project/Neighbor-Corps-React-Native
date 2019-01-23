@@ -19,23 +19,23 @@ export default class Task extends Component {
     return (
       <Card
         style={{ flex: 0 }}
-        key={task._id}>
+        key={this.props.taskProps._id}>
         <CardItem >
           <Left >
             <Thumbnail source={{ uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg' }} />
             <Body>
-              <Text>{task.title}</Text>
-              <Text note>{task.postDate}</Text>
+              <Text>{this.props.taskProps.title}</Text>
+              <Text note>{this.props.taskProps.postDate}</Text>
             </Body>
           </Left>
         </CardItem>
         <CardItem>
           <Body>
-            <Image source={{ uri: task.imageURL }}
+            <Image source={{ uri: this.props.taskProps.imageURL }}
               style={{ height: 200, width: 300, flex: 1, marginLeft: 35 }}
             />
             <Text>
-              {task.description}
+              {this.props.taskProps.description}
             </Text>
           </Body>
         </CardItem>
