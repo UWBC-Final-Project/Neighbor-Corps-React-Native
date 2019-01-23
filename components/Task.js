@@ -11,9 +11,12 @@ const styles = reactStyles.default;
 
 export default class Task extends Component {
   constructor(props) {
-    super(props);
-    // this._pickFromCamera = this._pickFromCamera.bind(this); // example for future reference
+    super(props)
   }
+
+  // componentDidMount() {
+  //   console.log(this.props.navigation);
+  // }
 
   render() {
     return (
@@ -46,12 +49,12 @@ export default class Task extends Component {
               <Text>seen by 7</Text>
             </Button>
             <Button transparent textStyle={{ color: '#87838B' }}
-              onPress={() => this.props.navigation.navigate('SingleTaskScreen')}>
+              onPress={() => props.navigation.navigate('cSingleTaskScreen')}>
               <Icon name="add" />
               <Text>Comments</Text>
             </Button>
             <Button transparent textStyle={{ color: '#87838B' }}
-              onPress={() => this.props.navigation.navigate('SingleTaskScreen')}>
+              onPress={() => this.navigation.navigate('SingleTaskScreen')}>
               {/*need to find icon for this*/}
               {/*<Icon name=" " />*/}
               <Text>Learn More</Text>
