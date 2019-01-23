@@ -4,13 +4,26 @@ import { View } from 'react-native';
 import Header from '../components/Header';
 import { Image } from 'react-native';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
+import API from '../utils/API';
 
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
 
 export default class SingleTaskScreen extends Component {
+  constructor(props) {
+    super(props);
+    // this._pickFromCamera = this._pickFromCamera.bind(this); // example for future reference
+  }
+
   state = {
     page: "Task View",
+    thisTask: [],
+  }
+
+  getTask(taskId) {
+    API.getTask(taskId)
+      .then(res => this.setState({ thisTask: res }))
+      .catch(err => console.log(err));
   }
   
   render() {
@@ -24,7 +37,7 @@ export default class SingleTaskScreen extends Component {
               <Left>
                 <Thumbnail source={{uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg'}} />
                 <Body>
-                  <Text>Garbage on 4th St</Text>
+                  <Text>{this.state.thisTask.title}</Text>
                   <Text note>Added: April 15, 2016</Text>
                 </Body>
               </Left>
