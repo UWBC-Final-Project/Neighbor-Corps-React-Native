@@ -68,6 +68,14 @@ export default class Tasks extends Component {
     });
   };
 
+  passNav = (targetID, props) => {
+    console.log(targetID, props);
+    this.props.navigation.navigate('SingleTaskScreen', {
+      taskID: targetID,
+      taskProps: props,
+    });
+  }
+
   // When the form is submitted, use the API.saveTask method to save the Task data
   // Then reload Tasks from the database
   handleFormSubmit = event => {
@@ -99,7 +107,7 @@ export default class Tasks extends Component {
             <List>
               {this.state.tasks.map(task => {
                 return (
-                  <Task taskProps={task} />
+                  <Task taskProps={task} stackNav={this.passNav}/>
                 );
               })}
             </List>

@@ -5,6 +5,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import TasksScreen from '../screens/TasksScreen';
+import SingleTaskScreen from '../screens/SingleTaskScreen';
 import LoginScreen from '../screens/LoginScreen';
 
 
@@ -50,8 +51,23 @@ TasksStack.navigationOptions = {
   ),
 };
 
+const SingleTaskStack = createStackNavigator({
+  SingleTask: SingleTaskScreen,
+});
+
+SingleTaskStack.navigationOptions = {
+  tabBarLabel: 'SingleTask',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-megaphone' : 'md-megaphone'} 
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   LoginStack,
   HomeStack,
   TasksStack,
+  SingleTaskStack,
 });

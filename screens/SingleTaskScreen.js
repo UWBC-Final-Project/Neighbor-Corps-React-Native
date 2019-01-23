@@ -21,6 +21,11 @@ export default class SingleTaskScreen extends Component {
     thisTask: [],
   }
 
+  componentDidMount() {
+    console.log(this.props.navigation.state.params.taskProps._id);
+    // this.getTask(this.props.taskId)
+}
+
   getTask(taskId) {
     API.getTask(taskId)
       .then(res => this.setState({ thisTask: res }))
@@ -33,7 +38,7 @@ export default class SingleTaskScreen extends Component {
         <Header page={this.state.page}/>
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
-          <Task taskProps={this.props} />
+          <Task taskProps={this.props.navigation.state.params.taskProps} />
         </Content>
       </Container>
     );
