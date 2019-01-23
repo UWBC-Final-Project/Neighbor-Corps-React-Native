@@ -11,6 +11,7 @@ import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SingleTaskScreen from './screens/SingleTaskScreen';
 import TasksScreen from './screens/TasksScreen';
+import CameraGPS from './screens/CameraGPS';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
@@ -100,6 +101,12 @@ class App extends React.Component {
               this.props.navigation.navigate('UploadPhoto');
             }}
             title="Upload Photo"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('CameraGPS');
+            }}
+            title="Camera GPS"
           />
        
         </View>
@@ -205,6 +212,12 @@ const Screens = createStackNavigator({
   // from Jia
   UploadPhoto: {
     screen: UploadPhoto,
+    navigationOptions: ({ navigation }) => {
+      title: 'Upload Photo'
+    }
+  },
+  CameraGPS: {
+    screen: CameraGPS,
     navigationOptions: ({ navigation }) => {
       title: 'Upload Photo'
     }
