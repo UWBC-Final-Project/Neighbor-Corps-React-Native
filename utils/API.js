@@ -55,6 +55,10 @@ export default {
   getUser: function(id) {
     return axios.get(heroku + "/api/users/" + id);
   },
+  // Gets the current user info
+  getCurrentUser: function() {
+    return axios.get(heroku + "/api/users/find/currentUser");
+  },
   // Deletes the user with the given id
   deleteUser: function(id) {
     return axios.delete(heroku + "/api/users/" + id);
