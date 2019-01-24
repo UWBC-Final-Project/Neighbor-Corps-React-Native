@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { View } from 'react-native';
 import Header from '../components/Header';
 import Task from '../components/Task';
 import { Image } from 'react-native';
-import CommentScreen from '../components/Comments'
+import CommentForm from '../components/CommentForm';
+import Comment from '../components/Comment';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 import API from '../utils/API';
 
@@ -20,17 +21,26 @@ export default class SingleTaskScreen extends Component {
   state = {
     page: "Task View",
     thisTask: [],
+    comments: [],
   }
 
   componentDidMount() {
     console.log(this.props.navigation.state.params.taskProps._id);
-    // this.getTask(this.props.taskId)
-}
+    this.getTask(this.props.navigation.state.params.taskProps._id)
+  }
 
   getTask(taskId) {
     API.getTask(taskId)
       .then(res => this.setState({ thisTask: res }))
       .catch(err => console.log(err));
+  }
+
+  // special API call to get the comments that belong to this task
+  // requires changes to the comments model and a new API function to work
+  getComments(taskID) { 
+    API.getComments()
+      .then(res => setState({ comments: res }))
+      .catch(err => console.log(err))
   }
 
   saveComment = (comment) => {
@@ -40,22 +50,35 @@ export default class SingleTaskScreen extends Component {
       username: this.props.navigation.state.params.taskProps._id
     }
     console.log('from single screen:', newComment);
-    
+
     API.saveComment(newComment)
       .then(res => this.setState({
         comments: this.state.comments.push(newComment)
       }))
       .catch(err => console.log(err))
   }
-  
+
   render() {
     return (
       <Container>
-        <Header page={this.state.page}/>
+        <Header page={this.state.page} />
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
           <Task taskProps={this.props.navigation.state.params.taskProps} />
-          <CommentScreen saveComment={this.saveComment}/>
+          {this.state.comments.length
+            ? (
+            <List>
+              {this.state.comments.map(comment => {
+                return (
+                  <Comment props={comment} />
+                );
+              })}
+            </List>
+            )
+            :
+            <Text>No Results to Display</Text>
+          }
+          <CommentForm saveComment={this.saveComment} />
         </Content>
       </Container>
     );

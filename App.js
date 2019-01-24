@@ -15,7 +15,7 @@ import TasksScreen from './screens/TasksScreen';
 import CameraGPS from './screens/CameraGPS';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
-import CommentScreen from './components/Comments'
+import CommentScreen from './components/Comment'
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
 // from Jia

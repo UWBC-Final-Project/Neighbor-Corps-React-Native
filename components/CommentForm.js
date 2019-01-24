@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { Container, Content, Item, Input, Label, Text } from 'native-base';
 import { TouchableHighlight } from 'react-native';
-import Header from '../components/Header';
+import Header from './Header';
 import API from '../utils/API';
 
 const reactStyles = require('../react_native_styles/styles');
@@ -19,8 +19,21 @@ const Comments = t.struct({
 const options = {
   fields: {
     comment: {
-      autoCapitalize: 'none',
-      autoCorrect: false,
+      multiline: true,
+      stylesheet: {
+        ...Form.stylesheet,
+        textbox: {
+          ...Form.stylesheet.textbox,
+          normal: {
+            ...Form.stylesheet.textbox.normal,
+            height: 100
+          },
+          error: {
+            ...Form.stylesheet.textbox.error,
+            height: 100
+          }
+        }
+      }
     }
   }
 };
@@ -28,8 +41,8 @@ const options = {
 export default class CommentScreen extends Component {
   state = {
     page: "Comments",
-      comments: [],
-      taskId:""
+    comments: [],
+    taskId: ""
   };
 
   componentDidMount() {
@@ -37,54 +50,54 @@ export default class CommentScreen extends Component {
     console.log(this.state.comments);
   }
 
-  updateComments= (comments) => {
+  updateComments = (comments) => {
     this.state.comments = comments;
   }
 
-//   constructor(props){
-//     super(props);
-//     this.loadComments = this.loadComments.bind(this);
-//   }
+  //   constructor(props){
+  //     super(props);
+  //     this.loadComments = this.loadComments.bind(this);
+  //   }
 
   loadComments = () => {
-  API.getComments()
-  .then(response => 
-     this.setState({ 
-        comments: response.data,
-        comments: [],
-        title:"",
-        _id:""
-    }),
-  )
-}
-// //     if(response.status == 200) {
-// //       console.log(response)
-// //       this.props.navigation.navigate('SingleTaskScreen');
-// //     }
-// //     // else {
-// //     //   //print status text somewhere so user can see that login failed
-// //     // }
-// //   })
-//   .catch(error  => console.log(error));
-// };
+    API.getComments()
+      .then(response =>
+        this.setState({
+          comments: response.data,
+          comments: [],
+          title: "",
+          _id: ""
+        }),
+      )
+  }
+  // //     if(response.status == 200) {
+  // //       console.log(response)
+  // //       this.props.navigation.navigate('SingleTaskScreen');
+  // //     }
+  // //     // else {
+  // //     //   //print status text somewhere so user can see that login failed
+  // //     // }
+  // //   })
+  //   .catch(error  => console.log(error));
+  // };
 
 
-// passNav = (targetID, props) => {
-//     console.log(targetID, props);
-//     this.props.navigation.navigate('SingleTaskScreen', {
-//       taskID: targetID,
-//       taskProps: props,
-//     });
-//   }
+  // passNav = (targetID, props) => {
+  //     console.log(targetID, props);
+  //     this.props.navigation.navigate('SingleTaskScreen', {
+  //       taskID: targetID,
+  //       taskProps: props,
+  //     });
+  //   }
 
-// handleCommentChange = event => {
-//     const { name, value } = event.target;
-//     this.setState({
-//       [name]: value
-//     });
-//   };
+  // handleCommentChange = event => {
+  //     const { name, value } = event.target;
+  //     this.setState({
+  //       [name]: value
+  //     });
+  //   };
 
-_createComment = event => {
+  _createComment = event => {
 
     event.preventDefault();
     var value = this.refs.form.getValue();
@@ -115,7 +128,7 @@ _createComment = event => {
     console.log('value: ', value);
     API.saveComment(value)
       .then((response) => {
-        if(response.status == 200) {
+        if (response.status == 200) {
           console.log(response)
           this.props.navigation.navigate('SingleTaskScreen');
         }
@@ -132,33 +145,15 @@ _createComment = event => {
     return (
       <Container>
         <Content>
-        {this.state.comments.length ? (
-            <List>
-              {this.state.comments.map(comment => {
-                return (
-                  <ListItem key={comment._id}>
-                    <a href={"/comments/" + comment._id}>
-                      <strong>
-                        {comment.title}
-                      </strong>
-                    </a>
-                    <DeleteBtn onClick={() => this.deleteTask(task._id)} />
-                  </ListItem>
-                );
-              })}
-            </List>
-          ) : (
-            <Text>No Results to Display</Text>
-          )}
           <Form
             ref="form"
             type={Comments}
             options={options}
           />
           <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
-            <Text style={styles.buttonText}>Add Comment</Text>
+            <Text style={styles.buttonText}>Add New Comment</Text>
           </TouchableHighlight>
- 
+
         </Content>
       </Container>
     );
