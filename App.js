@@ -3,6 +3,7 @@ import { Platform, StatusBar, StyleSheet, View, Text, Button } from 'react-nativ
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { createStackNavigator } from 'react-navigation';
+import Header from './components/Header';
 
 import ContactScreen from './screens/ContactScreen';
 import CreateTaskScreen from './screens/CreateTaskScreen';
@@ -11,8 +12,10 @@ import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SingleTaskScreen from './screens/SingleTaskScreen';
 import TasksScreen from './screens/TasksScreen';
+import CameraGPS from './screens/CameraGPS';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
+import CommentScreen from './components/Comments'
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
 // from Jia
@@ -36,23 +39,12 @@ class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+          <Header page={"USER AUTH/PROFILE LINKS"}>AUTH LINKS</Header>
           <Button
             onPress={() => {
-              this.props.navigation.navigate('CreateTask');
+              this.props.navigation.navigate('SignUpScreen');
             }}
-            title="Create Task"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('Contact');
-            }}
-            title="Contact"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('HomeScreen');
-            }}
-            title="Home Screen"
+            title="Sign Up Screen"
           />
           <Button
             onPress={() => {
@@ -62,16 +54,29 @@ class App extends React.Component {
           />
           <Button
             onPress={() => {
-              this.props.navigation.navigate('SignUpScreen');
+              this.props.navigation.navigate('UserProfileScreen');
             }}
-            title="Sign Up Screen"
+            title="User Profile Screen"
           />
           <Button
             onPress={() => {
-              this.props.navigation.navigate('SingleTaskScreen');
+              this.props.navigation.navigate('HomeScreen');
             }}
-            title="Single Task Screen"
+            title="Home Screen"
           />
+          <Header page={"TASK LINKS"}>TASK LINKS</Header>
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('CreateTask');
+            }}
+            title="Create Task"
+          />
+          <Button
+          onPress={() => {
+            this.props.navigation.navigate('Comments');
+          }}
+          title="Comments"
+        />
           <Button
             onPress={() => {
               this.props.navigation.navigate('TasksScreen');
@@ -80,26 +85,41 @@ class App extends React.Component {
           />
           <Button
             onPress={() => {
+              this.props.navigation.navigate('SingleTaskScreen');
+            }}
+            title="Single Task Screen"
+          />
+          
+          <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('ContactScreen');
+            }}
+            title="Contact Screen"
+          />
+          <Button
+            onPress={() => {
               this.props.navigation.navigate('WelcomeScreen');
             }}
             title="Welcome Screen"
           />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('UserProfileScreen');
-            }}
-            title="User Profile Screen"
-          />
+          
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
        
-       
+          <Header page={"TESTING PAGES"}>TESTING PAGES</Header>
        {/* from Jia */}
           <Button
             onPress={() => {
               this.props.navigation.navigate('UploadPhoto');
             }}
             title="Upload Photo"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('CameraGPS');
+            }}
+            title="Camera GPS"
           />
        
         </View>
@@ -160,6 +180,12 @@ const Screens = createStackNavigator({
       title: 'Login Screen'
     }
   },
+  Comments: {
+    screen: CommentScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Comments'
+    }
+  },
   Contact: {
     screen: ContactScreen,
     navigationOptions: ({ navigation }) => {
@@ -205,6 +231,12 @@ const Screens = createStackNavigator({
   // from Jia
   UploadPhoto: {
     screen: UploadPhoto,
+    navigationOptions: ({ navigation }) => {
+      title: 'Upload Photo'
+    }
+  },
+  CameraGPS: {
+    screen: CameraGPS,
     navigationOptions: ({ navigation }) => {
       title: 'Upload Photo'
     }

@@ -12,7 +12,9 @@ export default {
       headers: { 'content-type': 'application/json' },
       url: heroku + '/api/auth/login',
       data: body
-    });
+    })
+      .then(res => {console.log(res)})
+      ;
   }, 
 
   // Signup

@@ -145,7 +145,7 @@ export default class CreateTaskScreen extends Component {
         imageURL: this.state.imageURL,
         position: value.position // On the Way!!
       })
-        .then(res => this.loadTasks())
+        // .then(res => this.loadTasks())
         .catch(err => console.log(err));
       console.log(value);
     }
