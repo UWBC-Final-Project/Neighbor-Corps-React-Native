@@ -15,7 +15,9 @@ const User = t.struct({
   firstName: t.String,
   lastName: t.String,
   email: t.String,
-  userName: t.String,
+  // username cannot be changed as it is the primary key
+  // Alternatively, we can give user an option to change screen name/ nickname
+  // userName: t.String,
   password: t.String,
   aboutMe: t.maybe(t.String),
   zipcode: t.Number,
@@ -57,8 +59,10 @@ export default class UserProfileScreen extends Component {
     }));
   }
 
+  // Load user's information
   loadUser = () => {
-    API.getUser("5c3d534003b9f1002a5cbe78") // Replace with ID given in the Auth Route
+    // The getCurrentUser function return the current user's information stored within their session
+    API.getCurrentUser() 
       .then(res => {
         console.log(res.data)
         this.setState({
@@ -73,6 +77,7 @@ export default class UserProfileScreen extends Component {
       })
   }
 
+  // Logout 
   handleSubmit = () => {
     API.logOut()
       .then((response) => {
@@ -91,16 +96,16 @@ export default class UserProfileScreen extends Component {
       <View style={styles.container}>
         <Header page={this.state.page} />
         <Content>
-          <Text>My User Information</Text>
+          <Text>Personal Information:</Text>
           <Card>
-            <CardItem><Text>TEST</Text></CardItem>
-            <CardItem><Text>{this.state.username}</Text></CardItem>
-            <CardItem><Text>{this.state.email}</Text></CardItem>
-            <CardItem><Text>{this.state.firstName}</Text></CardItem>
-            <CardItem><Text>{this.state.lastName}</Text></CardItem>
-            <CardItem><Text>{this.state.phone}</Text></CardItem>
-            <CardItem><Text>{this.state.aboutMe}</Text></CardItem>
-            <CardItem><Text>{this.state.zipcode}</Text></CardItem>
+
+            <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
+            <CardItem><Text>Email: {this.state.email}</Text></CardItem>
+            <CardItem><Text>Fist Name: {this.state.firstName}</Text></CardItem>
+            <CardItem><Text>Last Name: {this.state.lastName}</Text></CardItem>
+            <CardItem><Text>Phone: {this.state.phone}</Text></CardItem>
+            <CardItem><Text>About Me: {this.state.aboutMe}</Text></CardItem>
+            <CardItem><Text>Zipcode: {this.state.zipcode}</Text></CardItem>
           </Card>
 
           <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
@@ -108,7 +113,7 @@ export default class UserProfileScreen extends Component {
           </TouchableHighlight>
 
           <TouchableHighlight style={styles.button} onPress={this.toggleForm} underlayColor='#99d9f4'>
-            <Text style={styles.buttonText}>Update User Info</Text>
+            <Text style={styles.buttonText}>Update Your Information</Text>
           </TouchableHighlight>
 
           {/* // KPH toggle the edit user form fields */}
