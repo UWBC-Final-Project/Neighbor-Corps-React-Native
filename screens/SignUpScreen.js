@@ -10,23 +10,34 @@ const styles = reactStyles.default;
 
 const Form = t.form.Form;
 
+var Email = t.refinement(t.String, function (s) {
+  return /@/.test(s);
+});
+
 const User = t.struct({
-  firstName: t.String,
-  lastName: t.String,
-  email: t.String,
-  userName: t.String,
+  email: Email,
+  username: t.String,
   password: t.String,
-  aboutMe: t.maybe(t.String),
-  zipcode: t.Number,
-  terms: t.Boolean
 });
 
 const options = {
   fields: {
-    terms: {
-      label: 'Agree to Terms',
+    email: {
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      error: 'Insert a valid email',
+      textContentType: 'emailAddress'
     },
-  },
+    username: {
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      textContentType: 'username'
+    },
+    password: {
+      secureTextEntry: true,
+      textContentType: 'password',
+    }
+  }
 };
 
 export default class SignUpScreen extends Component {
@@ -58,22 +69,36 @@ export default class SignUpScreen extends Component {
       
     })
       .catch(err => console.log(err));
-
+    console.log("saved")
   };
 
   // supplied by tutorial for tcomb-form-native
   handleSubmit = () => {
     const value = this.refs.form.getValue(); // use that ref to get the form value
     console.log('value: ', value);
+    API.signUp(value)
+      .then((response) => {
+        // console.log(response)
+        if(response.status == 200) {
+          this.props.navigation.navigate('Home');
+        }
+        else {
+          //print status text somewhere so user can see that login failed
+        }
+      })
+      .catch((error) => {
+        //print status text somewhere so user can see that login failed
+        console.log(error);
+      });
   }
 
-  onPress = () => {
-    // call getValue() to get the values of the form
-    var value = this.refs.form.getValue();
-    if (value) { // if validation fails, value will be null
-      console.log(value); // value here is an instance of Person
-    }
-  }
+  // onPress = () => {
+  //   // call getValue() to get the values of the form
+  //   var value = this.refs.form.getValue();
+  //   if (value) { // if validation fails, value will be null
+  //     console.log(value); // value here is an instance of Person
+  //   }
+  // }
 
   render() {
     return (
@@ -86,7 +111,7 @@ export default class SignUpScreen extends Component {
             type={User}
             options={options}
           />
-          <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+          <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
         </Content>
