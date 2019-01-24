@@ -15,6 +15,7 @@ import TasksScreen from './screens/TasksScreen';
 import CameraGPS from './screens/CameraGPS';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
+import CommentScreen from './components/Comments'
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
 // from Jia
@@ -71,6 +72,12 @@ class App extends React.Component {
             title="Create Task"
           />
           <Button
+          onPress={() => {
+            this.props.navigation.navigate('Comments');
+          }}
+          title="Comments"
+        />
+          <Button
             onPress={() => {
               this.props.navigation.navigate('TasksScreen');
             }}
@@ -86,9 +93,9 @@ class App extends React.Component {
           <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
           <Button
             onPress={() => {
-              this.props.navigation.navigate('Contact');
+              this.props.navigation.navigate('ContactScreen');
             }}
-            title="Contact"
+            title="Contact Screen"
           />
           <Button
             onPress={() => {
@@ -171,6 +178,12 @@ const Screens = createStackNavigator({
     screen: LoginScreen,
     navigationOptions: ({ navigation }) => {
       title: 'Login Screen'
+    }
+  },
+  Comments: {
+    screen: CommentScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Comments'
     }
   },
   Contact: {

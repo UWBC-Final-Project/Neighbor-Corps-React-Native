@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import Header from '../components/Header';
 import Task from '../components/Task';
 import { Image } from 'react-native';
+import CommentScreen from '../components/Comments'
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 import API from '../utils/API';
 
@@ -39,6 +40,7 @@ export default class SingleTaskScreen extends Component {
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
           <Task taskProps={this.props.navigation.state.params.taskProps} />
+          <CommentScreen/>
         </Content>
       </Container>
     );
