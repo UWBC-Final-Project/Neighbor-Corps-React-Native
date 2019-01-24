@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
-import { Container, Content, Item, Input, Label, Text } from 'native-base';
-import { TouchableHighlight } from 'react-native';
+import { Container, Content, Item, Input, Label, Text, ListItem } from 'native-base';
+import { TouchableHighlight, View } from 'react-native';
 import Header from './Header';
 import API from '../utils/API';
 
@@ -16,20 +16,18 @@ export default class CommentScreen extends Component {
   state = {
   };
 
-  render() {
-
-    return (
-      <View>
-
-        <ListItem key={this.props._id}>
-          <Text>Comment Here</Text>
-          <DeleteBtn onClick={() => this.deleteTask(task._id)} />
-        </ListItem>
-
-      </View>
-
-    )
+  componentDidMount() {
+    console.log(this.props)
   }
 
-
+  render() {
+    return (
+      <View>
+        <ListItem key={this.props.props._id}>
+          <Text>{this.props.props.description || this.props.props.comment}</Text>
+          {/* <DeleteBtn onClick={() => this.deleteTask(task._id)} /> */}
+        </ListItem>
+      </View>
+    )
+  }
 }

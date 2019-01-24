@@ -3,10 +3,9 @@ import { ExpoConfigView } from '@expo/samples';
 import { View } from 'react-native';
 import Header from '../components/Header';
 import Task from '../components/Task';
-import { Image } from 'react-native';
 import CommentForm from '../components/CommentForm';
 import Comment from '../components/Comment';
-import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
+import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, List, Body } from 'native-base';
 import API from '../utils/API';
 
 const reactStyles = require('../react_native_styles/styles');
@@ -26,7 +25,8 @@ export default class SingleTaskScreen extends Component {
 
   componentDidMount() {
     console.log(this.props.navigation.state.params.taskProps._id);
-    this.getTask(this.props.navigation.state.params.taskProps._id)
+    this.getTask(this.props.navigation.state.params.taskProps._id);
+    this.getComments();
   }
 
   getTask(taskId) {
@@ -37,9 +37,10 @@ export default class SingleTaskScreen extends Component {
 
   // special API call to get the comments that belong to this task
   // requires changes to the comments model and a new API function to work
-  getComments(taskID) { 
+  getComments() { 
     API.getComments()
-      .then(res => setState({ comments: res }))
+      .then(res => this.setState({ comments: res.data }))
+      .then(console.log('getComments?: ',this.state.comments))
       .catch(err => console.log(err))
   }
 
@@ -47,7 +48,8 @@ export default class SingleTaskScreen extends Component {
     newComment = {
       // KPH these values are place holders until we update the Model
       comment: comment.comment,
-      belongsToTask: this.props.navigation.state.params.taskProps._id
+      belongsToTask: this.props.navigation.state.params.taskProps._id,
+      username: 'requiredstring'
     }
     console.log('from single screen:', newComment);
 
@@ -70,7 +72,7 @@ export default class SingleTaskScreen extends Component {
             <List>
               {this.state.comments.map(comment => {
                 return (
-                  <Comment props={comment} />
+                  <Comment key={comment._id} props={comment} />
                 );
               })}
             </List>

@@ -39,6 +39,11 @@ const options = {
 };
 
 export default class CommentScreen extends Component {
+  //   constructor(props){
+  //     super(props);
+  //     this.loadComments = this.loadComments.bind(this);
+  //   }
+
   state = {
     page: "Comments",
     comments: [],
@@ -54,11 +59,6 @@ export default class CommentScreen extends Component {
     this.state.comments = comments;
   }
 
-  //   constructor(props){
-  //     super(props);
-  //     this.loadComments = this.loadComments.bind(this);
-  //   }
-
   loadComments = () => {
     API.getComments()
       .then(response =>
@@ -70,32 +70,6 @@ export default class CommentScreen extends Component {
         }),
       )
   }
-  // //     if(response.status == 200) {
-  // //       console.log(response)
-  // //       this.props.navigation.navigate('SingleTaskScreen');
-  // //     }
-  // //     // else {
-  // //     //   //print status text somewhere so user can see that login failed
-  // //     // }
-  // //   })
-  //   .catch(error  => console.log(error));
-  // };
-
-
-  // passNav = (targetID, props) => {
-  //     console.log(targetID, props);
-  //     this.props.navigation.navigate('SingleTaskScreen', {
-  //       taskID: targetID,
-  //       taskProps: props,
-  //     });
-  //   }
-
-  // handleCommentChange = event => {
-  //     const { name, value } = event.target;
-  //     this.setState({
-  //       [name]: value
-  //     });
-  //   };
 
   _createComment = event => {
 
@@ -119,27 +93,7 @@ export default class CommentScreen extends Component {
       disabled = this.state.validity
       console.log("disable button");
     }
-
   }
-
-  // //supplied by tutorial for tcomb-form-native
-  // handleSubmit = () => {
-  //   const value = this.refs.form.getValue(); // use that ref to get the form value
-  //   console.log('value: ', value);
-  //   API.saveComment(value)
-  //     .then((response) => {
-  //       if (response.status == 200) {
-  //         console.log(response)
-  //         this.props.navigation.navigate('SingleTaskScreen');
-  //       }
-  //       // else {
-  //       //   //print status text somewhere so user can see that login failed
-  //       // }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
   
   handleSubmit = () => {
     const value = this.refs.form.getValue(); // use that ref to get the form value
@@ -159,7 +113,6 @@ export default class CommentScreen extends Component {
           <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Add New Comment</Text>
           </TouchableHighlight>
-
         </Content>
       </Container>
     );
