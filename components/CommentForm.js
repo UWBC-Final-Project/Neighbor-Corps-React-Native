@@ -122,23 +122,29 @@ export default class CommentScreen extends Component {
 
   }
 
-  //supplied by tutorial for tcomb-form-native
+  // //supplied by tutorial for tcomb-form-native
+  // handleSubmit = () => {
+  //   const value = this.refs.form.getValue(); // use that ref to get the form value
+  //   console.log('value: ', value);
+  //   API.saveComment(value)
+  //     .then((response) => {
+  //       if (response.status == 200) {
+  //         console.log(response)
+  //         this.props.navigation.navigate('SingleTaskScreen');
+  //       }
+  //       // else {
+  //       //   //print status text somewhere so user can see that login failed
+  //       // }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+  
   handleSubmit = () => {
     const value = this.refs.form.getValue(); // use that ref to get the form value
-    console.log('value: ', value);
-    API.saveComment(value)
-      .then((response) => {
-        if (response.status == 200) {
-          console.log(response)
-          this.props.navigation.navigate('SingleTaskScreen');
-        }
-        // else {
-        //   //print status text somewhere so user can see that login failed
-        // }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(value);
+    this.props.saveComment(value);
   }
 
   render() {

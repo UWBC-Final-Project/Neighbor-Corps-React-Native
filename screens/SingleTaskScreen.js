@@ -46,8 +46,8 @@ export default class SingleTaskScreen extends Component {
   saveComment = (comment) => {
     newComment = {
       // KPH these values are place holders until we update the Model
-      description: comment.comment,
-      username: this.props.navigation.state.params.taskProps._id
+      comment: comment.comment,
+      belongsToTask: this.props.navigation.state.params.taskProps._id
     }
     console.log('from single screen:', newComment);
 
