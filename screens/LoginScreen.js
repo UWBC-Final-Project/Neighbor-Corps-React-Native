@@ -42,6 +42,7 @@ export default class LoginScreen extends Component {
       .then((response) => {
         if(response.status == 200) {
           console.log(response)
+          // Navigate to user profile screen after logging in
           this.props.navigation.navigate('UserProfileScreen');
         }
         // else {

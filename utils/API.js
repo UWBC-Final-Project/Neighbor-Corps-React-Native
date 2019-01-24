@@ -12,9 +12,7 @@ export default {
       headers: { 'content-type': 'application/json' },
       url: heroku + '/api/auth/login',
       data: body
-    })
-      .then(res => {console.log(res)})
-      ;
+    });
   }, 
 
   // Signup
@@ -27,9 +25,9 @@ export default {
     });
   }, 
 
-  // Logout
-  logout: function() {
-    return axios.get(heroku + "api/auth/logout");
+  //Logout
+  logOut: function() {
+    return axios.get(heroku + "/api/auth/logout");
   },
 
   // Gets all books
@@ -56,6 +54,10 @@ export default {
   // Gets the user with the given id
   getUser: function(id) {
     return axios.get(heroku + "/api/users/" + id);
+  },
+  // Gets the current user info
+  getCurrentUser: function() {
+    return axios.get(heroku + "/api/users/find/currentUser");
   },
   // Deletes the user with the given id
   deleteUser: function(id) {
