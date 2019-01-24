@@ -32,6 +32,21 @@ export default class SingleTaskScreen extends Component {
       .then(res => this.setState({ thisTask: res }))
       .catch(err => console.log(err));
   }
+
+  saveComment = (comment) => {
+    newComment = {
+      // KPH these values are place holders until we update the Model
+      description: comment.comment,
+      username: this.props.navigation.state.params.taskProps._id
+    }
+    console.log('from single screen:', newComment);
+    
+    API.saveComment(newComment)
+      .then(res => this.setState({
+        comments: this.state.comments.push(newComment)
+      }))
+      .catch(err => console.log(err))
+  }
   
   render() {
     return (
@@ -40,7 +55,7 @@ export default class SingleTaskScreen extends Component {
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
           <Task taskProps={this.props.navigation.state.params.taskProps} />
-          <CommentScreen/>
+          <CommentScreen saveComment={this.saveComment}/>
         </Content>
       </Container>
     );
