@@ -12,7 +12,6 @@ import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SingleTaskScreen from './screens/SingleTaskScreen';
 import TasksScreen from './screens/TasksScreen';
-import CameraGPS from './screens/CameraGPS';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import CommentScreen from './components/Comments'
@@ -20,6 +19,7 @@ import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAn
 
 // from Jia
 import UploadPhoto from './screens/UploadPhoto';
+import MediaGPS from './screens/MediaGPS';
 
 
 class App extends React.Component {
@@ -107,9 +107,9 @@ class App extends React.Component {
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
        
-          <Header page={"TESTING PAGES"}>TESTING PAGES</Header>
+          {/* <Header page={"TESTING PAGES"}>TESTING PAGES</Header> */}
        {/* from Jia */}
-          <Button
+         <Button
             onPress={() => {
               this.props.navigation.navigate('UploadPhoto');
             }}
@@ -117,9 +117,9 @@ class App extends React.Component {
           />
           <Button
             onPress={() => {
-              this.props.navigation.navigate('CameraGPS');
+              this.props.navigation.navigate('MediaGPS');
             }}
-            title="Camera GPS"
+            title="MediaGPS"
           />
        
         </View>
@@ -235,10 +235,10 @@ const Screens = createStackNavigator({
       title: 'Upload Photo'
     }
   },
-  CameraGPS: {
-    screen: CameraGPS,
+  MediaGPS: {
+    screen: MediaGPS,
     navigationOptions: ({ navigation }) => {
-      title: 'Upload Photo'
+      title: 'Media GPS'
     }
   }
 })
