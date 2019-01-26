@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { ExpoConfigView } from '@expo/samples';
-import { Container, Content, Item, Input, Label, Text } from 'native-base';
+import { Container, Content, Text } from 'native-base';
 import { TouchableHighlight } from 'react-native';
-import Header from './Header';
-import API from '../utils/API';
+
 
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
@@ -39,62 +37,7 @@ const options = {
 };
 
 export default class CommentScreen extends Component {
-  //   constructor(props){
-  //     super(props);
-  //     this.loadComments = this.loadComments.bind(this);
-  //   }
 
-  state = {
-    page: "Comments",
-    comments: [],
-    taskId: ""
-  };
-
-  componentDidMount() {
-    this.loadComments();
-    console.log(this.state.comments);
-  }
-
-  updateComments = (comments) => {
-    this.state.comments = comments;
-  }
-
-  loadComments = () => {
-    API.getComments()
-      .then(response =>
-        this.setState({
-          comments: response.data,
-          comments: [],
-          title: "",
-          _id: ""
-        }),
-      )
-  }
-
-  _createComment = event => {
-
-    event.preventDefault();
-    var value = this.refs.form.getValue();
-
-    if (value) {
-      this.props.navigation.navigate('SingleTasksScreen')
-      this.setState({
-        comments: value
-      });
-
-      API.saveComment({
-        comment: value.comment,
-      })
-        // .then(res => this.loadTasks())
-        .catch(err => console.log(err));
-      console.log(value);
-    }
-    else {
-      disabled = this.state.validity
-      console.log("disable button");
-    }
-  }
-  
   handleSubmit = () => {
     const value = this.refs.form.getValue(); // use that ref to get the form value
     console.log(value);
