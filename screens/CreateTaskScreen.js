@@ -52,7 +52,7 @@ export default class CreateTaskScreen extends Component {
       API.saveTask({
         title: value.title,
         description: value.description,
-        imageURL: JSON.stringify(this.props.navigation.state.params.passImageURL),
+        imageURL: this.props.navigation.state.params.passImageURL,
         position: JSON.parse(this.props.navigation.state.params.getTaskLocation)
       })
         .catch(err => console.log(err));
