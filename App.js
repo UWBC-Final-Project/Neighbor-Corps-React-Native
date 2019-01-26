@@ -15,7 +15,8 @@ import TasksScreen from './screens/TasksScreen';
 import CameraGPS from './screens/CameraGPS';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
-import CommentScreen from './components/Comment'
+import CommentScreen from './components/Comment';
+import MapScreen from './screens/MapScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
 // from Jia
@@ -103,6 +104,13 @@ class App extends React.Component {
             }}
             title="Welcome Screen"
           />
+
+          <Button
+              onPress={() => {
+              this.props.navigation.navigate('MapScreen');
+              }}
+              title="Map Screen"
+              />
           
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
@@ -228,6 +236,12 @@ const Screens = createStackNavigator({
       title: 'User Profile Screen'
     }
   },
+  MapScreen: {
+    screen: MapScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Map Screen'
+      }
+    },
   // from Jia
   UploadPhoto: {
     screen: UploadPhoto,
