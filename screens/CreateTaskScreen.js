@@ -30,7 +30,7 @@ export default class CreateTaskScreen extends Component {
     title: "",
     description: "",
     imageURL: "",
-    postion: "", // save what we grasp from Google map pinned location
+    position: "", // save what we grasp from Google map pinned location
     // tags:[],
     // postedBy: "",
     // comments: [],
@@ -62,7 +62,7 @@ export default class CreateTaskScreen extends Component {
   //   API.getTasks()
   //     .then(res =>
   //       this.setState({
-  //         tasks: res.data, title: "", description: "", imageURL: "", postion: "",
+  //         tasks: res.data, title: "", description: "", imageURL: "",  position: "",
   //         tags: "", postedBy: "", comments: "", postDate: "", lastUpdated: ""
   //       })
   //     )
@@ -93,7 +93,7 @@ export default class CreateTaskScreen extends Component {
   //     title: this.state.title,
   //     description: this.state.description,
   //     imageURL: this.state.imageURL,
-  //     postion: this.state.postion, // save what we grasp from Google map pinned location
+  //     position: this.state.position, // save what we grasp from Google map pinned location
   //     // tags:[],
   //     // postedBy:this.state.postedBy,
   //     // comments: [],
