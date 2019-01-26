@@ -238,7 +238,7 @@ const Screens = createStackNavigator({
   UploadPhoto: {
     screen: UploadPhoto,
     navigationOptions: ({ navigation }) => {
-      title: 'Upload Photo'
+      title: 'Create New Task from Here!'
     }
   },
   MediaGPS: {
