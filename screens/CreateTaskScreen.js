@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
 import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
+
 import UploadPhoto from '../screens/UploadPhoto';
+import MediaGPS from '../screens/MediaGPS';
+
 // import Tasks from './TasksScreen'
 import API from '../utils/API';
 import t from 'tcomb-form-native';
@@ -43,6 +46,7 @@ export default class CreateTaskScreen extends Component {
     // launch camera view and allow picture capture
     // this.loadTasks();
     console.log(this.state);
+  
     this.setState({
       cameraShowing: true,
     })
@@ -57,6 +61,16 @@ export default class CreateTaskScreen extends Component {
     this.state.imageURL = url;
     this.toggleCamera();
   }
+
+
+
+
+
+  // updatePos = (pos) => {
+  //   this.state.pos = pos;
+  //   this.toggleCamera();
+  // }
+
   // // Loads all Tasks  and sets them to this.state.Tasks
   // loadTasks = () => {
   //   API.getTasks()
@@ -143,7 +157,7 @@ export default class CreateTaskScreen extends Component {
         title: value.title,
         description: value.description,
         imageURL: this.state.imageURL,
-        position: value.position // On the Way!!
+        position: this.state.position // On the Way!!
       })
         // .then(res => this.loadTasks())
         .catch(err => console.log(err));
@@ -164,8 +178,10 @@ export default class CreateTaskScreen extends Component {
       <Container>
         <Header page={this.state.page} />
         <Content>
+        {/* <MediaGPS returnPos={this.updatePos}/> */}
           {this.state.cameraShowing ?
-            <UploadPhoto returnURL={this.updateURL}/>
+            <UploadPhoto returnURL={this.updateURL}/> 
+            // <MediaGPS returnPos={this.updatePos}/>
             :
             <View>
               <Form
@@ -180,8 +196,14 @@ export default class CreateTaskScreen extends Component {
             </View>
           }
 
+        
 
         </Content>
+
+
+        {/* <div> */}
+        {/* <MediaGPS myCallback={this.state.postion}/> */}
+        {/* </div> */}
       </Container>
     )
   }

@@ -20,7 +20,7 @@ import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAn
 // from Jia
 import UploadPhoto from './screens/UploadPhoto';
 import MediaGPS from './screens/MediaGPS';
-
+import DropMarker from './screens/DropMarker';
 
 class App extends React.Component {
   state = {
@@ -90,7 +90,7 @@ class App extends React.Component {
             title="Single Task Screen"
           />
           
-          <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
+          {/* <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
           <Button
             onPress={() => {
               this.props.navigation.navigate('ContactScreen');
@@ -102,12 +102,12 @@ class App extends React.Component {
               this.props.navigation.navigate('WelcomeScreen');
             }}
             title="Welcome Screen"
-          />
+          /> */}
           
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
        
-          {/* <Header page={"TESTING PAGES"}>TESTING PAGES</Header> */}
+          <Header page={"TESTING PAGES"}>TESTING PAGES</Header>
        {/* from Jia */}
          <Button
             onPress={() => {
@@ -120,6 +120,12 @@ class App extends React.Component {
               this.props.navigation.navigate('MediaGPS');
             }}
             title="MediaGPS"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('DropMarker');
+            }}
+            title="DropMarker"
           />
        
         </View>
@@ -239,6 +245,12 @@ const Screens = createStackNavigator({
     screen: MediaGPS,
     navigationOptions: ({ navigation }) => {
       title: 'Media GPS'
+    }
+  },
+  DropMarker: {
+    screen: DropMarker,
+    navigationOptions: ({ navigation }) => {
+      title: 'Drop Marker'
     }
   }
 })
