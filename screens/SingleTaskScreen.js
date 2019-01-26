@@ -39,7 +39,6 @@ export default class SingleTaskScreen extends Component {
   getTasksComments(taskID) {
     API.getTasksComments(taskID)
       .then(res => this.setState({ comments: res.data}))
-      .then(console.log('getComments?: ', this.state.comments))
       .catch(err => console.log(err))
   }
 
@@ -60,7 +59,7 @@ export default class SingleTaskScreen extends Component {
     console.log('from single screen:', newComment);
 
     API.saveComment(newComment)
-      .then(res => console.log(res))
+      .then(this.getTasksComments(this.props.navigation.state.params.taskProps._id)) 
       // .then(this.addUserInteraction())
       .catch(err => console.log(err))
   }
@@ -71,7 +70,7 @@ export default class SingleTaskScreen extends Component {
         <Header page={this.state.page} />
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
-          <Task taskProps={this.props.navigation.state.params.taskProps} />
+          <Task taskProps={this.props.navigation.state.params.taskProps} singleView={true}/>
           {this.state.comments.length
             ? (
               <List>
