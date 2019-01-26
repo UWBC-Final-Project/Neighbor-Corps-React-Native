@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://ik-x8u.anonymous.neighbor-corps-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.ik-x8u.anonymous.neighbor-corps-react-native.exp.direct",
+  "ngrokPid": 83817
 }

@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import { Container, Content, Item, Input, Label, Text } from 'native-base';
 import {View, Button, StyleSheet } from 'react-native';
-
 import MapView, { Marker } from 'react-native-maps';
-
 import { Constants, Location, Permissions } from 'expo';
 
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
-
 
 export default class MediaGPS extends Component {
 
   constructor(props) {
     super(props);
     this._getLocationAsync = this._getLocationAsync.bind(this);
-    // this._goToTaskForm = this._goToTaskForm.bind(this);
     this.handlePress = this.handlePress.bind(this);
   }
-
-
 
   state = {
     mapRegion: { latitude: 37.78825, longitude: -122.4324, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
@@ -27,7 +21,8 @@ export default class MediaGPS extends Component {
     location: {coords: { latitude: 37.78825, longitude: -122.4324}},
     errorMessage: null,
     position: [],
-    markers: []
+    markers: [],
+    taskImage: "",
   };
 
   componentDidMount() {
@@ -50,75 +45,60 @@ export default class MediaGPS extends Component {
    const location = await Location.getCurrentPositionAsync({});
    this.setState({ locationResult: JSON.stringify(location), location, });
 
-  //  console.log(location)
-
-  // const position = {latitude: this.state.location.coords.latitude, 
-  //   longitude: this.state.location.coords.longitude }
-  
-  // this.setState({ position: position });
-
-  this.setState({
+   this.setState({
     markers: [
       {
         coordinate: this.state.location.coords
       }
     ]
   })
-  console.log(this.state.markers)
+  // console.log(this.state.markers)
 
  };
 
-
-
-
  handlePress(e) {
-  //  console("dropping")
-  lat = e.nativeEvent.coordinate["latitude"];
-  long = e.nativeEvent.coordinate["longitude"];
-  this.setState({
-    markers: [
-      {
-        coordinate: {
-          latitude: lat,
-          longitude: long,
+
+    lat = e.nativeEvent.coordinate["latitude"];
+    long = e.nativeEvent.coordinate["longitude"];
+    this.setState({
+      markers: [
+        {
+          coordinate: {
+            latitude: lat,
+            longitude: long,
+          }
         }
-      }
-    ]
-  })
+      ]
+    })
+    // console.log(this.state.markers)
+  }
 
-  console.log(this.state.markers)
-}
+  _goToTaskForm = () => {
 
+    this.setState({ markers: this.state.markers});
 
+    const { navigate } = this.props.navigation;
 
+    const pos = JSON.stringify(this.state.markers);
 
-//  _goToTaskForm = () => {
-//   // event.preventDefault();
-//   const position = {latitude: this.state.location.coords.latitude, 
-//     longitude: this.state.location.coords.longitude }
-  
-//   this.setState({ position: position });
-//   // this.props.navigation.navigate('CreateTask');
+    const img = this.props.navigation.state.params.getImageURL
 
+    console.log("whats up")
+    console.log(this.state)
 
+    navigate('CreateTask', {getTaskLocation: pos,
+    passImageURL: img}
+    )
 
-//   console.log(position)
+    // console.log("im here", JSON.stringify(this.state.markers))
+    // console.log(this.state.markers)
+    console.log("location is here: ", pos)
+    console.log("image is here:" , img)
 
-//   // this.props.returnPos(pos);
-
-//   // this.props.returnPos(position.pos);
-//   // this.props.navigation.navigate('CreateTaskScreen')
-
-//  }
-
-
-//  _getMarkerPosition();
-
-
+  }
 
   render() {
 
-    
     let text = 'Confirm the Task Location';
 
     if (this.state.errorMessage) {
@@ -141,23 +121,15 @@ export default class MediaGPS extends Component {
             latitudeDelta: 0.002, 
             longitudeDelta: 0.004 
           }}
-          // onRegionChange={this._handleMapRegionChange}     
           onPress={this.handlePress}
         >
-        {/* <MapView.Marker
-        
-          coordinate={this.state.location.coords}
-          // title="Confirm Task Location"
-          // description="Some description"
-        /> */}
-
-      {this.state.markers.map((marker, index) => {
-        return (
-          <MapView.Marker key={index} coordinate={marker.coordinate}>
-            
-          </MapView.Marker>
-        );
-      })}
+        {this.state.markers.map((marker, index) => {
+          return (
+            <MapView.Marker key={index} coordinate={marker.coordinate}>
+              
+            </MapView.Marker>
+          );
+        })}
 
         </MapView>
       
@@ -165,17 +137,10 @@ export default class MediaGPS extends Component {
           Location: {text}
         </Text>
 
-        {/* <Button
-          title="Yes" //confirm the task location, if Yes, direct to "Next"
+        <Button
+          title="Next" //confirm the task location, if Yes, direct to "Next"
           onPress={this._goToTaskForm}
-        />  */}
-        {/* <Button
-          title="No" //confirm the task location, if No, direct to "Drag Marker"
-          onPress={this._getMarkerPosition}
-        />  */}
-        {/* style for Y or N buttons will be on right and left */}
-      
-
+        /> 
 
       </View>
       </Container>
