@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import Header from '../components/Header';
-import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
-import API from '../utils/API';
-
+import { Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
 
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
-
 
 export default class Task extends Component {
   constructor(props) {
     super(props)
   }
-
-  // componentDidMount() {
-  //   console.log(this.props.navigation);
-  // }
 
   render() {
     return (
@@ -42,30 +34,43 @@ export default class Task extends Component {
             </Text>
           </Body>
         </CardItem>
-        <CardItem>
-          <Left>
+        {this.props.singleView ?
+          // Visible at all times
+          <CardItem>
             <Button transparent textStyle={{ color: '#87838B' }}>
               <Icon name="eye" />
               <Text>seen by 7</Text>
+              {/* replace with dynamic property once up and running in the database */}
+              {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
             </Button>
-            <Button transparent textStyle={{ color: '#87838B' }}
-              onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
-              <Icon name="add" />
-              <Text>Comments</Text>
-            </Button>
-            <Button transparent textStyle={{ color: '#87838B' }}
-              onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
-              {/*need to find icon for this*/}
-              {/*<Icon name=" " />*/}
-              <Text>Learn More</Text>
-            </Button>
-          </Left>
-        </CardItem>
+          </CardItem>
+          :
+          // Visible only in List of Tasks
+          <CardItem>
+            <Left>
+              <Button transparent textStyle={{ color: '#87838B' }}>
+                <Icon name="eye" />
+                <Text>seen by 7</Text>
+                {/* replace with dynamic property once up and running in the database */}
+                {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
+              </Button>
+              <Button transparent textStyle={{ color: '#87838B' }}
+                onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
+                <Icon name="add" />
+                <Text>Comments</Text>
+              </Button>
+              <Button transparent textStyle={{ color: '#87838B' }}
+                onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
+                {/*need to find icon for this*/}
+                {/*<Icon name=" " />*/}
+                <Text>Learn More</Text>
+              </Button>
+            </Left>
+          </CardItem>
+        }
       </Card>
     )
   }
-
-
 }
 
 
