@@ -24,9 +24,8 @@ export default class SingleTaskScreen extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.navigation.state.params.taskProps._id);
     this.getTask(this.props.navigation.state.params.taskProps._id);
-    this.getComments();
+    this.getTasksComments(this.props.navigation.state.params.taskProps._id);
   }
 
   getTask(taskId) {
@@ -37,11 +36,18 @@ export default class SingleTaskScreen extends Component {
 
   // special API call to get the comments that belong to this task
   // requires changes to the comments model and a new API function to work
-  getComments() { 
-    API.getComments()
-      .then(res => this.setState({ comments: res.data }))
-      .then(console.log('getComments?: ',this.state.comments))
+  getTasksComments(taskID) {
+    API.getTasksComments(taskID)
+      .then(res => this.setState({ comments: res.data}))
+      .then(console.log('getComments?: ', this.state.comments))
       .catch(err => console.log(err))
+  }
+
+  addUserInteraction() {
+    // when a unique user adds a comment or verifies the Task, this will increment the usersInvolved Task property
+    // 1. check if user is already in the usersInvolved Array
+    // 2. in not then PUT command to Task ID to push current user to Array
+    // 3. update the state to show the new number
   }
 
   saveComment = (comment) => {
@@ -54,9 +60,8 @@ export default class SingleTaskScreen extends Component {
     console.log('from single screen:', newComment);
 
     API.saveComment(newComment)
-      .then(res => this.setState({
-        comments: this.state.comments.push(newComment)
-      }))
+      .then(res => console.log(res))
+      // .then(this.addUserInteraction())
       .catch(err => console.log(err))
   }
 
@@ -69,17 +74,19 @@ export default class SingleTaskScreen extends Component {
           <Task taskProps={this.props.navigation.state.params.taskProps} />
           {this.state.comments.length
             ? (
-            <List>
-              {this.state.comments.map(comment => {
-                return (
-                  <Comment key={comment._id} props={comment} />
-                );
-              })}
-            </List>
+              <List>
+                {this.state.comments.map(comment => {
+                  return (
+                    <Comment key={comment._id} props={comment} />
+                  );
+                })}
+              </List>
             )
             :
             <Text>No Results to Display</Text>
           }
+          {/* "I saw this too" button component that also triggers usersInvolved count */}
+          {/* <VerifyButton addUserInteraction={this.addUserInteraction}/> */}
           <CommentForm saveComment={this.saveComment} />
         </Content>
       </Container>
