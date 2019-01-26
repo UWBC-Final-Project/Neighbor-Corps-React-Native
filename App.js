@@ -113,7 +113,7 @@ class App extends React.Component {
             onPress={() => {
               this.props.navigation.navigate('UploadPhoto');
             }}
-            title="Upload Photo"
+            title="Create Task from here!"
           />
           <Button
             onPress={() => {
@@ -238,7 +238,7 @@ const Screens = createStackNavigator({
   UploadPhoto: {
     screen: UploadPhoto,
     navigationOptions: ({ navigation }) => {
-      title: 'Create New Task from Here!'
+      title: 'Uplode Media'
     }
   },
   MediaGPS: {
