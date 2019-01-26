@@ -6,6 +6,7 @@ import UploadPhoto from '../screens/UploadPhoto';
 // import Tasks from './TasksScreen'
 import API from '../utils/API';
 import t from 'tcomb-form-native';
+import Axios from 'axios';
 
 const Form = t.form.Form;
 
@@ -26,16 +27,10 @@ export default class CreateTaskScreen extends Component {
     page: "Create New Task",
     cameraShowing: true,
     tasks: [],
-    // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
     title: "",
     description: "",
     imageURL: "",
     postion: "", // save what we grasp from Google map pinned location
-    // tags:[],
-    // postedBy: "",
-    // comments: [],
-    // postDate: "", 
-    // lastUpdated: ""
   };
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
@@ -57,24 +52,6 @@ export default class CreateTaskScreen extends Component {
     this.state.imageURL = url;
     this.toggleCamera();
   }
-  // // Loads all Tasks  and sets them to this.state.Tasks
-  // loadTasks = () => {
-  //   API.getTasks()
-  //     .then(res =>
-  //       this.setState({
-  //         tasks: res.data, title: "", description: "", imageURL: "", postion: "",
-  //         tags: "", postedBy: "", comments: "", postDate: "", lastUpdated: ""
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
-  // // Deletes a Task from the database with a given id, then reloads Tasks  Tasks from the db
-  // deleteTask = id => {
-  //   API.deleteTask(id)
-  //     .then(res => this.loadTasks())
-  //     .catch(err => console.log(err));
-  // };
 
   // // Handles updating component state when the Task types into the input field
   // handleInputChange = event => {
@@ -84,57 +61,15 @@ export default class CreateTaskScreen extends Component {
   //   });
   // };
 
-  // // When the form is submitted, use the API.saveTask method to save the Task data
-  // // Then reload Tasks from the database
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
-
-  //   API.saveTask({
-  //     title: this.state.title,
-  //     description: this.state.description,
-  //     imageURL: this.state.imageURL,
-  //     postion: this.state.postion, // save what we grasp from Google map pinned location
-  //     // tags:[],
-  //     // postedBy:this.state.postedBy,
-  //     // comments: [],
-  //     // postDate: this.state.postDate, 
-  //     // lastUpdated:this.state.lastUpdated
-  //     // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
-  //   })
-  //     .then(res => this.loadTasks())
-  //     .catch(err => console.log(err));
-
-  // };
-
-  // // supplied by tutorial for tcomb-form-native
-  // handleSubmit = () => {
-  //   const value = this.refs.form.getValue(); // use that ref to get the form value
-  //   console.log('value: ', value);
-  // }
-
-  // onPress = () => {
-  //   var value = this.refs.form.getValue();
-
-  //   if(value){
-  //     this.props.navigation.navigate('TasksScreen');
-  //     console.log(value); 
-  //   }
-  //   else{
-  //     disabled = this.state.validity
-  //     console.log("disable button");
-  //   }
-
-  // }
-
-  // from jia
-
-  _createTask = event => {
+  _createTask = async (event) => {
 
     event.preventDefault();
     var value = this.refs.form.getValue();
 
+    var user = await API.getCurrentUser;
+
     if (value) {
-      this.props.navigation.navigate('TasksScreen')
+      
       this.setState({
         tasks: value
       });
@@ -143,9 +78,10 @@ export default class CreateTaskScreen extends Component {
         title: value.title,
         description: value.description,
         imageURL: this.state.imageURL,
-        position: value.position // On the Way!!
+        position: value.position, // On the Way!!
+        postedBy: user 
       })
-        // .then(res => this.loadTasks())
+        .then(this.props.navigation.navigate('TasksScreen'))
         .catch(err => console.log(err));
       console.log(value);
     }
@@ -155,9 +91,6 @@ export default class CreateTaskScreen extends Component {
     }
 
   }
-
-
-
 
   render() {
     return (
@@ -179,8 +112,6 @@ export default class CreateTaskScreen extends Component {
               </TouchableHighlight>
             </View>
           }
-
-
         </Content>
       </Container>
     )
