@@ -80,6 +80,7 @@ export default class CreateTaskScreen extends Component {
         imageURL: this.props.navigation.state.params.passImageURL,
         position: JSON.parse(this.props.navigation.state.params.getTaskLocation),
         postedBy: this.state.postedBy
+
       })
         .catch(err => console.log(err));
       console.log("I'm called ")
