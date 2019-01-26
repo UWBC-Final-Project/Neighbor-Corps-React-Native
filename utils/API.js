@@ -87,6 +87,10 @@ export default {
   getComments: function() {
     return axios.get(heroku + "/api/comments");
   },
+  // Gets all Comments
+  getTasksComments: function(id) {
+    return axios.get(heroku + "/api/comments/task/" + id);
+  },
   // Gets the Comment with the given id
   getComment: function(id) {
     return axios.get(heroku + "/api/comments/" + id);

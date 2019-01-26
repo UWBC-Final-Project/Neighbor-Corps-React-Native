@@ -47,6 +47,8 @@ export default class Task extends Component {
             <Button transparent textStyle={{ color: '#87838B' }}>
               <Icon name="eye" />
               <Text>seen by 7</Text>
+              {/* replace with dynamic property once up and running in the database */}
+              {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
             </Button>
             <Button transparent textStyle={{ color: '#87838B' }}
               onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
