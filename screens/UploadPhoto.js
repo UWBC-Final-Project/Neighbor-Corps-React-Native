@@ -53,9 +53,21 @@ export default class UploadPhoto extends React.Component {
           }).then(async r => {
             const data = await r.json()
             console.log(data.secure_url)
-            this.props.returnURL(data.secure_url);
+            // this.props.returnURL(data.secure_url);
             // return data.secure_url
+            
+            this.setState({ image: data.secure_url })
+            const { navigate } = this.props.navigation;
+
+            imgURL = this.state.image
+
+            navigate('MediaGPS', {
+              getImageURL: imgURL,
+            })
+            console.log("image captured", imgURL)
+
           }).catch(err=>console.log(err))
+
       }
 
     }
@@ -95,10 +107,21 @@ export default class UploadPhoto extends React.Component {
           method: 'POST',
           }).then(async r => {
             const data = await r.json()
-            console.log(data.secure_url)
-            this.props.returnURL(data.secure_url);
+            // console.log(data.secure_url)
+
+            this.setState({ image: data.secure_url })
+            const { navigate } = this.props.navigation;
+
+            imgURL = this.state.image
+
+            navigate('MediaGPS', {
+              getImageURL: imgURL,
+            })
+            console.log("image captured", imgURL)
+            // this.props.returnURL(data.secure_url);
             // return data.secure_url
           }).catch(err=>console.log(err))
+
       }
 
     }

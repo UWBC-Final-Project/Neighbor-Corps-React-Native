@@ -12,7 +12,6 @@ import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SingleTaskScreen from './screens/SingleTaskScreen';
 import TasksScreen from './screens/TasksScreen';
-import CameraGPS from './screens/CameraGPS';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import CommentScreen from './components/Comment';
@@ -21,7 +20,8 @@ import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAn
 
 // from Jia
 import UploadPhoto from './screens/UploadPhoto';
-
+import MediaGPS from './screens/MediaGPS';
+import DropMarker from './screens/DropMarker';
 
 class App extends React.Component {
   state = {
@@ -91,7 +91,7 @@ class App extends React.Component {
             title="Single Task Screen"
           />
           
-          <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
+          {/* <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
           <Button
             onPress={() => {
               this.props.navigation.navigate('ContactScreen');
@@ -117,17 +117,23 @@ class App extends React.Component {
        
           <Header page={"TESTING PAGES"}>TESTING PAGES</Header>
        {/* from Jia */}
-          <Button
+         <Button
             onPress={() => {
               this.props.navigation.navigate('UploadPhoto');
             }}
-            title="Upload Photo"
+            title="Create Task from here!"
           />
           <Button
             onPress={() => {
-              this.props.navigation.navigate('CameraGPS');
+              this.props.navigation.navigate('MediaGPS');
             }}
-            title="Camera GPS"
+            title="MediaGPS"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('DropMarker');
+            }}
+            title="DropMarker"
           />
        
         </View>
@@ -246,13 +252,19 @@ const Screens = createStackNavigator({
   UploadPhoto: {
     screen: UploadPhoto,
     navigationOptions: ({ navigation }) => {
-      title: 'Upload Photo'
+      title: 'Uplode Media'
     }
   },
-  CameraGPS: {
-    screen: CameraGPS,
+  MediaGPS: {
+    screen: MediaGPS,
     navigationOptions: ({ navigation }) => {
-      title: 'Upload Photo'
+      title: 'Media GPS'
+    }
+  },
+  DropMarker: {
+    screen: DropMarker,
+    navigationOptions: ({ navigation }) => {
+      title: 'Drop Marker'
     }
   }
 })
