@@ -3,6 +3,10 @@ import { MapView } from 'expo';
 
 export default class DashboardScreen extends Component {
 
+  componentDidMount() {
+    geolocation.requestAuthorization();
+}
+
   render() {
     return (
       <MapView
