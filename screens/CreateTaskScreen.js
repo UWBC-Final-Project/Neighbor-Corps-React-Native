@@ -29,18 +29,21 @@ export default class CreateTaskScreen extends Component {
     description: "",
     imageURL: "",
     postion: "", // save what we grasp from Google map pinned location
+    postedBy: ""
   };
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
   componentDidMount() {
     // launch camera view and allow picture capture
-    // this.loadTasks();
-    console.log(this.state);
-    this.setState({
-      cameraShowing: true,
-    })
+    API.getCurrentUser()
+      .then(res => this.setState({
+        postedBy: res.data.username,
+        cameraShowing: true
+      }))
+    .then(console.log(this.state.user))
+    .catch(err => console.log(err))
   }
-  
+
   toggleCamera = () => {
     this.setState(prevState => ({
       cameraShowing: !prevState.cameraShowing
@@ -76,8 +79,9 @@ export default class CreateTaskScreen extends Component {
       API.saveTask({
         title: value.title,
         description: value.description,
-        imageURL: JSON.stringify(this.props.navigation.state.params.passImageURL),
-        position: JSON.parse(this.props.navigation.state.params.getTaskLocation)
+        imageURL: JSON.parse(this.props.navigation.state.params.passImageURL),
+        position: JSON.parse(this.props.navigation.state.params.getTaskLocation),
+        postedBy: this.state.postedBy
       })
         .catch(err => console.log(err));
       console.log("I'm called ")
