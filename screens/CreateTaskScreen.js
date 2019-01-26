@@ -40,7 +40,7 @@ export default class CreateTaskScreen extends Component {
         postedBy: res.data.username,
         cameraShowing: true
       }))
-    .then(console.log(this.state.user))
+    .then(console.log(this.state.postedBy))
     .catch(err => console.log(err))
   }
 
@@ -68,8 +68,6 @@ export default class CreateTaskScreen extends Component {
     event.preventDefault();
     var value = this.refs.form.getValue();
 
-    var user = await API.getCurrentUser;
-
     if (value) {
 
       this.setState({
@@ -79,7 +77,7 @@ export default class CreateTaskScreen extends Component {
       API.saveTask({
         title: value.title,
         description: value.description,
-        imageURL: JSON.parse(this.props.navigation.state.params.passImageURL),
+        imageURL: this.props.navigation.state.params.passImageURL,
         position: JSON.parse(this.props.navigation.state.params.getTaskLocation),
         postedBy: this.state.postedBy
       })
@@ -111,6 +109,11 @@ export default class CreateTaskScreen extends Component {
               <Text style={styles.buttonText}>Save</Text>
             </TouchableHighlight>
 
+            <Text style={styles.TextStyle}>
+              {this.state.postedBy
+                ? this.state.postedBy
+                : 'No Username Passed'}
+            </Text>
             <Text style={styles.TextStyle}>
               {this.props.navigation.state.params.passImageURL
                 ? this.props.navigation.state.params.passImageURL

@@ -106,6 +106,10 @@ export default class UserProfileScreen extends Component {
       });
   }
 
+  _CreateTaskBtn = () => {
+    this.props.navigation.navigate('UploadPhoto')
+  }
+
   render() {
     return (
 
@@ -130,6 +134,11 @@ export default class UserProfileScreen extends Component {
 
           <TouchableHighlight style={styles.button} onPress={this.toggleForm} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Update Your Information</Text>
+          </TouchableHighlight>
+
+
+          <TouchableHighlight style={styles.button} onPress={this._CreateTaskBtn} underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Create New Task</Text>
           </TouchableHighlight>
 
           {/* // KPH toggle the edit user form fields */}
