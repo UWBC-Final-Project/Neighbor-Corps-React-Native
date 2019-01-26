@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
 import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
-import UploadPhoto from '../screens/UploadPhoto';
-// import Tasks from './TasksScreen'
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 import Axios from 'axios';
@@ -42,6 +40,7 @@ export default class CreateTaskScreen extends Component {
       cameraShowing: true,
     })
   }
+  
   toggleCamera = () => {
     this.setState(prevState => ({
       cameraShowing: !prevState.cameraShowing
@@ -69,7 +68,7 @@ export default class CreateTaskScreen extends Component {
     var user = await API.getCurrentUser;
 
     if (value) {
-      
+
       this.setState({
         tasks: value
       });
@@ -77,17 +76,17 @@ export default class CreateTaskScreen extends Component {
       API.saveTask({
         title: value.title,
         description: value.description,
-        imageURL: this.state.imageURL,
-        position: value.position, // On the Way!!
-        postedBy: user 
+        imageURL: JSON.stringify(this.props.navigation.state.params.passImageURL),
+        position: JSON.parse(this.props.navigation.state.params.getTaskLocation)
       })
-        .then(this.props.navigation.navigate('TasksScreen'))
         .catch(err => console.log(err));
-      console.log(value);
+      console.log("I'm called ")
+      console.log(this.state);
     }
     else {
       disabled = this.state.validity
       console.log("disable button");
+
     }
 
   }
@@ -97,22 +96,34 @@ export default class CreateTaskScreen extends Component {
       <Container>
         <Header page={this.state.page} />
         <Content>
-          {this.state.cameraShowing ?
-            <UploadPhoto returnURL={this.updateURL}/>
-            :
-            <View>
-              <Form
-                ref="form"
-                type={Task}
-              />
-              <TouchableHighlight style={styles.button}
-                onPress={this._createTask} //from jia
-                underlayColor='#99d9f4'>
-                <Text style={styles.buttonText}>Save</Text>
-              </TouchableHighlight>
-            </View>
-          }
+          <View>
+            <Form
+              ref="form"
+              type={Task}
+            />
+            <TouchableHighlight style={styles.button}
+              onPress={this._createTask} //from jia
+              underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Save</Text>
+            </TouchableHighlight>
+
+            <Text style={styles.TextStyle}>
+              {this.props.navigation.state.params.passImageURL
+                ? this.props.navigation.state.params.passImageURL
+                : 'No Value Passed'}
+            </Text>
+
+
+            <Text style={styles.TextStyle}>
+              {this.props.navigation.state.params.getTaskLocation
+                ? this.props.navigation.state.params.getTaskLocation
+                : 'No Value Passed'}
+            </Text>
+
+          </View>
+
         </Content>
+
       </Container>
     )
   }
