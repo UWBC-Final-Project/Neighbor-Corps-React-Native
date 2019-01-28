@@ -15,11 +15,12 @@ const User = t.struct({
   firstName: t.String,
   lastName: t.String,
   email: t.String,
+  phone: t.String,
   // username cannot be changed as it is the primary key
   // Alternatively, we can give user an option to change screen name/ nickname
   // userName: t.String,
-  password: t.String,
-  aboutMe: t.maybe(t.String),
+  // password: t.String, // TODO: working on encrypted the new password
+  aboutMe: t.String, // TODO: t.maybe is an optional field; however, when the user choose not to fill out for the update, the previous data will be replaced with null ie. previous data are erased.
   zipcode: t.Number,
   terms: t.Boolean
 });
@@ -56,11 +57,15 @@ export default class UserProfileScreen extends Component {
     // MongoDB info
     user: [],
     _id: "",
+    firstName: "",
+    lastName: "",
     username: "",
     password: "",
     email: "",
     phone: "",
+    aboutMe: "",
     zipcode: "",
+    terms: "",
     meritscore: 0,
   }
 
@@ -83,11 +88,15 @@ export default class UserProfileScreen extends Component {
         console.log(res.data)
         this.setState({
           _id: res.data._id,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
           username: res.data.username,
           password: res.data.password,
           email: res.data.email,
           phone: res.data.phone,
+          aboutMe: res.data.aboutMe,
           zipcode: res.data.zipcode,
+          terms: res.data.terms,
           meritscore: res.data.meritscore,
         })
       })
@@ -104,6 +113,21 @@ export default class UserProfileScreen extends Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  // Update profile 
+  updateProfile = () => {
+    var value = this.refs.form.getValue();
+    if (value) { // if validation fails, value will be null
+      console.log(value); // value here is an instance of Person
+      API.update(value)
+        .then(() => {
+          this.loadUser()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   _CreateTaskBtn = () => {
@@ -155,7 +179,7 @@ export default class UserProfileScreen extends Component {
                 type={User}
                 options={options}
               />
-              <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+              <TouchableHighlight style={styles.button} onPress={this.updateProfile} underlayColor='#99d9f4'>
                 <Text style={styles.buttonText}>Save</Text>
               </TouchableHighlight>
             </View>
