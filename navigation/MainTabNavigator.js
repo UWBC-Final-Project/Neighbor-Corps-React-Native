@@ -4,28 +4,15 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import TasksScreen from '../screens/TasksScreen';
-import SingleTaskScreen from '../screens/SingleTaskScreen';
-import LoginScreen from '../screens/LoginScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
-
-
-const LoginStack = createStackNavigator({
-  Login: LoginScreen,
-});
-
-LoginStack.navigationOptions = {
-  tabBarLabel: 'Login',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-contact' : 'md-contact'}
-    />
-  ),
-};
+import UploadPhoto from '../screens/UploadPhoto';
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: UploadPhoto,
+  UploadPhoto: {
+    screen: UploadPhoto,
+    // path: "/detail"
+  }
 });
 
 HomeStack.navigationOptions = {
@@ -33,57 +20,31 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-home' : 'md-home' }
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
     />
   ),
 };
 
-const TasksStack = createStackNavigator({
-  Tasks: TasksScreen,
+const MyFavoritesStack = createStackNavigator({
+  UserProfileScreen: UserProfileScreen,
 });
 
-TasksStack.navigationOptions = {
-  tabBarLabel: 'Tasks',
+MyFavoritesStack.navigationOptions = {
+  tabBarLabel: 'UserProfileScreen',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-megaphone' : 'md-megaphone'} 
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
     />
   ),
 };
 
-const SingleTaskStack = createStackNavigator({
-  SingleTask: SingleTaskScreen,
-});
-
-SingleTaskStack.navigationOptions = {
-  tabBarLabel: 'SingleTask',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-megaphone' : 'md-megaphone'} 
-    />
-  ),
-};
-
-const UserProfileStack = createStackNavigator({
-  UserProfile: UserProfileScreen,
-});
-
-UserProfileStack.navigationOptions = {
-  tabBarLabel: 'UserProfile',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-megaphone' : 'md-megaphone'} 
-    />
-  ),
-};
 
 export default createBottomTabNavigator({
-  LoginStack,
   HomeStack,
-  TasksStack,
-  SingleTaskStack,
-  UserProfileStack,
+  UserProfileScreen
 });

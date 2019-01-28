@@ -5,7 +5,6 @@ import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left
 import Task from "../components/Task";
 import API from '../utils/API';
 
-
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
 
@@ -15,16 +14,10 @@ export default class Tasks extends Component {
   state = {
     page: "Tasks",
     tasks: [],
-    // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
     title: "",
     description: "",
     imageURL: "",
-    postion: "", // save what we grasp from Google map pinned location
-    // tags:[],
-    // postedBy: "",
-    // comments: [],
-    // postDate: "", 
-    // lastUpdated: ""
+    postion: [], // save what we grasp from Google map pinned location
   };
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
@@ -37,6 +30,7 @@ export default class Tasks extends Component {
     super(props);
     this.loadTasks = this.loadTasks.bind(this);
   }
+  
   // Loads all Tasks  and sets them to this.state.Tasks
   loadTasks = () => {
     API.getTasks()
@@ -48,18 +42,40 @@ export default class Tasks extends Component {
           imageURL: "",
           postion: "",
           _id: ""
-          // tags: "",
-          // postedBy: "",
-          // comments: "",
-          // postDate: "",
-          // lastUpdated: ""
-          
         }),
       )
       .catch(err => console.log(err));
   };
  
- 
+   passNav = (targetID, props) => {
+    console.log(targetID, props);
+    this.props.navigation.navigate('SingleTaskScreen', {
+      taskID: targetID,
+      taskProps: props,
+    });
+  }
+
+  render() {
+    return (
+      <Container>
+        <Header page={this.state.page} />
+        <Content>
+          {this.state.tasks.length ? (
+            <List>
+              {this.state.tasks.map(task => {
+                return (
+                  <Task key={task._id} taskProps={task} stackNav={this.passNav}/>
+                );
+              })}
+            </List>
+          ) : (
+              <Text>No Results to Display</Text>
+            )}
+        </Content>
+      </Container>
+    );
+  }
+
   // Deletes a Task from the database with a given id, then reloads Tasks  Tasks from the db
   // deleteTask = id => {
   //   API.deleteTask(id)
@@ -75,54 +91,4 @@ export default class Tasks extends Component {
   //   });
   // };
 
-  passNav = (targetID, props) => {
-    console.log(targetID, props);
-    this.props.navigation.navigate('SingleTaskScreen', {
-      taskID: targetID,
-      taskProps: props,
-    });
-  }
-
-  // When the form is submitted, use the API.saveTask method to save the Task data
-  // Then reload Tasks from the database
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
-
-  //   API.saveTask({
-  //     title: this.state.title,
-  //     description: this.state.description,
-  //     imageURL: this.state.imageURL,
-  //     postion: this.state.postion, // save what we grasp from Google map pinned location
-  //     // tags:[],
-  //     // postedBy:this.state.postedBy,
-  //     // comments: [],
-  //     // postDate: this.state.postDate, 
-  //     // lastUpdated:this.state.lastUpdated
-  //     // NEED SPECIAL ATTENTION TO MAKE IT REFLECT MODEL
-  //   })
-  //     .then(res => this.loadTasks())
-  //     .catch(err => console.log(err));
-
-  // };
-
-  render() {
-    return (
-      <Container>
-        <Header page={this.state.page} />
-        <Content>
-          {this.state.tasks.length ? (
-            <List>
-              {this.state.tasks.map(task => {
-                return (
-                  <Task taskProps={task} stackNav={this.passNav}/>
-                );
-              })}
-            </List>
-          ) : (
-              <Text>No Results to Display</Text>
-            )}
-        </Content>
-      </Container>
-    );
-  }
 }

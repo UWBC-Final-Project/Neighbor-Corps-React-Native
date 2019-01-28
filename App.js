@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View, Text, Button } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, Button, ScrollView } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { createStackNavigator } from 'react-navigation';
@@ -12,15 +12,17 @@ import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SingleTaskScreen from './screens/SingleTaskScreen';
 import TasksScreen from './screens/TasksScreen';
-import CameraGPS from './screens/CameraGPS';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
-import CommentScreen from './components/Comments'
+import CommentScreen from './components/Comment';
+import MapScreen from './screens/MapScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
 // from Jia
 import UploadPhoto from './screens/UploadPhoto';
-
+import MediaGPS from './screens/MediaGPS';
+import DropMarker from './screens/DropMarker';
+import TasksMapView from './screens/TasksMapView';
 
 class App extends React.Component {
   state = {
@@ -39,6 +41,7 @@ class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+        <ScrollView>
           <Header page={"USER AUTH/PROFILE LINKS"}>AUTH LINKS</Header>
           <Button
             onPress={() => {
@@ -64,13 +67,22 @@ class App extends React.Component {
             }}
             title="Home Screen"
           />
-          <Header page={"TASK LINKS"}>TASK LINKS</Header>
+        <Header page={"TASK LINKS"}>TASK LINKS</Header>
+          {/* from jia */}
           <Button
             onPress={() => {
-              this.props.navigation.navigate('CreateTask');
+              this.props.navigation.navigate('UploadPhoto');
             }}
             title="Create Task"
           />
+
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('TasksMapView');
+            }}
+            title="Explore Our Tasks with Map"
+          />
+
           <Button
           onPress={() => {
             this.props.navigation.navigate('Comments');
@@ -90,7 +102,7 @@ class App extends React.Component {
             title="Single Task Screen"
           />
           
-          <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
+       <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
           <Button
             onPress={() => {
               this.props.navigation.navigate('ContactScreen');
@@ -103,25 +115,18 @@ class App extends React.Component {
             }}
             title="Welcome Screen"
           />
+
+          {/* <Button
+              onPress={() => {
+              this.props.navigation.navigate('MapScreen');
+              }}
+              title="Map Screen"
+              /> */}
           
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
        
-          <Header page={"TESTING PAGES"}>TESTING PAGES</Header>
-       {/* from Jia */}
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('UploadPhoto');
-            }}
-            title="Upload Photo"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('CameraGPS');
-            }}
-            title="Camera GPS"
-          />
-       
+        </ScrollView>
         </View>
       );
     }
@@ -228,17 +233,35 @@ const Screens = createStackNavigator({
       title: 'User Profile Screen'
     }
   },
+  MapScreen: {
+    screen: MapScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Map Screen'
+      }
+    },
   // from Jia
   UploadPhoto: {
     screen: UploadPhoto,
     navigationOptions: ({ navigation }) => {
-      title: 'Upload Photo'
+      title: 'Uplode Media'
     }
   },
-  CameraGPS: {
-    screen: CameraGPS,
+  MediaGPS: {
+    screen: MediaGPS,
     navigationOptions: ({ navigation }) => {
-      title: 'Upload Photo'
+      title: 'Media GPS'
+    }
+  },
+  DropMarker: {
+    screen: DropMarker,
+    navigationOptions: ({ navigation }) => {
+      title: 'Drop Marker'
+    }
+  },
+  TasksMapView: {
+    screen: TasksMapView,
+    navigationOptions: ({ navigation }) => {
+      title: 'Tasks Map View'
     }
   }
 })

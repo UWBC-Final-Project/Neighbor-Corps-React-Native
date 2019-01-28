@@ -3,12 +3,28 @@ import { Container, Title, Content, Button, Icon, Left, Right, Body, Text, Platf
 import { WebBrowser } from 'expo';
 import axios from "axios";
 import { MonoText } from '../components/StyledText';
-import RecipeCard from '../components/RecipeCard';
-import SearchBar from '../components/SearchBar';
+// import RecipeCard from '../components/RecipeCard';
+// import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
-import { MapView } from 'expo';
 
-export default class DashboardScreen extends Component {
+
+import {
+  NavigationActions
+} from "react-navigation";
+
+
+export default class HomeScreen extends Component {
+  static navigationOptions = {
+    header: null,
+  };
+
+  goHome = () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Home",
+    });
+    this.props.navigation.dispatch(navigateAction);
+    // this.props.navigation.goBack();
+  }
 
   render() {
     return (
@@ -33,20 +49,6 @@ export default class DashboardScreen extends Component {
             />
         </Content>
       </Container>
-    );
-  }
-
-  render() {
-    return (
-      <MapView
-        style={{ flex: 1 }}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
     );
   }
 }
