@@ -80,7 +80,7 @@ export default class SignUpScreen extends Component {
       .then((response) => {
         // console.log(response)
         if(response.status == 200) {
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('UserProfileScreen');
         }
         else {
           //print status text somewhere so user can see that login failed

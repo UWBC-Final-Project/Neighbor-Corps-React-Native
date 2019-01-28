@@ -65,12 +65,21 @@ class App extends React.Component {
             title="Home Screen"
           />
           <Header page={"TASK LINKS"}>TASK LINKS</Header>
-          <Button
+          {/* <Button
             onPress={() => {
               this.props.navigation.navigate('CreateTask');
             }}
             title="Create Task"
+          /> */}
+
+          {/* from jia */}
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('UploadPhoto');
+            }}
+            title="Create Task from here!"
           />
+
           <Button
           onPress={() => {
             this.props.navigation.navigate('Comments');
@@ -90,7 +99,7 @@ class App extends React.Component {
             title="Single Task Screen"
           />
           
-          {/* <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
+       <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
           <Button
             onPress={() => {
               this.props.navigation.navigate('ContactScreen');
@@ -104,25 +113,25 @@ class App extends React.Component {
             title="Welcome Screen"
           />
 
-          <Button
+          {/* <Button
               onPress={() => {
               this.props.navigation.navigate('MapScreen');
               }}
               title="Map Screen"
-              />
+              /> */}
           
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
        
-          <Header page={"TESTING PAGES"}>TESTING PAGES</Header>
+          {/* <Header page={"TESTING PAGES"}>TESTING PAGES</Header> */}
        {/* from Jia */}
-         <Button
+         {/* <Button
             onPress={() => {
               this.props.navigation.navigate('UploadPhoto');
             }}
             title="Create Task from here!"
-          />
-          <Button
+          /> */}
+          {/* <Button
             onPress={() => {
               this.props.navigation.navigate('MediaGPS');
             }}
@@ -133,7 +142,7 @@ class App extends React.Component {
               this.props.navigation.navigate('DropMarker');
             }}
             title="DropMarker"
-          />
+          /> */}
        
         </View>
       );

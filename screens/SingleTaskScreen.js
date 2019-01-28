@@ -21,11 +21,16 @@ export default class SingleTaskScreen extends Component {
     page: "Task View",
     thisTask: [],
     comments: [],
+    username: '',
   }
 
   componentDidMount() {
     this.getTask(this.props.navigation.state.params.taskProps._id);
     this.getTasksComments(this.props.navigation.state.params.taskProps._id);
+    API.getCurrentUser()
+    .then(res => this.setState({ user: res.data.username }))
+    .then(console.log(this.state.user))
+    .catch(err => console.log(err))
   }
 
   getTask(taskId) {
