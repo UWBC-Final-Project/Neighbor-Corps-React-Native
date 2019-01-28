@@ -34,8 +34,9 @@ constructor(props){
 
 
   componentDidMount() {
-
+    // call our task api
     this.loadTasks();
+
     // We should detect when scrolling has stopped then animate
     // We should just debounce the event listener here
     this.animation.addListener(({ value }) => {
@@ -72,8 +73,7 @@ constructor(props){
 			.then(res => {
 				markers = [];
 
-				// set i to 32 because we have bad data stored in TasksDB, need to clean that up and set i back to 0
-				for (i = 32; i < res.data.length; i++) {
+				for (i = 0; i < res.data.length; i++) {
 					element = res.data[i];
 					coordinate = element.position[0].coordinate;
 
@@ -81,7 +81,8 @@ constructor(props){
 						coordinate: coordinate,
 						title: element.title,
 					  description: element.description,
-					  image: {uri: element.imageURL}
+            image: {uri: element.imageURL},
+            taskID: element._id
 					}
 					markers.push(marker);
 
@@ -174,6 +175,13 @@ constructor(props){
                 <Text numberOfLines={1} style={styles.cardDescription}>
                   {marker.description}
                 </Text>
+                
+                {/* showing the task id for linking */}
+
+                <Text numberOfLines={1} >
+                 id is here: {marker.taskID}
+                </Text>
+
               </View>
             </View>
           ))}
