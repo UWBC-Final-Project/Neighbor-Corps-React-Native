@@ -89,25 +89,8 @@ export default class CreateTaskScreen extends Component {
     else {
       disabled = this.state.validity
       console.log("disable button");
-
     }
-
   }
-
-
-  static navigationOptions = {
-
-
-
-    tabBarIcon: ({ tintColor }) => (
-
-        <Icon name="ios-add-circle" style={{ color: tintColor }} />
-
-    )
-
-}
-
-
   render() {
     return (
       <Container>

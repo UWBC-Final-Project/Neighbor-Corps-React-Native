@@ -15,17 +15,17 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
       <Container>
-      <Header style={{backgroundColor:'#52d1ed', Color:'white'}}>
+      <Header style={{backgroundColor:'#52d1ed', Color:'white', paddingBottom:10}}>
       <Left>
         <Button transparent >
-        <Icon name='menu' style={{color:'white'}}/>
+        <Icon name='menu' style={{color:'white', marginBottom:'4%'}}/>
         </Button>
       </Left>
       <Body>
       <Title style={{color:'white', fontFamily:'HelveticaNeue-BoldItalic', fontWeight: 'bold', fontSize:28}}>{this.state.page}</Title>
     </Body>
-      <Right>
-      <Thumbnail source={require ('../assets/images/logo.png')}/>
+      <Right style={{paddingBottom:8}}>
+      <Thumbnail source={require ('../assets/images/logo.png')} />
       </Right>
     </Header>
         
