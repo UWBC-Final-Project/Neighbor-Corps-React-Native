@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
+import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input, Icon } from 'native-base';
 import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
 import API from '../utils/API';
@@ -65,7 +65,7 @@ export default class CreateTaskScreen extends Component {
       this.setState({
         tasks: value
       });
-
+      
       API.saveTask({
         title: value.title,
         description: value.description,
@@ -77,18 +77,12 @@ export default class CreateTaskScreen extends Component {
         .catch(err => console.log(err));
       console.log("I'm called ")
       console.log(this.state);
-
-
-
     }
     else {
       disabled = this.state.validity
       console.log("disable button");
-
     }
   }
-
-
   render() {
     return (
       <Container>
