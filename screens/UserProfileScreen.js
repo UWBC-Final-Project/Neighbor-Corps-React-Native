@@ -20,7 +20,7 @@ const User = t.struct({
   // Alternatively, we can give user an option to change screen name/ nickname
   // userName: t.String,
   // password: t.String, // TODO: working on encrypted the new password
-  aboutMe: t.maybe(t.String), // TODO: t.maybe is an optional field; however, when the user choose not to fill out for the update, the previous data will be replaced with null ie. previous data are erased.
+  aboutMe: t.String, // TODO: t.maybe is an optional field; however, when the user choose not to fill out for the update, the previous data will be replaced with null ie. previous data are erased.
   zipcode: t.Number,
   terms: t.Boolean
 });
