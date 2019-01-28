@@ -65,7 +65,7 @@ export default class CreateTaskScreen extends Component {
       this.setState({
         tasks: value
       });
-
+      
       API.saveTask({
         title: value.title,
         description: value.description,
