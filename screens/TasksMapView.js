@@ -9,6 +9,30 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
+//custom region data - placeholders (just playing around)
+
+const regionData =
+ [{
+  seattle: {
+    latitude: 47.608013,
+    longitude: -122.335167,
+    latitudeDelta: 0.04864195044303443,
+    longitudeDelta: 0.040142817690068,
+  },
+  seattle: {
+    latitude: 37.773972,
+    longitude: -122.431297,
+    latitudeDelta: 0.04864195044303443,
+    longitudeDelta: 0.040142817690068,
+  },
+  bellevue: {
+    latitude: 47.610378,
+    longitude: -122.200676,
+    latitudeDelta: 0.04864195044303443,
+    longitudeDelta: 0.040142817690068,
+  },
+}]
+
 export default class TasksMapView extends Component {
 
 constructor(props){
@@ -94,7 +118,13 @@ constructor(props){
 			})
 			.catch(err => console.log(err));
 	};  
-	
+  
+  // temporarily change the region over here, testing purposes  
+  _handleMapRegionChange = () => {
+    this.setState({ region: regionData[0]  });
+  };
+  
+
   render() {
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
@@ -175,7 +205,7 @@ constructor(props){
                 <Text numberOfLines={1} style={styles.cardDescription}>
                   {marker.description}
                 </Text>
-                
+
                 {/* showing the task id for linking */}
 
                 <Text numberOfLines={1} >
