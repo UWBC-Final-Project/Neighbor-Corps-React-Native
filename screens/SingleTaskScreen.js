@@ -28,7 +28,7 @@ export default class SingleTaskScreen extends Component {
     this.getTask(this.props.navigation.state.params.taskProps._id);
     this.getTasksComments(this.props.navigation.state.params.taskProps._id);
     API.getCurrentUser()
-    .then(res => this.setState({ user: res.data.username }))
+    .then(res => this.setState({ username: res.data.username }))
     .then(console.log(this.state.user))
     .catch(err => console.log(err))
   }
@@ -87,10 +87,11 @@ export default class SingleTaskScreen extends Component {
               </List>
             )
             :
-            <Text>No Results to Display</Text>
+            <Text>No comments yet . . .</Text>
           }
           {/* "I saw this too" button component that also triggers usersInvolved count */}
           {/* <VerifyButton addUserInteraction={this.addUserInteraction}/> */}
+          <Text>{"\n\n"}</Text>
           <CommentForm saveComment={this.saveComment} />
         </Content>
       </Container>
