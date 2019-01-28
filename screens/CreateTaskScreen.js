@@ -44,17 +44,6 @@ export default class CreateTaskScreen extends Component {
     .catch(err => console.log(err))
   }
 
-  toggleCamera = () => {
-    this.setState(prevState => ({
-      cameraShowing: !prevState.cameraShowing
-    }));
-  }
-
-  updateURL = (url) => {
-    this.state.imageURL = url;
-    this.toggleCamera();
-  }
-
   // // Handles updating component state when the Task types into the input field
   // handleInputChange = event => {
   //   const { name, value } = event.target;
@@ -65,8 +54,11 @@ export default class CreateTaskScreen extends Component {
 
   _createTask = async (event) => {
 
+    this.props.navigation.navigate('TasksScreen')
+
     event.preventDefault();
     var value = this.refs.form.getValue();
+    
 
     if (value) {
 
@@ -85,28 +77,16 @@ export default class CreateTaskScreen extends Component {
         .catch(err => console.log(err));
       console.log("I'm called ")
       console.log(this.state);
+
+
+
     }
     else {
       disabled = this.state.validity
       console.log("disable button");
 
     }
-
   }
-
-
-  static navigationOptions = {
-
-
-
-    tabBarIcon: ({ tintColor }) => (
-
-        <Icon name="ios-add-circle" style={{ color: tintColor }} />
-
-    )
-
-}
-
 
   render() {
     return (
