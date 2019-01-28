@@ -61,12 +61,6 @@ class App extends React.Component {
             }}
             title="User Profile Screen"
           />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('HomeScreen');
-            }}
-            title="Home Screen"
-          />
         <Header page={"TASK LINKS"}>TASK LINKS</Header>
           {/* from jia */}
           <Button
@@ -84,22 +78,10 @@ class App extends React.Component {
           />
 
           <Button
-          onPress={() => {
-            this.props.navigation.navigate('Comments');
-          }}
-          title="Comments"
-        />
-          <Button
             onPress={() => {
               this.props.navigation.navigate('TasksScreen');
             }}
             title="Tasks Screen"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('SingleTaskScreen');
-            }}
-            title="Single Task Screen"
           />
           
        <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
