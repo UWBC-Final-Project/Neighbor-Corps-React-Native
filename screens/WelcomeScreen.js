@@ -28,8 +28,6 @@ export default class WelcomeScreen extends Component {
       <Thumbnail source={require ('../assets/images/logo.png')} />
       </Right>
     </Header>
-        
-          
           <CardItem style={{backgroundColor:'#52d1ed', height:'10%', width:'50%',marginLeft:'25%', marginTop:'10%' }}>
           <TouchableHighlight
                 onPress={() => Linking.openURL(href)}>

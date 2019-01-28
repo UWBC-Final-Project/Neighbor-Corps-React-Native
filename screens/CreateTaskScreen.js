@@ -44,17 +44,6 @@ export default class CreateTaskScreen extends Component {
     .catch(err => console.log(err))
   }
 
-  toggleCamera = () => {
-    this.setState(prevState => ({
-      cameraShowing: !prevState.cameraShowing
-    }));
-  }
-
-  updateURL = (url) => {
-    this.state.imageURL = url;
-    this.toggleCamera();
-  }
-
   // // Handles updating component state when the Task types into the input field
   // handleInputChange = event => {
   //   const { name, value } = event.target;
@@ -65,8 +54,11 @@ export default class CreateTaskScreen extends Component {
 
   _createTask = async (event) => {
 
+    this.props.navigation.navigate('TasksScreen')
+
     event.preventDefault();
     var value = this.refs.form.getValue();
+    
 
     if (value) {
 
