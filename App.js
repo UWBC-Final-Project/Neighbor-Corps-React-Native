@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View, Text, Button, ScrollView } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, Button } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { createStackNavigator } from 'react-navigation';
@@ -7,7 +7,6 @@ import Header from './components/Header';
 
 import ContactScreen from './screens/ContactScreen';
 import CreateTaskScreen from './screens/CreateTaskScreen';
-import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SingleTaskScreen from './screens/SingleTaskScreen';
@@ -22,7 +21,13 @@ import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAn
 import UploadPhoto from './screens/UploadPhoto';
 import MediaGPS from './screens/MediaGPS';
 import DropMarker from './screens/DropMarker';
-import TasksMapView from './screens/TasksMapView';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
 
 class App extends React.Component {
   state = {
@@ -41,7 +46,6 @@ class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-        <ScrollView>
           <Header page={"USER AUTH/PROFILE LINKS"}>AUTH LINKS</Header>
           <Button
             onPress={() => {
@@ -61,34 +65,21 @@ class App extends React.Component {
             }}
             title="User Profile Screen"
           />
-          <Button
+          <Header page={"TASK LINKS"}>TASK LINKS</Header>
+          {/* <Button
             onPress={() => {
-              this.props.navigation.navigate('HomeScreen');
+              this.props.navigation.navigate('CreateTask');
             }}
-            title="Home Screen"
-          />
-        <Header page={"TASK LINKS"}>TASK LINKS</Header>
+            title="Create Task"
+          /> */}
+
           {/* from jia */}
           <Button
             onPress={() => {
               this.props.navigation.navigate('UploadPhoto');
             }}
-            title="Create Task"
+            title="Create Task from here!"
           />
-
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('TasksMapView');
-            }}
-            title="Explore Our Tasks with Map"
-          />
-
-          <Button
-          onPress={() => {
-            this.props.navigation.navigate('Comments');
-          }}
-          title="Comments"
-        />
           <Button
             onPress={() => {
               this.props.navigation.navigate('TasksScreen');
@@ -97,10 +88,11 @@ class App extends React.Component {
           />
           <Button
             onPress={() => {
-              this.props.navigation.navigate('SingleTaskScreen');
+              this.props.navigation.navigate('MapScreen');
             }}
-            title="Single Task Screen"
+            title="Task Map Screen"
           />
+          
           
        <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
           <Button
@@ -115,6 +107,7 @@ class App extends React.Component {
             }}
             title="Welcome Screen"
           />
+          
 
           {/* <Button
               onPress={() => {
@@ -126,7 +119,27 @@ class App extends React.Component {
           {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
           {/* <AppNavigator /> */}
        
-        </ScrollView>
+          {/* <Header page={"TESTING PAGES"}>TESTING PAGES</Header> */}
+       {/* from Jia */}
+         {/* <Button
+            onPress={() => {
+              this.props.navigation.navigate('UploadPhoto');
+            }}
+            title="Create Task from here!"
+          /> */}
+          {/* <Button
+            onPress={() => {
+              this.props.navigation.navigate('MediaGPS');
+            }}
+            title="MediaGPS"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('DropMarker');
+            }}
+            title="DropMarker"
+          /> */}
+       
         </View>
       );
     }
@@ -159,13 +172,6 @@ class App extends React.Component {
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
-
 const Screens = createStackNavigator({
   Home: {
     screen: App,
@@ -185,34 +191,16 @@ const Screens = createStackNavigator({
       title: 'Login Screen'
     }
   },
-  Comments: {
-    screen: CommentScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Comments'
-    }
-  },
   Contact: {
     screen: ContactScreen,
     navigationOptions: ({ navigation }) => {
       title: 'Contact'
     }
   },
-  HomeScreen: {
-    screen: HomeScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Home Screen'
-    }
-  },
   SignUpScreen: {
     screen: SignUpScreen,
     navigationOptions: ({ navigation }) => {
       title: 'Sign Up Screen'
-    }
-  },
-  SingleTaskScreen: {
-    screen: SingleTaskScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Single Task Screen'
     }
   },
   TasksScreen: {
@@ -256,12 +244,6 @@ const Screens = createStackNavigator({
     screen: DropMarker,
     navigationOptions: ({ navigation }) => {
       title: 'Drop Marker'
-    }
-  },
-  TasksMapView: {
-    screen: TasksMapView,
-    navigationOptions: ({ navigation }) => {
-      title: 'Tasks Map View'
     }
   }
 })

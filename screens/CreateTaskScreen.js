@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
+import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input, Icon } from 'native-base';
 import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
 import API from '../utils/API';
@@ -44,17 +44,6 @@ export default class CreateTaskScreen extends Component {
     .catch(err => console.log(err))
   }
 
-  toggleCamera = () => {
-    this.setState(prevState => ({
-      cameraShowing: !prevState.cameraShowing
-    }));
-  }
-
-  updateURL = (url) => {
-    this.state.imageURL = url;
-    this.toggleCamera();
-  }
-
   // // Handles updating component state when the Task types into the input field
   // handleInputChange = event => {
   //   const { name, value } = event.target;
@@ -65,15 +54,18 @@ export default class CreateTaskScreen extends Component {
 
   _createTask = async (event) => {
 
+    this.props.navigation.navigate('TasksScreen')
+
     event.preventDefault();
     var value = this.refs.form.getValue();
+    
 
     if (value) {
 
       this.setState({
         tasks: value
       });
-
+      
       API.saveTask({
         title: value.title,
         description: value.description,
@@ -89,11 +81,8 @@ export default class CreateTaskScreen extends Component {
     else {
       disabled = this.state.validity
       console.log("disable button");
-
     }
-
   }
-
   render() {
     return (
       <Container>
