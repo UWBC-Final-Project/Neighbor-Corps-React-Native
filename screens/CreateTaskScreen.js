@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input } from 'native-base';
+import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input, Icon } from 'native-base';
 import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
 import API from '../utils/API';
@@ -93,6 +93,20 @@ export default class CreateTaskScreen extends Component {
     }
 
   }
+
+
+  static navigationOptions = {
+
+
+
+    tabBarIcon: ({ tintColor }) => (
+
+        <Icon name="ios-add-circle" style={{ color: tintColor }} />
+
+    )
+
+}
+
 
   render() {
     return (
