@@ -30,6 +30,16 @@ export default {
     return axios.get(heroku + "/api/auth/logout");
   },
 
+  //Update Profile
+  update: function(body) {
+    return axios({
+      method: 'put',
+      headers: { 'content-type': 'application/json' },
+      url: heroku + '/api/users/find/currentUser',
+      data: body
+    });
+  }, 
+
   // Gets all books
   getBooks: function() {
     return axios.get(heroku + "/api/books");

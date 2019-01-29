@@ -12,15 +12,17 @@ const styles = reactStyles.default;
 const Form = t.form.Form;
 
 const User = t.struct({
-  firstName: t.String,
-  lastName: t.String,
-  email: t.String,
+  // t.maybe is used for all properties so that user can choose to update as few or as many fields as possible, without having to update all fields every time
+  firstName: t.maybe(t.String),
+  lastName: t.maybe(t.String),
+  email: t.maybe(t.String),
+  phone: t.maybe(t.Number),
   // username cannot be changed as it is the primary key
   // Alternatively, we can give user an option to change screen name/ nickname
-  // userName: t.String,
-  password: t.String,
-  aboutMe: t.maybe(t.String),
-  zipcode: t.Number,
+  // userName: t.maybe(t.String),
+  password: t.maybe(t.String), 
+  aboutMe: t.maybe(t.String), 
+  zipcode: t.maybe(t.Number),
   terms: t.Boolean
 });
 
@@ -47,6 +49,15 @@ const options = {
   }
 };
 
+// Function to removed null values
+removeNull = (obj) => {
+  for (var propName in obj) { 
+    if (obj[propName] === null || obj[propName] === undefined) {
+      delete obj[propName];
+    }
+  }
+}
+
 // <<< KPH this is code that drive form field inputs
 
 export default class UserProfileScreen extends Component {
@@ -56,11 +67,15 @@ export default class UserProfileScreen extends Component {
     // MongoDB info
     user: [],
     _id: "",
+    firstName: "",
+    lastName: "",
     username: "",
     password: "",
     email: "",
     phone: "",
+    aboutMe: "",
     zipcode: "",
+    terms: "",
     meritscore: 0,
   }
 
@@ -83,11 +98,15 @@ export default class UserProfileScreen extends Component {
         console.log(res.data)
         this.setState({
           _id: res.data._id,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
           username: res.data.username,
           password: res.data.password,
           email: res.data.email,
           phone: res.data.phone,
+          aboutMe: res.data.aboutMe,
           zipcode: res.data.zipcode,
+          terms: res.data.terms,
           meritscore: res.data.meritscore,
         })
       })
@@ -104,6 +123,22 @@ export default class UserProfileScreen extends Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  // Update profile 
+  updateProfile = () => {
+    var value = this.refs.form.getValue();
+    if (value) { // if validation fails, value will be null
+      removeNull(value); // removes any property of the object that has a value of null
+      console.log(value); // value here is an instance of Person
+      API.update(value)
+        .then(() => {
+          this.loadUser()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   _CreateTaskBtn = () => {
@@ -155,7 +190,7 @@ export default class UserProfileScreen extends Component {
                 type={User}
                 options={options}
               />
-              <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+              <TouchableHighlight style={styles.button} onPress={this.updateProfile} underlayColor='#99d9f4'>
                 <Text style={styles.buttonText}>Save</Text>
               </TouchableHighlight>
             </View>
