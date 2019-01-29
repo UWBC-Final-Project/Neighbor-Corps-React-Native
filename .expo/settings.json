@@ -3,5 +3,9 @@
   "lanType": "ip",
   "dev": false,
   "minify": true,
+
   "urlRandomness": "qk-74d"
+
+  "urlRandomness": "42-kpy"
+
 }
