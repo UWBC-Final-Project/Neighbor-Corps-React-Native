@@ -57,6 +57,7 @@ export default class Tasks extends Component {
 
   render() {
     return (
+  
       <Container>
         <Header page={this.state.page} />
         <Content>
@@ -73,6 +74,7 @@ export default class Tasks extends Component {
             )}
         </Content>
       </Container>
+
     );
   }
 

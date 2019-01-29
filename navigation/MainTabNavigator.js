@@ -6,40 +6,70 @@ import TabBarIcon from '../components/TabBarIcon';
 // import HomeScreen from '../screens/HomeScreen';
 // import MyFavorites from '../screens/MyFavorites';
 // import BookDetail from '../screens/BookDetail';
-// import TasksScreen from '../screens/TasksScreen';
+import TasksScreen from '../screens/TasksScreen';
 import TasksMapView from '../screens/TasksMapView';
 import UserProfileScreen from '../screens/UserProfileScreen';
+import UploadPhoto from '../screens/UploadPhoto';
 
-
-const HomeStack = createStackNavigator({
-  Home: UserProfileScreen,
-  // TasksView: {
-  //   screen: TasksView,
-  //   // path: "/detail"
-  // }
+// Feed view (TasksScreen)
+const FeedStack = createStackNavigator({
+  TasksScreen:{
+    screen: TasksScreen,
+  } 
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+FeedStack.navigationOptions = {
+  tabBarLabel: 'Task Feed',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name={Platform.OS === 'ios' ? 'ios-today' : 'md-today'}
     />
   ),
 };
 
 
-const UserStack = createStackNavigator({
-  TasksMapView: {
+// Map View (TasksMapView)
+const MapStack = createStackNavigator({
+  TasksMapView:{
     screen: TasksMapView,
-    navigationOptions: ({ navigation }) => {
-      title: 'Media GPS'
-    }}
+  } 
+});
+
+MapStack.navigationOptions = {
+  tabBarLabel: 'Map View',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-pin' : 'md-pin'}
+    />
+  ),
+};
+
+
+// New Task (UploadPhoto)
+const NewTaskStack = createStackNavigator({
+  UploadPhoto:{
+    screen: UploadPhoto,
+  } 
+});
+
+NewTaskStack.navigationOptions = {
+  tabBarLabel: 'Create Task',
+  
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'}
+    />
+  ),
+};
+
+// User Profile (UserProfileScreen)
+const UserStack = createStackNavigator({
+  UserProfileScreen:{
+    screen: UserProfileScreen,
+  } 
 });
 
 UserStack.navigationOptions = {
@@ -47,36 +77,15 @@ UserStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
     />
   ),
 };
-
-
-
-
-
-const TasksMapViewStack = createStackNavigator({
-  TasksMapView: {
-    screen: TasksMapView,
-    navigationOptions: ({ navigation }) => {
-      title: 'Media GPS'
-    }}
-});
-
-TasksMapViewStack.navigationOptions = {
-  tabBarLabel: 'MyFavorites',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
-};
-
 
 export default createBottomTabNavigator({
-  HomeStack,
-  TasksMapViewStack,
+  FeedStack,
+  MapStack,
+  NewTaskStack,
+  // WatchStack,
   UserStack
 });

@@ -191,6 +191,9 @@ export default class UserProfileScreen extends Component {
             <CardItem><Text>Sample task</Text></CardItem>
           </Card>
         </Content>
+
+  
+
       </View>
     )
   }

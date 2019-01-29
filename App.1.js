@@ -4,6 +4,7 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { createStackNavigator } from 'react-navigation';
 import Header from './components/Header';
+
 import ContactScreen from './screens/ContactScreen';
 import CreateTaskScreen from './screens/CreateTaskScreen';
 import HomeScreen from './screens/HomeScreen';
@@ -39,8 +40,113 @@ class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <Text> Hello </Text>
-    
+          <Header page={"USER AUTH/PROFILE LINKS"}>AUTH LINKS</Header>
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('SignUpScreen');
+            }}
+            title="Sign Up Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('LoginScreen');
+            }}
+            title="Login Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('UserProfileScreen');
+            }}
+            title="User Profile Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('HomeScreen');
+            }}
+            title="Home Screen"
+          />
+          <Header page={"TASK LINKS"}>TASK LINKS</Header>
+          {/* <Button
+            onPress={() => {
+              this.props.navigation.navigate('CreateTask');
+            }}
+            title="Create Task"
+          /> */}
+
+          {/* from jia */}
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('UploadPhoto');
+            }}
+            title="Create Task from here!"
+          />
+
+          <Button
+          onPress={() => {
+            this.props.navigation.navigate('Comments');
+          }}
+          title="Comments"
+        />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('TasksScreen');
+            }}
+            title="Tasks Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('SingleTaskScreen');
+            }}
+            title="Single Task Screen"
+          />
+          
+       <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('ContactScreen');
+            }}
+            title="Contact Screen"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('WelcomeScreen');
+            }}
+            title="Welcome Screen"
+          />
+
+          {/* <Button
+              onPress={() => {
+              this.props.navigation.navigate('MapScreen');
+              }}
+              title="Map Screen"
+              /> */}
+          
+          {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
+          {/* <AppNavigator /> */}
+       
+          {/* <Header page={"TESTING PAGES"}>TESTING PAGES</Header> */}
+       {/* from Jia */}
+         {/* <Button
+            onPress={() => {
+              this.props.navigation.navigate('UploadPhoto');
+            }}
+            title="Create Task from here!"
+          /> */}
+          {/* <Button
+            onPress={() => {
+              this.props.navigation.navigate('MediaGPS');
+            }}
+            title="MediaGPS"
+          />
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('DropMarker');
+            }}
+            title="DropMarker"
+          /> */}
+       
+
+
           <StatusBar barStyle="default" />
           <AppNavigator />
 
@@ -86,8 +192,8 @@ const styles = StyleSheet.create({
 const Screens = createStackNavigator({
   Home: {
    // manipulate the start screen over here
-    // screen: App, 
-    screen: App,
+    screen: App, 
+    // screen: WelcomeScreen,
     navigationOptions: ({ navigation }) => {
       title: 'App Test Home'
     }
