@@ -3,6 +3,7 @@ import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import { Header, Title } from 'native-base';
 // import { Header, Title, Button, ThemeProvider } from 'react-native-elements';
 import API from '../utils/API';
+import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   header: {
@@ -34,9 +35,14 @@ export default class HeaderMultipleIconExample extends Component {
       <Header style={styles.header}>
         <Title>{this.props.page}</Title>
         {this.state.user ?
-          <Text>{this.state.user}</Text>
+          <Icon></Icon>
           :
-          <Text>Not logged in</Text>
+          <Icon
+            
+            name='ios-american-football'
+            type='account-question'
+            color='#517fa4'
+          />
         }
 
       </Header>

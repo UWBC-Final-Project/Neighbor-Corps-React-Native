@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class App extends React.Component {
+ class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
@@ -213,6 +213,12 @@ const Screens = createStackNavigator({
     screen: WelcomeScreen,
     navigationOptions: ({ navigation }) => {
       title: 'Welcome Screen'
+    }
+  },
+  SingleTaskScreen: {
+    screen: SingleTaskScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Single Task Screen'
     }
   },
   UserProfileScreen: {

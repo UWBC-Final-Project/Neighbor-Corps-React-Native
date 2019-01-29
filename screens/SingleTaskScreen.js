@@ -5,8 +5,9 @@ import Header from '../components/Header';
 import Task from '../components/Task';
 import CommentForm from '../components/CommentForm';
 import Comment from '../components/Comment';
-import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, List, Body } from 'native-base';
+import { Container, Content, TouchableHighlight, Text, List, Body } from 'native-base';
 import API from '../utils/API';
+import { Button } from 'react-native-elements';
 
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
@@ -28,9 +29,9 @@ export default class SingleTaskScreen extends Component {
     this.getTask(this.props.navigation.state.params.taskProps._id);
     this.getTasksComments(this.props.navigation.state.params.taskProps._id);
     API.getCurrentUser()
-    .then(res => this.setState({ username: res.data.username }))
-    .then(console.log(this.state.user))
-    .catch(err => console.log(err))
+      .then(res => this.setState({ username: res.data.username }))
+      .then(console.log(this.state.user))
+      .catch(err => console.log(err))
   }
 
   getTask(taskId) {
@@ -43,7 +44,7 @@ export default class SingleTaskScreen extends Component {
   // requires changes to the comments model and a new API function to work
   getTasksComments(taskID) {
     API.getTasksComments(taskID)
-      .then(res => this.setState({ comments: res.data}))
+      .then(res => this.setState({ comments: res.data }))
       .catch(err => console.log(err))
   }
 
@@ -64,9 +65,13 @@ export default class SingleTaskScreen extends Component {
     console.log('from single screen:', newComment);
 
     API.saveComment(newComment)
-      .then(this.getTasksComments(this.props.navigation.state.params.taskProps._id)) 
+      .then(this.getTasksComments(this.props.navigation.state.params.taskProps._id))
       // .then(this.addUserInteraction())
       .catch(err => console.log(err))
+  }
+
+  _LoginSignUp = () => {
+    this.props.navigation.navigate('LoginScreen')
   }
 
   render() {
@@ -75,7 +80,7 @@ export default class SingleTaskScreen extends Component {
         <Header page={this.state.page} />
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
-          <Task taskProps={this.props.navigation.state.params.taskProps} singleView={true}/>
+          <Task taskProps={this.props.navigation.state.params.taskProps} singleView={true} />
           {this.state.comments.length
             ? (
               <List>
@@ -92,7 +97,17 @@ export default class SingleTaskScreen extends Component {
           {/* "I saw this too" button component that also triggers usersInvolved count */}
           {/* <VerifyButton addUserInteraction={this.addUserInteraction}/> */}
           <Text>{"\n\n"}</Text>
-          <CommentForm saveComment={this.saveComment} />
+          {this.state.username ?
+            <CommentForm saveComment={this.saveComment} />
+            :
+            <Button
+              onPress={this._LoginSignUp}
+              title="Log In to Comment"
+            />
+
+          }
+
+
         </Content>
       </Container>
     );
