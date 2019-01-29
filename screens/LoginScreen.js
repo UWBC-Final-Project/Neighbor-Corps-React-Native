@@ -53,6 +53,10 @@ export default class LoginScreen extends Component {
         console.log(error);
       });
   }
+  
+  _SignUp = () => {
+    this.props.navigation.navigate('SignUpScreen')
+  }
 
   // onPress = () => {
   //   // call getValue() to get the values of the form
@@ -74,6 +78,9 @@ export default class LoginScreen extends Component {
           />
           <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Log In</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this._SignUp} underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Sign Up!</Text>
           </TouchableHighlight>
         </Content>
       </Container>

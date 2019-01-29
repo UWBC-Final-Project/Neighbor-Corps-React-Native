@@ -32,6 +32,17 @@ export default class CreateTaskScreen extends Component {
     postedBy: ""
   };
 
+  toggleCamera = () => {	
+    this.setState(prevState => ({	
+      cameraShowing: !prevState.cameraShowing	
+    }));	
+  }	
+
+   updateURL = (url) => {	
+    this.state.imageURL = url;	
+    this.toggleCamera();	
+  }	
+
   // When the component mounts, load all Tasks and save them to this.state.Tasks
   componentDidMount() {
     // launch camera view and allow picture capture
