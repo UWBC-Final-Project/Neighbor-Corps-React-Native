@@ -17,11 +17,7 @@ export default class Tasks extends Component {
     title: "",
     description: "",
     imageURL: "",
-<<<<<<< HEAD
-    position: "", // save what we grasp from Google map pinned location
-=======
     postion: [], // save what we grasp from Google map pinned location
->>>>>>> d44ea7c0bb5939a5d57d992ba38c36f8a013fc8d
   };
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
