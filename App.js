@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Platform, StatusBar, StyleSheet, ScrollView, View, Text, Button } from 'react-native';
-// import { ScrollViewChild } from 'react-native-directed-scrollview';
+import React from 'react';
+import { Platform, StatusBar, StyleSheet, View, Text, Button } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { createStackNavigator } from 'react-navigation';
 import Header from './components/Header';
+
 import ContactScreen from './screens/ContactScreen';
 import CreateTaskScreen from './screens/CreateTaskScreen';
 import HomeScreen from './screens/HomeScreen';
@@ -39,15 +39,7 @@ class App extends React.Component {
       );
     } else {
       return (
-        <ScrollView 
-        contentContainerStyle={styles.contentContainer}
-        bounces={true}
-        showsVerticalScrollIndicator={true}
-        pagingEnabled={true}
-        pinchGestureEnabled={true}
-        scrollEnabled={true}
-        showsVerticalScrollIndicator={true}
-        >
+        <View style={styles.container}>
           <Header page={"USER AUTH/PROFILE LINKS"}>AUTH LINKS</Header>
           <Button
             onPress={() => {
@@ -153,7 +145,7 @@ class App extends React.Component {
             title="DropMarker"
           /> */}
        
-        </ScrollView>
+        </View>
       );
     }
   }
@@ -186,16 +178,9 @@ class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  contentContainer: {
+  container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-    marginTop: 20,
-    padding: 20,
-    minimumZoomScale: 0.5,
-    maximumZoomScale: 2
   },
 });
 
