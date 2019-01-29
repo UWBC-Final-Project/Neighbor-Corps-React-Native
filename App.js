@@ -145,6 +145,11 @@ class App extends React.Component {
             title="DropMarker"
           /> */}
        
+
+
+          <StatusBar barStyle="default" />
+          <AppNavigator />
+
         </View>
       );
     }
@@ -186,7 +191,9 @@ const styles = StyleSheet.create({
 
 const Screens = createStackNavigator({
   Home: {
-    screen: App,
+   // manipulate the start screen over here
+    screen: App, 
+    // screen: WelcomeScreen,
     navigationOptions: ({ navigation }) => {
       title: 'App Test Home'
     }
