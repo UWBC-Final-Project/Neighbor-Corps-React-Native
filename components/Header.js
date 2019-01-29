@@ -6,11 +6,18 @@ import API from '../utils/API';
 import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
+  container: {
+    
+  },
   header: {
     color: 'blue',
     fontWeight: 'bold',
-    height: 60,
+    height: 40,
   },
+  userIcon: {
+    alignSelf: 'flex-end'
+
+  }
 });
 
 export default class HeaderMultipleIconExample extends Component {
@@ -38,11 +45,9 @@ export default class HeaderMultipleIconExample extends Component {
           <Icon></Icon>
           :
           <Icon
-            
-            name='ios-american-football'
-            type='account-question'
-            color='#517fa4'
-          />
+            style={styles.userIcon}
+            name='user-x'
+            type='feather' />
         }
 
       </Header>
