@@ -194,8 +194,8 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     padding: 20,
-    minimumZoomScale: '0.5',
-    maximumZoomScale: '2'
+    minimumZoomScale: 0.5,
+    maximumZoomScale: 2
   },
 });
 
