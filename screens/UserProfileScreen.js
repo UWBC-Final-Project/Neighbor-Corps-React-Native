@@ -12,16 +12,17 @@ const styles = reactStyles.default;
 const Form = t.form.Form;
 
 const User = t.struct({
-  firstName: t.String,
-  lastName: t.String,
-  email: t.String,
-  phone: t.String,
+  // t.maybe is used for all properties so that user can choose to update as few or as many fields as possible, without having to update all fields every time
+  firstName: t.maybe(t.String),
+  lastName: t.maybe(t.String),
+  email: t.maybe(t.String),
+  phone: t.maybe(t.Number),
   // username cannot be changed as it is the primary key
   // Alternatively, we can give user an option to change screen name/ nickname
-  // userName: t.String,
-  // password: t.String, // TODO: working on encrypted the new password
-  aboutMe: t.String, // TODO: t.maybe is an optional field; however, when the user choose not to fill out for the update, the previous data will be replaced with null ie. previous data are erased.
-  zipcode: t.Number,
+  // userName: t.maybe(t.String),
+  password: t.maybe(t.String), 
+  aboutMe: t.maybe(t.String), 
+  zipcode: t.maybe(t.Number),
   terms: t.Boolean
 });
 
@@ -47,6 +48,15 @@ const options = {
     },
   }
 };
+
+// Function to removed null values
+removeNull = (obj) => {
+  for (var propName in obj) { 
+    if (obj[propName] === null || obj[propName] === undefined) {
+      delete obj[propName];
+    }
+  }
+}
 
 // <<< KPH this is code that drive form field inputs
 
@@ -119,6 +129,7 @@ export default class UserProfileScreen extends Component {
   updateProfile = () => {
     var value = this.refs.form.getValue();
     if (value) { // if validation fails, value will be null
+      removeNull(value); // removes any property of the object that has a value of null
       console.log(value); // value here is an instance of Person
       API.update(value)
         .then(() => {
