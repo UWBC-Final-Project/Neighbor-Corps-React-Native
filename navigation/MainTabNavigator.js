@@ -10,6 +10,7 @@ import TasksScreen from '../screens/TasksScreen';
 import TasksMapView from '../screens/TasksMapView';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import UploadPhoto from '../screens/UploadPhoto';
+import MediaGPS from '../screens/MediaGPS';
 
 // Feed view (TasksScreen)
 const FeedStack = createStackNavigator({
@@ -23,7 +24,7 @@ FeedStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-today' : 'md-today'}
+      name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'}
     />
   ),
 };
@@ -51,12 +52,20 @@ MapStack.navigationOptions = {
 const NewTaskStack = createStackNavigator({
   UploadPhoto:{
     screen: UploadPhoto,
-  } 
+  },
+  MediaGPS:{
+    screen: MediaGPS,
+    // navigationOptions: { tabBar: { visible: false }}
+  }, 
+  // MediaGPS:{
+  //   screen: MediaGPS,
+  // } 
+  
 });
 
 NewTaskStack.navigationOptions = {
   tabBarLabel: 'Create Task',
-  
+  tabBarVisible: false,
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
