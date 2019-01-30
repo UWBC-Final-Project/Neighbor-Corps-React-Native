@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import { Header, Title } from 'native-base';
+// import { Header, Title, Button, ThemeProvider } from 'react-native-elements';
 import API from '../utils/API';
+import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
+  container: {
+    
+  },
   header: {
     color: 'blue',
     fontWeight: 'bold',
-    height: 60,
+    height: 40,
   },
+  userIcon: {
+    alignSelf: 'flex-end'
+
+  }
 });
 
 export default class HeaderMultipleIconExample extends Component {
@@ -29,14 +38,18 @@ export default class HeaderMultipleIconExample extends Component {
 
   render() {
     return (
+
       <Header style={styles.header}>
         <Title>{this.props.page}</Title>
-        {this.state.user ? 
-          <Text>{this.state.user}</Text>
+        {this.state.user ?
+          <Icon></Icon>
           :
-          <Text>Not logged in</Text>
+          <Icon
+            style={styles.userIcon}
+            name='user-x'
+            type='feather' />
         }
-        
+
       </Header>
     );
   }
