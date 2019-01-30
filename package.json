@@ -13,7 +13,8 @@
   "dependencies": {
     "@expo/samples": "2.1.1",
     "axios": "^0.18.0",
-    "expo": "^31.0.6",
+    "expo": "^31.0.2",
+    "expo-cli": "^2.7.0",
     "expo-location": "^2.0.1",
     "expo-permissions": "^2.0.0",
     "native-base": "^2.10.0",
@@ -26,7 +27,8 @@
     "react-navigation": "^2.18.3",
     "react-timer-mixin": "^0.13.4",
     "tcomb-form-native": "^0.6.20",
-    "util": "*"
+    "util": "*",
+    "validator": "^10.11.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
