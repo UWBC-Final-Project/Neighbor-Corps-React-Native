@@ -5,6 +5,8 @@ import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 
+import { NavigationActions } from "react-navigation";
+
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
 
@@ -118,7 +120,13 @@ export default class UserProfileScreen extends Component {
       .then((response) => {
         console.log(response)
         console.log("signed out")
-        this.props.navigation.navigate('Home')
+        // this.props.navigation.navigate('Home')
+        //added by jia
+        const navigateAction = NavigationActions.navigate({
+          routeName: "Public",
+        });
+        this.props.navigation.dispatch(navigateAction);
+
       })
       .catch((error) => {
         console.log(error);
@@ -141,12 +149,12 @@ export default class UserProfileScreen extends Component {
     }
   }
 
-  _CreateTaskBtn = () => {
-    this.props.navigation.navigate('UploadPhoto')
-  }
-  _SeeAllTasksBtn = () => {
-    this.props.navigation.navigate('TasksScreen')
-  }
+  // _CreateTaskBtn = () => {
+  //   this.props.navigation.navigate('UploadPhoto')
+  // }
+  // _SeeAllTasksBtn = () => {
+  //   this.props.navigation.navigate('TasksScreen')
+  // }
   render() {
     return (
 
@@ -158,7 +166,7 @@ export default class UserProfileScreen extends Component {
 
             <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
             <CardItem><Text>Email: {this.state.email}</Text></CardItem>
-            <CardItem><Text>Fist Name: {this.state.firstName}</Text></CardItem>
+            <CardItem><Text>First Name: {this.state.firstName}</Text></CardItem>
             <CardItem><Text>Last Name: {this.state.lastName}</Text></CardItem>
             <CardItem><Text>Phone: {this.state.phone}</Text></CardItem>
             <CardItem><Text>About Me: {this.state.aboutMe}</Text></CardItem>
@@ -174,13 +182,13 @@ export default class UserProfileScreen extends Component {
           </TouchableHighlight>
 
 
-          <TouchableHighlight style={styles.button} onPress={this._CreateTaskBtn} underlayColor='#99d9f4'>
+          {/* <TouchableHighlight style={styles.button} onPress={this._CreateTaskBtn} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Create New Task</Text>
-          </TouchableHighlight>
+          </TouchableHighlight> */}
 
-          <TouchableHighlight style={styles.button} onPress={this._SeeAllTasksBtn} underlayColor='#99d9f4'>
+          {/* <TouchableHighlight style={styles.button} onPress={this._SeeAllTasksBtn} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>See all the Tasks</Text>
-          </TouchableHighlight>
+          </TouchableHighlight> */}
       
           {/* // KPH toggle the edit user form fields */}
           {this.state.formShowing ?

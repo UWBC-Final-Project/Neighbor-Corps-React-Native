@@ -1,58 +1,128 @@
 import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
-import { Container,CardItem,ScrollView,Image, Content, Item, Input, Labelzz,  Header, Title, Button, Left, Right, Body, Center, Icon, Thumbnail, ImageBackground } from 'native-base';
-import { View, Text, Linking, TouchableHighlight  } from 'react-native';
+import { Font } from 'expo';
+import { Container, CardItem, ScrollView, Content, Item, Input, Labelzz, Header, Title, Button, Left, Right, Body, Center, Icon, Thumbnail, ImageBackground } from 'native-base';
+import { Image, View, Text, Linking, TouchableHighlight, StyleSheet } from 'react-native';
 
 import Headerjs from '../components/Header';
 
-const reactStyles = require('../react_native_styles/styles');
-const styles = reactStyles.default;
+// const reactStyles = require('../react_native_styles/styles');
+// const styles = reactStyles.default;
+
+// Base style
+const styles = StyleSheet.create({
+  neighborCorps: {
+    width: 327,
+    height: 63,
+    color: '#63a952',
+    fontFamily: 'open-sans-light',
+    fontSize: 46,
+    lineHeight: 46,
+    top: 60,
+  },
+  lendA: {
+    width: 333,
+    height: 46,
+    color: '#63a952',
+    fontFamily: 'open-sans-regular',
+    fontSize: 18,
+    lineHeight: 46,
+    top: 36,
+  },
+  logo: {
+    width: 292,
+    height: 229,
+    top: 100,
+  },
+  MapBrowseButton: {
+    width: 223,
+    height: 61,
+    top: 142,
+  },
+  accountLinks: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 90,
+    width: 240,
+    justifyContent: 'space-between',
+    top: 220,
+    // alignItems: 'center' 
+  },
+  loginbutton: {
+    width: 54,
+    height: 88,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+  signupbutton: {
+    width: 68,
+    height: 89,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+})
 
 export default class WelcomeScreen extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   state = {
     page: "Welcome",
+    fontLoaded: false,
+  }
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
+      'open-sans-light': require('../assets/fonts/OpenSans-Light.ttf'),
+      'open-sans-regular': require('../assets/fonts/OpenSans-Regular.ttf'),
+    });
+
+    this.setState({ fontLoaded: true });
   }
 
   render() {
     return (
-      <Container>
-      <Header style={{backgroundColor:'#52d1ed', Color:'white', paddingBottom:10}}>
-      <Left>
-        <Button transparent >
-        <Icon name='menu' style={{color:'white', marginBottom:'4%'}}/>
-        </Button>
-      </Left>
-      <Body>
-      <Title style={{color:'white', fontFamily:'HelveticaNeue-BoldItalic', fontWeight: 'bold', fontSize:28}}>{this.state.page}</Title>
-    </Body>
-      <Right style={{paddingBottom:8}}>
-      <Thumbnail source={require ('../assets/images/logo.png')} />
-      </Right>
-    </Header>
-          <CardItem style={{backgroundColor:'#52d1ed', height:'10%', width:'50%',marginLeft:'25%', marginTop:'10%' }}>
+
+      <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+        {
+          this.state.fontLoaded
+            ? (
+              <View>
+                <Text style={styles.neighborCorps}>Neighbor Corps</Text>
+                <Text style={styles.lendA}>Lend a hand for a better neighborhood.</Text>
+              </View>
+            )
+            : null
+        }
+
+        <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
+        <TouchableHighlight
+          onPress={() => this.props.navigation.navigate('TasksScreen')}
+          style={styles.MapBrowseButton} >
+          <Image
+            source={require('../assets/images/MapBrowseButton.png')}
+          />
+        </TouchableHighlight>
+        <View style={styles.accountLinks}>
           <TouchableHighlight
-                onPress={() => Linking.openURL(href)}>
-            <Text style={{color: '#b354e9',padding:50 ,fontSize:20, fontWeight:'bold', fontFamily:'OpenSans-ExtraBold'}}>ABOUT</Text>
-            </TouchableHighlight>
-          </CardItem>
-          <CardItem style={{backgroundColor:'#52d1ed', height:'10%', width:'50%',marginLeft:'25%', marginTop:'10%' }}>
-          <TouchableHighlight
-                onPress={() => this.props.navigation.navigate('TasksScreen')}>
-            <Text style={{color: '#b354e9',padding:20 ,fontSize:20, fontWeight:'bold', fontFamily:'OpenSans-ExtraBold'}}>See All Tasks</Text>
+            onPress={() => this.props.navigation.navigate('LoginScreen')}
+            style={styles.loginbutton} >
+            <Image
+              source={require('../assets/images/LoginButton.png')}
+            />
           </TouchableHighlight>
-          </CardItem>
-          <CardItem >
-          <TouchableHighlight style={{backgroundColor:'#52d1ed',height:'50%', width:'26%',marginLeft:'18%', marginTop:'10%' }}
-                onPress={() =>  this.props.navigation.navigate('LoginScreen')}>
-            <Text style={{ padding:15, fontSize:20, color: '#b354e9',fontWeight:'bold', fontFamily:'OpenSans-ExtraBold'}}>SignIn</Text>
-            </TouchableHighlight>
-    
-            <TouchableHighlight style={{backgroundColor:'#52d1ed', height:'50%', width:'26%',marginLeft:'15%', marginTop:'10%' }}
-            onPress={() =>  this.props.navigation.navigate('SignUpScreen')}>
-            <Text style={{padding:15, fontSize:20, color: '#b354e9',fontWeight:'bold', fontFamily:'OpenSans-ExtraBold'}}>SignUp</Text>
-            </TouchableHighlight>
-          </CardItem>
-    </Container> 
+          <TouchableHighlight
+            onPress={() => this.props.navigation.navigate('SignUpScreen')}
+            style={styles.signupbutton} >
+            <Image
+              source={require('../assets/images/SignUpButton.png')}
+            />
+          </TouchableHighlight>
+        </View>
+
+      </View>
     )
   }
-}
+} 

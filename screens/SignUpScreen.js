@@ -5,6 +5,8 @@ import Header from '../components/Header'
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 
+import { NavigationActions } from "react-navigation";
+
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
 
@@ -80,7 +82,15 @@ export default class SignUpScreen extends Component {
       .then((response) => {
         // console.log(response)
         if(response.status == 200) {
-          this.props.navigation.navigate('UserProfileScreen');
+          // this.props.navigation.navigate('UserProfileScreen');
+          
+          //added by jia
+          const navigateAction = NavigationActions.navigate({
+            routeName: "Home",
+            // params: { data: userObj }
+          });
+          this.props.navigation.dispatch(navigateAction);
+
         }
         else {
           //print status text somewhere so user can see that login failed

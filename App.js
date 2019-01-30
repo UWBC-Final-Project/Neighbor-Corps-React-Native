@@ -2,34 +2,10 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View, Text, Button } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import { createStackNavigator } from 'react-navigation';
-import Header from './components/Header';
 
-import ContactScreen from './screens/ContactScreen';
-import CreateTaskScreen from './screens/CreateTaskScreen';
-import LoginScreen from './screens/LoginScreen';
-import SignUpScreen from './screens/SignUpScreen';
-import SingleTaskScreen from './screens/SingleTaskScreen';
-import TasksScreen from './screens/TasksScreen';
-import UserProfileScreen from './screens/UserProfileScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
-import CommentScreen from './components/Comment';
-import MapScreen from './screens/MapScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
-// from Jia
-import UploadPhoto from './screens/UploadPhoto';
-import MediaGPS from './screens/MediaGPS';
-import DropMarker from './screens/DropMarker';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
-
- class App extends React.Component {
+class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
@@ -46,100 +22,10 @@ const styles = StyleSheet.create({
     } else {
       return (
         <View style={styles.container}>
-          <Header page={"USER AUTH/PROFILE LINKS"}>AUTH LINKS</Header>
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('SignUpScreen');
-            }}
-            title="Sign Up Screen"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('LoginScreen');
-            }}
-            title="Login Screen"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('UserProfileScreen');
-            }}
-            title="User Profile Screen"
-          />
-          <Header page={"TASK LINKS"}>TASK LINKS</Header>
-          {/* <Button
-            onPress={() => {
-              this.props.navigation.navigate('CreateTask');
-            }}
-            title="Create Task"
-          /> */}
 
-          {/* from jia */}
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('UploadPhoto');
-            }}
-            title="Create Task from here!"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('TasksScreen');
-            }}
-            title="Tasks Screen"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('MapScreen');
-            }}
-            title="Task Map Screen"
-          />
-          
-          
-       <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('ContactScreen');
-            }}
-            title="Contact Screen"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('WelcomeScreen');
-            }}
-            title="Welcome Screen"
-          />
-          
+          <StatusBar barStyle="default" />
+          <AppNavigator />
 
-          {/* <Button
-              onPress={() => {
-              this.props.navigation.navigate('MapScreen');
-              }}
-              title="Map Screen"
-              /> */}
-          
-          {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
-          {/* <AppNavigator /> */}
-       
-          {/* <Header page={"TESTING PAGES"}>TESTING PAGES</Header> */}
-       {/* from Jia */}
-         {/* <Button
-            onPress={() => {
-              this.props.navigation.navigate('UploadPhoto');
-            }}
-            title="Create Task from here!"
-          /> */}
-          {/* <Button
-            onPress={() => {
-              this.props.navigation.navigate('MediaGPS');
-            }}
-            title="MediaGPS"
-          />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('DropMarker');
-            }}
-            title="DropMarker"
-          /> */}
-       
         </View>
       );
     }
@@ -172,86 +58,11 @@ const styles = StyleSheet.create({
   };
 }
 
-const Screens = createStackNavigator({
-  Home: {
-    screen: App,
-    navigationOptions: ({ navigation }) => {
-      title: 'App Test Home'
-    }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
   },
-  CreateTask: {
-    screen: CreateTaskScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Create Task'
-    }
-  },
-  LoginScreen: {
-    screen: LoginScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Login Screen'
-    }
-  },
-  Contact: {
-    screen: ContactScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Contact'
-    }
-  },
-  SignUpScreen: {
-    screen: SignUpScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Sign Up Screen'
-    }
-  },
-  TasksScreen: {
-    screen: TasksScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Tasks Screen'
-    }
-  },
-  WelcomeScreen: {
-    screen: WelcomeScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Welcome Screen'
-    }
-  },
-  SingleTaskScreen: {
-    screen: SingleTaskScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Single Task Screen'
-    }
-  },
-  UserProfileScreen: {
-    screen: UserProfileScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'User Profile Screen'
-    }
-  },
-  MapScreen: {
-    screen: MapScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Map Screen'
-      }
-    },
-  // from Jia
-  UploadPhoto: {
-    screen: UploadPhoto,
-    navigationOptions: ({ navigation }) => {
-      title: 'Uplode Media'
-    }
-  },
-  MediaGPS: {
-    screen: MediaGPS,
-    navigationOptions: ({ navigation }) => {
-      title: 'Media GPS'
-    }
-  },
-  DropMarker: {
-    screen: DropMarker,
-    navigationOptions: ({ navigation }) => {
-      title: 'Drop Marker'
-    }
-  }
-})
+});
 
-export default Screens;
+export default App;
