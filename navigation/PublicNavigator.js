@@ -5,8 +5,10 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 //Welcome
 import WelcomeScreen from '../screens/WelcomeScreen';
 
-//Contact
-import Contact from '../screens/Contact';
+// *** coming screens and contents:
+//ContactScreen
+//About us
+
 
 //User Auth
 import LoginScreen from '../screens/LoginScreen';
@@ -15,7 +17,6 @@ import SignUpScreen from '../screens/SignUpScreen';
 //Tasks View
 import TasksScreen from '../screens/TasksScreen';
 
-import App_TestingLinks from '../screens/App_TestingLinks';
 
 const PublicStack = createStackNavigator({
   WelcomeScreen: WelcomeScreen,
@@ -29,13 +30,6 @@ const PublicStack = createStackNavigator({
   },
   TasksScreen:{
     screen: TasksScreen,
-  },
-  //will come later
-  // Contact:{
-  //   screen: Contact,
-  // },
-  App_TestingLinks:{
-    screen: App_TestingLinks,
   },
 });
 

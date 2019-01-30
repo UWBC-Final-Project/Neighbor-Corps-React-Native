@@ -14,7 +14,6 @@ import TasksScreen from './screens/TasksScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import CommentScreen from './components/Comment';
-import MapScreen from './screens/MapScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
 // from Jia
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
- class App_TestingLinks extends React.Component {
+export default class App_TestingLinks extends Component {
   state = {
     isLoadingComplete: false,
   };
@@ -78,14 +77,8 @@ const styles = StyleSheet.create({
             }}
             title="Tasks Screen"
           />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('MapScreen');
-            }}
-            title="Task Map Screen"
-          />
-          
-          
+  
+           
        <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
           <Button
             onPress={() => {

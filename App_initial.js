@@ -14,7 +14,6 @@ import TasksScreen from './screens/TasksScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import CommentScreen from './components/Comment';
-import MapScreen from './screens/MapScreen';
 import { ACTION_MANAGE_DEFAULT_APPS_SETTINGS } from 'expo/build/IntentLauncherAndroid';
 
 // from Jia
@@ -227,12 +226,6 @@ const Screens = createStackNavigator({
       title: 'User Profile Screen'
     }
   },
-  MapScreen: {
-    screen: MapScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Map Screen'
-      }
-    },
   // from Jia
   UploadPhoto: {
     screen: UploadPhoto,
