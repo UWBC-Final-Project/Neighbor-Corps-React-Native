@@ -86,7 +86,7 @@ export default class MediaGPS extends Component {
     console.log("whats up")
     console.log(this.state)
 
-    navigate('CreateTask', {getTaskLocation: pos,
+    navigate('CreateTaskScreen', {getTaskLocation: pos,
     passImageURL: img}
     )
 
@@ -118,8 +118,8 @@ export default class MediaGPS extends Component {
           region={{ 
             latitude: this.state.location.coords.latitude, 
             longitude: this.state.location.coords.longitude, 
-            latitudeDelta: 0.002, 
-            longitudeDelta: 0.004 
+            latitudeDelta: 0.0922, 
+            longitudeDelta: 0.0421 
           }}
           onPress={this.handlePress}
         >

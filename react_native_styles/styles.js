@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  bigButtonText: {
-    color: '#eee',
-    padding: 20,
-    fontSize: '30rem',
-    fontWeight: 'bold',
-    fontFamily: 'OpenSans-ExtraBold'
-  },
+  // bigButtonText: {
+  //   color: '#eee',
+  //   padding: 20,
+  //   fontSize: '30rem',
+  //   fontWeight: 'bold',
+  //   fontFamily: 'OpenSans-ExtraBold'
+  // },
   secondaryButton: {
     height: 36,
     backgroundColor: Colors.aquaGreen,
