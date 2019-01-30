@@ -166,7 +166,7 @@ export default class UserProfileScreen extends Component {
 
             <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
             <CardItem><Text>Email: {this.state.email}</Text></CardItem>
-            <CardItem><Text>Fist Name: {this.state.firstName}</Text></CardItem>
+            <CardItem><Text>First Name: {this.state.firstName}</Text></CardItem>
             <CardItem><Text>Last Name: {this.state.lastName}</Text></CardItem>
             <CardItem><Text>Phone: {this.state.phone}</Text></CardItem>
             <CardItem><Text>About Me: {this.state.aboutMe}</Text></CardItem>
