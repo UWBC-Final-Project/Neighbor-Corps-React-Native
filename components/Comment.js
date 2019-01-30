@@ -15,6 +15,7 @@ export default class CommentScreen extends Component {
       <View>
         <ListItem key={this.props.props._id}>
           <Text>{this.props.props.comment}</Text>
+          <Text>Posted {this.props.props.postDate}</Text>
           {/* <DeleteBtn onClick={() => this.deleteTask(task._id)} /> */}
         </ListItem>
       </View>

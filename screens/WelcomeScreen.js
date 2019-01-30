@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { Container,CardItem,ScrollView,Image, Content, Item, Input, Labelzz,  Header, Title, Button, Left, Right, Body, Center, Icon, Thumbnail, ImageBackground } from 'native-base';
 import { View, Text, Linking, TouchableHighlight  } from 'react-native';
+
 import Headerjs from '../components/Header';
 
 const reactStyles = require('../react_native_styles/styles');
@@ -11,7 +12,7 @@ export default class WelcomeScreen extends Component {
   state = {
     page: "Welcome",
   }
-  
+
   render() {
     return (
       <Container>
@@ -51,8 +52,6 @@ export default class WelcomeScreen extends Component {
             <Text style={{padding:15, fontSize:20, color: '#b354e9',fontWeight:'bold', fontFamily:'OpenSans-ExtraBold'}}>SignUp</Text>
             </TouchableHighlight>
           </CardItem>
-      
-
     </Container> 
     )
   }

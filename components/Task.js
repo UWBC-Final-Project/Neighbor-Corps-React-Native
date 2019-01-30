@@ -39,9 +39,13 @@ export default class Task extends Component {
           <CardItem>
             <Button transparent textStyle={{ color: '#87838B' }}>
               <Icon name="eye" />
-              <Text>seen by 7</Text>
+              <Text>7</Text>
               {/* replace with dynamic property once up and running in the database */}
               {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
+            </Button>
+            <Button transparent textStyle={{ color: '#87838B' }}>
+              <Icon name="flag" />
+              <Text>Confirm Issue</Text>
             </Button>
           </CardItem>
           :
@@ -50,20 +54,14 @@ export default class Task extends Component {
             <Left>
               <Button transparent textStyle={{ color: '#87838B' }}>
                 <Icon name="eye" />
-                <Text>seen by 7</Text>
+                <Text>7</Text>
                 {/* replace with dynamic property once up and running in the database */}
                 {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
               </Button>
               <Button transparent textStyle={{ color: '#87838B' }}
                 onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
-                <Icon name="add" />
-                <Text>Comments</Text>
-              </Button>
-              <Button transparent textStyle={{ color: '#87838B' }}
-                onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
-                {/*need to find icon for this*/}
-                {/*<Icon name=" " />*/}
-                <Text>Learn More</Text>
+                <Icon name="right" />
+                <Text>Details</Text>
               </Button>
             </Left>
           </CardItem>

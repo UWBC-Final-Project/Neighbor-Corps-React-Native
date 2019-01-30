@@ -17,6 +17,8 @@ const Comments = t.struct({
 const options = {
   fields: {
     comment: {
+      auto: 'none',
+      placeholder: 'add new comment . . .',
       multiline: true,
       stylesheet: {
         ...Form.stylesheet,

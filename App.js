@@ -7,7 +7,6 @@ import Header from './components/Header';
 
 import ContactScreen from './screens/ContactScreen';
 import CreateTaskScreen from './screens/CreateTaskScreen';
-import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SingleTaskScreen from './screens/SingleTaskScreen';
@@ -23,7 +22,14 @@ import UploadPhoto from './screens/UploadPhoto';
 import MediaGPS from './screens/MediaGPS';
 import DropMarker from './screens/DropMarker';
 
-class App extends React.Component {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
+
+ class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
@@ -59,12 +65,6 @@ class App extends React.Component {
             }}
             title="User Profile Screen"
           />
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('HomeScreen');
-            }}
-            title="Home Screen"
-          />
           <Header page={"TASK LINKS"}>TASK LINKS</Header>
           {/* <Button
             onPress={() => {
@@ -80,13 +80,6 @@ class App extends React.Component {
             }}
             title="Create Task from here!"
           />
-
-          <Button
-          onPress={() => {
-            this.props.navigation.navigate('Comments');
-          }}
-          title="Comments"
-        />
           <Button
             onPress={() => {
               this.props.navigation.navigate('TasksScreen');
@@ -95,10 +88,11 @@ class App extends React.Component {
           />
           <Button
             onPress={() => {
-              this.props.navigation.navigate('SingleTaskScreen');
+              this.props.navigation.navigate('MapScreen');
             }}
-            title="Single Task Screen"
+            title="Task Map Screen"
           />
+          
           
        <Header page={"STATIC PAGES"}>STATIC PAGES</Header>
           <Button
@@ -113,6 +107,7 @@ class App extends React.Component {
             }}
             title="Welcome Screen"
           />
+          
 
           {/* <Button
               onPress={() => {
@@ -177,13 +172,6 @@ class App extends React.Component {
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
-
 const Screens = createStackNavigator({
   Home: {
     screen: App,
@@ -203,34 +191,16 @@ const Screens = createStackNavigator({
       title: 'Login Screen'
     }
   },
-  Comments: {
-    screen: CommentScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Comments'
-    }
-  },
   Contact: {
     screen: ContactScreen,
     navigationOptions: ({ navigation }) => {
       title: 'Contact'
     }
   },
-  HomeScreen: {
-    screen: HomeScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Home Screen'
-    }
-  },
   SignUpScreen: {
     screen: SignUpScreen,
     navigationOptions: ({ navigation }) => {
       title: 'Sign Up Screen'
-    }
-  },
-  SingleTaskScreen: {
-    screen: SingleTaskScreen,
-    navigationOptions: ({ navigation }) => {
-      title: 'Single Task Screen'
     }
   },
   TasksScreen: {
@@ -243,6 +213,12 @@ const Screens = createStackNavigator({
     screen: WelcomeScreen,
     navigationOptions: ({ navigation }) => {
       title: 'Welcome Screen'
+    }
+  },
+  SingleTaskScreen: {
+    screen: SingleTaskScreen,
+    navigationOptions: ({ navigation }) => {
+      title: 'Single Task Screen'
     }
   },
   UserProfileScreen: {

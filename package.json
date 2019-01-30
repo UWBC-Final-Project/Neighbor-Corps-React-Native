@@ -21,9 +21,11 @@
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-cloudinary": "^1.0.1",
+    "react-native-elements": "^1.0.0",
     "react-native-maps": "^0.23.0",
-    "react-native-vector-icons": "^6.1.0",
+    "react-native-vector-icons": "^6.2.0",
     "react-navigation": "^2.18.3",
+    "react-timer-mixin": "^0.13.4",
     "tcomb-form-native": "^0.6.20",
     "util": "*",
     "validator": "^10.11.0"
