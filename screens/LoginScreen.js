@@ -5,6 +5,8 @@ import { TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
 import API from '../utils/API';
 
+import { NavigationActions } from "react-navigation";
+
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
 
@@ -42,8 +44,14 @@ export default class LoginScreen extends Component {
       .then((response) => {
         if(response.status == 200) {
           console.log(response)
-          // Navigate to user profile screen after logging in
-          this.props.navigation.navigate('UserProfileScreen');
+
+          //added by jia
+          const navigateAction = NavigationActions.navigate({
+            routeName: "Home",
+            // params: { data: userObj }
+          });
+          this.props.navigation.dispatch(navigateAction);
+
         }
         // else {
         //   //print status text somewhere so user can see that login failed

@@ -1,7 +1,13 @@
 {
   "hostType": "tunnel",
   "lanType": "ip",
+<<<<<<< HEAD
   "dev": true,
   "minify": false,
   "urlRandomness": "xw-qu8"
+=======
+  "dev": false,
+  "minify": true,
+  "urlRandomness": "xh-ah8"
+>>>>>>> 6d10152a5eff97d653d84780035804333c632097
 }

@@ -73,6 +73,7 @@ export default class Tasks extends Component {
             )}
         </Content>
       </Container>
+
     );
   }
 

@@ -5,14 +5,8 @@ import { View, Text, Linking, TouchableHighlight  } from 'react-native';
 import { Font } from 'expo';
 import Headerjs from '../components/Header';
 
-const reactStyles = require('../react_native_styles/styles');
-// Scott's code
-componentDidMount() {
-  Font.loadAsync({
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-  });
-}
-const styles = reactStyles.default;
+// const reactStyles = require('../react_native_styles/styles');
+// const styles = reactStyles.default;
 
 export default class WelcomeScreen extends Component {
   state = {
@@ -36,10 +30,10 @@ export default class WelcomeScreen extends Component {
       </Right>
     </Header>
           <CardItem style={{backgroundColor:'#52d1ed', height:'10%', width:'50%',marginLeft:'25%', marginTop:'10%' }}>
-          <TouchableHighlight
+          {/* <TouchableHighlight
                 onPress={() => Linking.openURL(href)}>
             <Text style={{color: '#b354e9',padding:50 ,fontSize:20, fontWeight:'bold', fontFamily:'OpenSans-ExtraBold'}}>ABOUT</Text>
-            </TouchableHighlight>
+            </TouchableHighlight> */}
           </CardItem>
           <CardItem style={{backgroundColor:'#52d1ed', height:'10%', width:'50%',marginLeft:'25%', marginTop:'10%' }}>
           <TouchableHighlight
