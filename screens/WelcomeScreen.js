@@ -34,9 +34,39 @@ const styles = StyleSheet.create({
     height: 229,
     top: 100,
   },
+  MapBrowseButton: {
+    width: 223,
+    height: 61,
+    top: 142,
+  },
+  accountLinks: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 90,
+    width: 240,
+    justifyContent: 'space-between',
+    top: 220,
+    // alignItems: 'center' 
+  },
+  loginbutton: {
+    width: 54,
+    height: 88,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+  signupbutton: {
+    width: 68,
+    height: 89,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
 })
 
 export default class WelcomeScreen extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   state = {
     page: "Welcome",
     fontLoaded: false,
@@ -68,6 +98,29 @@ export default class WelcomeScreen extends Component {
         }
 
         <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
+        <TouchableHighlight
+          onPress={() => this.props.navigation.navigate('TasksScreen')}
+          style={styles.MapBrowseButton} >
+          <Image
+            source={require('../assets/images/MapBrowseButton.png')}
+          />
+        </TouchableHighlight>
+        <View style={styles.accountLinks}>
+          <TouchableHighlight
+            onPress={() => this.props.navigation.navigate('LoginScreen')}
+            style={styles.loginbutton} >
+            <Image
+              source={require('../assets/images/LoginButton.png')}
+            />
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => this.props.navigation.navigate('SignUpScreen')}
+            style={styles.signupbutton} >
+            <Image
+              source={require('../assets/images/SignUpButton.png')}
+            />
+          </TouchableHighlight>
+        </View>
 
       </View>
     )

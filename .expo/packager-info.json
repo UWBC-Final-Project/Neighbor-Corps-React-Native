@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19005,
+  "packagerPid": 81011,
+  "expoServerNgrokUrl": "https://xh-ah8.futurethang.neighbor-corps-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.xh-ah8.futurethang.neighbor-corps-react-native.exp.direct",
+  "ngrokPid": 81039
 }
