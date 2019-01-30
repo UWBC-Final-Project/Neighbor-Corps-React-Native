@@ -40,7 +40,7 @@ export default class Tasks extends Component {
           title: "",
           description: "",
           imageURL: "",
-          postion: "",
+          position: "",
           _id: ""
         }),
       )

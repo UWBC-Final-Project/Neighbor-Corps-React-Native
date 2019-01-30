@@ -13,13 +13,13 @@ const CARD_WIDTH = CARD_HEIGHT - 50;
 
 const regionData =
  [{
-  seattle: {
+  northSeattle: {
     latitude: 47.608013,
     longitude: -122.335167,
     latitudeDelta: 0.04864195044303443,
     longitudeDelta: 0.040142817690068,
   },
-  seattle: {
+  southSeattle: {
     latitude: 37.773972,
     longitude: -122.431297,
     latitudeDelta: 0.04864195044303443,
