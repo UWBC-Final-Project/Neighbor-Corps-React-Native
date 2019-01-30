@@ -86,7 +86,7 @@ export default class MediaGPS extends Component {
     console.log("whats up")
     console.log(this.state)
 
-    navigate('CreateTask', {getTaskLocation: pos,
+    navigate('CreateTaskScreen', {getTaskLocation: pos,
     passImageURL: img}
     )
 
