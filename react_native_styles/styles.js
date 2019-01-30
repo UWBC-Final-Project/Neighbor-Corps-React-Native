@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
   bigButtonText: {
     color: '#eee',
     padding: 20,
-    fontSize: '30rem',
+    fontSize: 30,
     fontWeight: 'bold',
-    fontFamily: 'OpenSans-ExtraBold'
+    fontFamily: 'open-sans-bold'
   },
   secondaryButton: {
     height: 36,

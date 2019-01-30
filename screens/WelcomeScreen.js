@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { Container,CardItem,ScrollView,Image, Content, Item, Input, Labelzz,  Header, Title, Button, Left, Right, Body, Center, Icon, Thumbnail, ImageBackground } from 'native-base';
 import { View, Text, Linking, TouchableHighlight  } from 'react-native';
-
+import { Font } from 'expo';
 import Headerjs from '../components/Header';
 
 const reactStyles = require('../react_native_styles/styles');
+// Scott's code
+componentDidMount() {
+  Font.loadAsync({
+    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+  });
+}
 const styles = reactStyles.default;
 
 export default class WelcomeScreen extends Component {

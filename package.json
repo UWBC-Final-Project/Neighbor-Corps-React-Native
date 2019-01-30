@@ -13,7 +13,7 @@
   "dependencies": {
     "@expo/samples": "2.1.1",
     "axios": "^0.18.0",
-    "expo": "^31.0.2",
+    "expo": "^31.0.6",
     "expo-location": "^2.0.1",
     "expo-permissions": "^2.0.0",
     "native-base": "^2.10.0",
