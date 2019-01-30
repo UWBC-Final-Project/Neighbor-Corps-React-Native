@@ -1,19 +1,9 @@
 {
-<<<<<<< HEAD
-  "devToolsPort": 19003,
-  "expoServerPort": 19001,
-  "packagerPort": 19004,
-  "packagerPid": 17076,
-  "expoServerNgrokUrl": "https://xw-qu8.anonymous.p3-react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.xw-qu8.anonymous.p3-react-native.exp.direct",
-  "ngrokPid": 2224
-=======
-  "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
->>>>>>> 6d10152a5eff97d653d84780035804333c632097
+  "devToolsPort": 19005,
+  "expoServerPort": 19006,
+  "packagerPort": 19007,
+  "packagerPid": 15940,
+  "expoServerNgrokUrl": "https://9q-qgj.anonymous.p3-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.9q-qgj.anonymous.p3-react-native.exp.direct",
+  "ngrokPid": 20340
 }
