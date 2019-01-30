@@ -48,7 +48,7 @@ export default class WelcomeScreen extends Component {
             </TouchableHighlight>
     
             <TouchableHighlight style={{backgroundColor:'#52d1ed', height:'50%', width:'26%',marginLeft:'15%', marginTop:'10%' }}
-            onPress={() =>  this.props.navigation.navigate('TasksScreen')}>
+            onPress={() =>  this.props.navigation.navigate('SignUpScreen')}>
             <Text style={{padding:15, fontSize:20, color: '#b354e9',fontWeight:'bold', fontFamily:'OpenSans-ExtraBold'}}>SignUp</Text>
             </TouchableHighlight>
           </CardItem>

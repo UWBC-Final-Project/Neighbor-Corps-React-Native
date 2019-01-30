@@ -12,6 +12,8 @@ import { Button } from 'react-native-elements';
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
 
+import { NavigationActions } from "react-navigation";
+
 export default class SingleTaskScreen extends Component {
   constructor(props) {
     super(props);
@@ -71,7 +73,13 @@ export default class SingleTaskScreen extends Component {
   }
 
   _LoginSignUp = () => {
-    this.props.navigation.navigate('LoginScreen')
+    // this.props.navigation.navigate('LoginScreen')
+    //added by jia
+    const navigateAction = NavigationActions.navigate({
+      routeName: "LoginScreen",
+    });
+    this.props.navigation.dispatch(navigateAction);
+
   }
 
   render() {
