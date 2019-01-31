@@ -53,11 +53,21 @@ const options = {
 
 // Function to removed null values
 removeNull = (obj) => {
-  for (var propName in obj) { 
-    if (obj[propName] === null || obj[propName] === undefined) {
-      delete obj[propName];
+  // Object returned cannot be modified
+  // Abnormal object? ¯\_(ツ)_/¯
+  console.log(obj);
+  console.log("Removing nulls...")
+  // Correct the object ie. object re-assigned
+  const newObj = Object.assign({}, obj);
+  for (var propName in newObj) { 
+    // If the properties in the object is null or undefined
+    if (newObj[propName] === null || newObj[propName] === undefined) {
+      // Delete the object property/properties
+      delete newObj[propName];
     }
   }
+  // Return the new object without null or undefined values
+  return newObj;
 }
 
 // <<< KPH this is code that drive form field inputs
@@ -137,7 +147,7 @@ export default class UserProfileScreen extends Component {
   updateProfile = () => {
     var value = this.refs.form.getValue();
     if (value) { // if validation fails, value will be null
-      removeNull(value); // removes any property of the object that has a value of null
+      value = removeNull(value); // removes any property of the object that has a value of null
       console.log(value); // value here is an instance of Person
       API.update(value)
         .then(() => {

@@ -1,8 +1,11 @@
 import axios from "axios";
 
-const heroku = 'https://young-sands-49140.herokuapp.com'
+const heroku = 'http://localhost:3001'
 
 export default {
+
+  // ======== USER AUTHENTICATION ======== 
+
   // Login
   // `data` is the data to be sent as the request body
   // this is different than axios.post( address, queryString), which the data is sent as the query parameters
@@ -40,22 +43,28 @@ export default {
     });
   }, 
 
-  // Gets all books
-  getBooks: function() {
-    return axios.get(heroku + "/api/books");
+  // ======== USER'S TASKS ======== 
+  // Current's user task
+  getTasksByCurrentUser: function() {
+    return axios.get(heroku + "/api/tasks/currentUser");
   },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get(heroku + "/api/books/" + id);
-  },
-  // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete(heroku + "/api/books/" + id);
-  },
-  // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post(heroku + "/api/books", bookData);
-  },
+
+  // // Gets all books
+  // getBooks: function() {
+  //   return axios.get(heroku + "/api/books");
+  // },
+  // // Gets the book with the given id
+  // getBook: function(id) {
+  //   return axios.get(heroku + "/api/books/" + id);
+  // },
+  // // Deletes the book with the given id
+  // deleteBook: function(id) {
+  //   return axios.delete(heroku + "/api/books/" + id);
+  // },
+  // // Saves a book to the database
+  // saveBook: function(bookData) {
+  //   return axios.post(heroku + "/api/books", bookData);
+  // },
   // ---->  KPH Adding Boilerplate to get to the express API
   // Gets all Users
   getUsers: function() {
