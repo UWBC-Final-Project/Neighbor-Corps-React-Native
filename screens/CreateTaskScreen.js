@@ -4,7 +4,9 @@ import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native'
 import Header from '../components/Header';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
+
 import Axios from 'axios';
+import { NavigationActions } from "react-navigation";
 
 const Form = t.form.Form;
 
@@ -32,16 +34,16 @@ export default class CreateTaskScreen extends Component {
     postedBy: ""
   };
 
-  toggleCamera = () => {	
-    this.setState(prevState => ({	
-      cameraShowing: !prevState.cameraShowing	
-    }));	
-  }	
+  // toggleCamera = () => {	
+  //   this.setState(prevState => ({	
+  //     cameraShowing: !prevState.cameraShowing	
+  //   }));	
+  // }	
 
-   updateURL = (url) => {	
-    this.state.imageURL = url;	
-    this.toggleCamera();	
-  }	
+  //  updateURL = (url) => {	
+  //   this.state.imageURL = url;	
+  //   this.toggleCamera();	
+  // }	
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
   componentDidMount() {
@@ -67,6 +69,7 @@ export default class CreateTaskScreen extends Component {
 
     this.props.navigation.navigate('TasksScreen')
 
+    //added by jia
     event.preventDefault();
     var value = this.refs.form.getValue();
     
@@ -88,6 +91,13 @@ export default class CreateTaskScreen extends Component {
         .catch(err => console.log(err));
       console.log("I'm called ")
       console.log(this.state);
+
+      // const navigateAction = NavigationActions.navigate({
+      //   routeName: "Home",
+      //   // params: { data: userObj }
+      // });
+      // this.props.navigation.dispatch(navigateAction);
+  
     }
     else {
       disabled = this.state.validity

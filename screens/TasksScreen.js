@@ -32,8 +32,9 @@ export default class Tasks extends Component {
   }
   
   // Loads all Tasks  and sets them to this.state.Tasks
-  loadTasks = () => {
-    API.getTasks()
+  loadTasks = async () => {
+    
+    await API.getTasks() 
       .then(res =>
         this.setState({
           tasks: res.data,

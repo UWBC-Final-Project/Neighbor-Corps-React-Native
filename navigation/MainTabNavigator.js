@@ -110,9 +110,11 @@ UserStack.navigationOptions = {
 };
 
 
+export default 
 
+// NewTaskStack
 
-export default createBottomTabNavigator({
+createBottomTabNavigator({
   FeedStack,
   MapStack,
   NewTaskStack,
