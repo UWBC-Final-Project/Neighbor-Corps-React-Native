@@ -219,7 +219,7 @@ handleSubmit = () => {
       <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
         <View style={{ width: 300, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
           <View style={styles.userIcon} >
-            <Image source={require('../assets/images/SignUp2x.png')} />
+            <Image source={require('../assets/images/SignUp.png')} />
             
           </View>
           

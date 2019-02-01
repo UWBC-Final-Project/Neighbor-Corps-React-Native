@@ -1,14 +1,128 @@
 import React, { Component } from 'react';
-import { Image, View, TouchableHighlight } from 'react-native';
+import { Image, View, TouchableHighlight, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
+import { Font } from 'expo';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
-
+var _ = require('lodash');
 import { NavigationActions } from "react-navigation";
 
-const reactStyles = require('../react_native_styles/styles');
-const styles = reactStyles.default;
+// clone the default stylesheet
+const formStyles = _.cloneDeep(t.form.Form.stylesheet);
+// overriding the text color
+formStyles.textbox = {
+  normal: {
+    color: '#555',
+    fontSize: 24,
+    height: 55,
+    width: 330,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    backgroundColor: '#fff',
+    borderColor: '#bbb',
+    borderWidth: 1,
+    marginBottom: 5
+  },
+  error: {
+    color: '#d7bcc0',
+    fontSize: 24,
+    height: 55,
+    width: 330,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    backgroundColor: '#fff',
+    borderColor: '#d7bcc0',
+    borderWidth: 1,
+    marginBottom: 5
+  },
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // You should only need this
+    justifyContent: 'center',
+    height: '100%', // But these wouldn't hurt.
+    width: '100%',
+    marginTop: 0,
+    padding: 20,
+  },
+  neighborCorps: {
+    width: 327,
+    height: 63,
+    color: '#63a952',
+    fontFamily: 'open-sans-light',
+    fontSize: 46,
+    lineHeight: 46,
+    top: 60,
+  },
+  lendA: {
+    width: 333,
+    height: 46,
+    color: '#63a952',
+    fontFamily: 'open-sans-regular',
+    fontSize: 18,
+    lineHeight: 46,
+    top: 36,
+    alignItems: 'center',
+  },
+  logOutButton: {
+    height: 45,
+    width: '70%',
+    backgroundColor: '#fff',
+    borderColor: '#d8723e',
+    borderWidth: 2,
+    borderRadius: 12,
+    marginBottom: 10,
+    // alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  updateButton: {
+    height: 45,
+    width: '70%',
+    backgroundColor: '#fff',
+    borderColor: '#63a952',
+    borderWidth: 2,
+    borderRadius: 12,
+    marginBottom: 10,
+    // alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  updateButtonText: {
+    fontSize: 18,
+    color: '#63a952',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+  },
+  logOutButtonText: {
+    fontSize: 18,
+    color: '#d8723e',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+  },
+  logo: {
+    width: 292,
+    height: 229,
+    top: 100,
+  },
+  userIcon: {
+    alignItems: 'center',
+    width: 70,
+    height: 70,
+    top: 60,
+    marginBottom: 80
+  },
+  form: {
+    width: 309,
+    height: 75,
+    borderRadius: 9,
+    borderColor: '#d3d3d3',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    backgroundColor: '#ffffff',
+  }
+})
+
 
 // >>> KPH this is code that drive form field inputs
 const Form = t.form.Form;
@@ -22,28 +136,49 @@ const User = t.struct({
   // username cannot be changed as it is the primary key
   // Alternatively, we can give user an option to change screen name/ nickname
   // userName: t.maybe(t.String),
-  password: t.maybe(t.String), 
-  aboutMe: t.maybe(t.String), 
+  password: t.maybe(t.String),
+  aboutMe: t.maybe(t.String),
   zipcode: t.maybe(t.Number),
   terms: t.Boolean
 });
 
 const options = {
+  
   fields: {
+    firstName: {
+      stylesheet: formStyles,
+    },
+    lastName: {
+      stylesheet: formStyles,
+    },
+    phone: {
+      stylesheet: formStyles,
+    },
+    zipcode: {
+      stylesheet: formStyles,
+    },
     email: {
+      stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
       error: 'Insert a valid email',
       textContentType: 'emailAddress'
     },
     username: {
+      stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
       textContentType: 'username'
     },
     password: {
+      stylesheet: formStyles,
       secureTextEntry: true,
       textContentType: 'password',
+    },
+    aboutMe: {
+      stylesheet: formStyles,
+      
+      textContentType: 'about me',
     },
     terms: {
       label: 'Agree to Terms',
@@ -53,7 +188,7 @@ const options = {
 
 // Function to removed null values
 removeNull = (obj) => {
-  for (var propName in obj) { 
+  for (var propName in obj) {
     if (obj[propName] === null || obj[propName] === undefined) {
       delete obj[propName];
     }
@@ -95,7 +230,7 @@ export default class UserProfileScreen extends Component {
   // Load user's information
   loadUser = () => {
     // The getCurrentUser function return the current user's information stored within their session
-    API.getCurrentUser() 
+    API.getCurrentUser()
       .then(res => {
         console.log(res.data)
         this.setState({
@@ -158,30 +293,9 @@ export default class UserProfileScreen extends Component {
   render() {
     return (
 
-      <View style={styles.container}>
+      <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
         <Header page={this.state.page} />
         <Content>
-          <Text>Personal Information:</Text>
-          <Card>
-
-            <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
-            <CardItem><Text>Email: {this.state.email}</Text></CardItem>
-            <CardItem><Text>First Name: {this.state.firstName}</Text></CardItem>
-            <CardItem><Text>Last Name: {this.state.lastName}</Text></CardItem>
-            <CardItem><Text>Phone: {this.state.phone}</Text></CardItem>
-            <CardItem><Text>About Me: {this.state.aboutMe}</Text></CardItem>
-            <CardItem><Text>Zipcode: {this.state.zipcode}</Text></CardItem>
-          </Card>
-
-          <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
-            <Text style={styles.buttonText}>Logout</Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight style={styles.button} onPress={this.toggleForm} underlayColor='#99d9f4'>
-            <Text style={styles.buttonText}>Update Your Information</Text>
-          </TouchableHighlight>
-
-
           {/* <TouchableHighlight style={styles.button} onPress={this._CreateTaskBtn} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Create New Task</Text>
           </TouchableHighlight> */}
@@ -189,26 +303,50 @@ export default class UserProfileScreen extends Component {
           {/* <TouchableHighlight style={styles.button} onPress={this._SeeAllTasksBtn} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>See all the Tasks</Text>
           </TouchableHighlight> */}
-      
+
           {/* // KPH toggle the edit user form fields */}
           {this.state.formShowing ?
-            <View>
+            <View style={{ width: 400, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
               <Form
+                style={styles.form}
                 ref="form"
                 type={User}
                 options={options}
               />
-              <TouchableHighlight style={styles.button} onPress={this.updateProfile} underlayColor='#99d9f4'>
-                <Text style={styles.buttonText}>Save</Text>
+              <TouchableHighlight style={styles.updateButton} onPress={this.updateProfile} underlayColor='#99d9f4'>
+                <Text style={styles.updateButtonText}>Save</Text>
+              </TouchableHighlight>
+              <TouchableHighlight style={styles.updateButton} onPress={this.toggleForm} underlayColor='#99d9f4'>
+                <Text style={styles.updateButtonText}>Close Form</Text>
               </TouchableHighlight>
             </View>
             :
-            null
+            <View style={{ width: 400, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+              <Card>
+
+                <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
+                <CardItem><Text>Email: {this.state.email}</Text></CardItem>
+                <CardItem><Text>First Name: {this.state.firstName}</Text></CardItem>
+                <CardItem><Text>Last Name: {this.state.lastName}</Text></CardItem>
+                <CardItem><Text>Phone: {this.state.phone}</Text></CardItem>
+                <CardItem><Text>About Me: {this.state.aboutMe}</Text></CardItem>
+                <CardItem><Text>Zipcode: {this.state.zipcode}</Text></CardItem>
+              </Card>
+
+              <TouchableHighlight style={styles.logOutButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>
+                <Text style={styles.logOutButtonText}>Logout</Text>
+              </TouchableHighlight>
+
+              <TouchableHighlight style={styles.updateButton} onPress={this.toggleForm} underlayColor='#99d9f4'>
+                <Text style={styles.updateButtonText}>Update Your Information</Text>
+              </TouchableHighlight>
+              <Card>
+                <Text>My Tasks History</Text>
+                <CardItem><Text>Sample task</Text></CardItem>
+              </Card>
+            </View>
           }
-          <Card>
-            <Text>My Tasks History</Text>
-            <CardItem><Text>Sample task</Text></CardItem>
-          </Card>
+
         </Content>
       </View>
     )
