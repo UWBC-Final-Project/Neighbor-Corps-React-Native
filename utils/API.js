@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const heroku = 'https://young-sands-49140.herokuapp.com/'
+const heroku = 'https://young-sands-49140.herokuapp.com'
+
 
 export default {
 
