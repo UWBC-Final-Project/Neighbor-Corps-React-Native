@@ -55,6 +55,10 @@ export default class Tasks extends Component {
     });
   }
 
+  // HomeScreen = () => {
+  //   this.props.navigation.navigate('SignUpScreen')
+  // }
+
   render() {
     return (
       <Container>
