@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const heroku = 'http://localhost:3001'
+const heroku = 'https://young-sands-49140.herokuapp.com/'
 
 export default {
 
