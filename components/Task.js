@@ -21,6 +21,7 @@ export default class Task extends Component {
             <Body>
               <Text>{this.props.taskProps.title}</Text>
               <Text note>{this.props.taskProps.postDate}</Text>
+              <Text>{this.props.taskProps.postedBy.username}</Text>
             </Body>
           </Left>
         </CardItem>

@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://mh-pfc.anonymous.neighbor-corps-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.mh-pfc.anonymous.neighbor-corps-react-native.exp.direct",
+  "ngrokPid": 32613
 }
