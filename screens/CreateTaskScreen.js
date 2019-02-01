@@ -28,7 +28,7 @@ export default class CreateTaskScreen extends Component {
     title: "",
     description: "",
     imageURL: "",
-    postion: "", // save what we grasp from Google map pinned location
+    position: "", // save what we grasp from Google map pinned location
     postedBy: ""
   };
 
