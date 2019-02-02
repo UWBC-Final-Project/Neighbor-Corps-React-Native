@@ -1,18 +1,67 @@
 import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
-import { View } from 'react-native';
 import Header from '../components/Header';
 import Task from '../components/Task';
 import CommentForm from '../components/CommentForm';
 import Comment from '../components/Comment';
+import { Image, View, ScrollView, Linking, StyleSheet } from 'react-native';
 import { Container, Content, TouchableHighlight, Text, List, Body } from 'native-base';
 import API from '../utils/API';
 import { Button } from 'react-native-elements';
-
-const reactStyles = require('../react_native_styles/styles');
-const styles = reactStyles.default;
-
 import { NavigationActions } from "react-navigation";
+
+// Base style
+const styles = StyleSheet.create({
+  neighborCorps: {
+    width: 327,
+    height: 63,
+    color: '#63a952',
+    fontFamily: 'open-sans-light',
+    fontSize: 46,
+    lineHeight: 46,
+    top: 60,
+  },
+  lendA: {
+    width: 333,
+    height: 46,
+    color: '#63a952',
+    fontFamily: 'open-sans-regular',
+    fontSize: 18,
+    lineHeight: 46,
+    top: 36,
+  },
+  logo: {
+    width: 292,
+    height: 229,
+    top: 100,
+  },
+  MapBrowseButton: {
+    width: 223,
+    height: 61,
+    top: 142,
+  },
+  accountLinks: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 90,
+    width: 240,
+    justifyContent: 'space-between',
+    top: 220,
+    // alignItems: 'center' 
+  },
+  loginbutton: {
+    width: 54,
+    height: 88,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+  signupbutton: {
+    width: 68,
+    height: 89,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+})
 
 export default class SingleTaskScreen extends Component {
   constructor(props) {

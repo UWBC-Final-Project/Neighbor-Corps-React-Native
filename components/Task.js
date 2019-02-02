@@ -1,9 +1,59 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
 
-const reactStyles = require('../react_native_styles/styles');
-const styles = reactStyles.default;
+// Base style
+const styles = StyleSheet.create({
+  neighborCorps: {
+    width: 327,
+    height: 63,
+    color: '#63a952',
+    fontFamily: 'open-sans-light',
+    fontSize: 46,
+    lineHeight: 46,
+    top: 60,
+  },
+  lendA: {
+    width: 333,
+    height: 46,
+    color: '#63a952',
+    fontFamily: 'open-sans-regular',
+    fontSize: 18,
+    lineHeight: 46,
+    top: 36,
+  },
+  logo: {
+    width: 292,
+    height: 229,
+    top: 100,
+  },
+  MapBrowseButton: {
+    width: 223,
+    height: 61,
+    top: 142,
+  },
+  accountLinks: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 90,
+    width: 240,
+    justifyContent: 'space-between',
+    top: 220,
+    // alignItems: 'center' 
+  },
+  loginbutton: {
+    width: 54,
+    height: 88,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+  signupbutton: {
+    width: 68,
+    height: 89,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+})
 
 export default class Task extends Component {
   constructor(props) {
