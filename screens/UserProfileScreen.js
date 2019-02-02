@@ -232,7 +232,7 @@ export default class UserProfileScreen extends Component {
     title: "",
     description: "",
     imageURL: "",
-    postion: [], // save what we grasp from Google map pinned location
+    position: [], // save what we grasp from Google map pinned location
 
   }
 
@@ -394,11 +394,7 @@ export default class UserProfileScreen extends Component {
 
               {/* CURRENT USER'S TASK HISTORY START HERE */}
               <Container>
-                <Header />
-                <CardItem header>
-                  <Text>My Task History</Text>
-                </CardItem>
-
+                <Content>
                   {this.state.tasks.length ? (
                     <List>
                       {this.state.tasks.map(task => {
@@ -410,9 +406,9 @@ export default class UserProfileScreen extends Component {
                   ) : (
                       <Text>No Results to Display</Text>
                     )}
+                </Content>
               </Container>
-            </View>
-            
+            </View>            
           }
         </Content>
       </View>
