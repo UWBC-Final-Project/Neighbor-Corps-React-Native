@@ -12,27 +12,27 @@ import Headerjs from '../components/Header';
 // Base style
 const styles = StyleSheet.create({
   neighborCorps: {
-    width: 327,
-    height: 63,
+    width: 300,
+    height: 100,
     color: '#63a952',
     fontFamily: 'open-sans-light',
-    fontSize: 46,
-    lineHeight: 46,
+    fontSize: 36,
+    lineHeight: 36,
     top: 60,
   },
   lendA: {
-    width: 333,
-    height: 46,
+    width: 300,
+    height: 40,
     color: '#63a952',
     fontFamily: 'open-sans-regular',
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 46,
-    top: 36,
+    top: 10,
   },
   logo: {
     width: 292,
     height: 229,
-    top: 100,
+    top: 60,
   },
   MapBrowseButton: {
     width: 223,
@@ -85,19 +85,21 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
 
-      <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {
           this.state.fontLoaded
             ? (
-              <View>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={styles.neighborCorps}>Neighbor Corps</Text>
                 <Text style={styles.lendA}>Lend a hand for a better neighborhood.</Text>
               </View>
             )
             : null
         }
+        <View style={{width: '80%', height: 200}}>
+          <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
+        </View>
 
-        <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate('TasksMapView')}
           style={styles.MapBrowseButton} >
