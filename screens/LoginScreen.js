@@ -18,8 +18,9 @@ formStyles.textbox = {
     fontSize: 24,
     height: 55,
     width: 300,
-    paddingHorizontal: 7,
+    paddingHorizontal: 14,
     borderRadius: 12,
+    backgroundColor: '#fff',
     borderColor: '#bbb',
     borderWidth: 1,
     marginBottom: 5
@@ -29,8 +30,9 @@ formStyles.textbox = {
     fontSize: 24,
     height: 55,
     width: 300, 
-    paddingHorizontal: 7,
+    paddingHorizontal: 14,
     borderRadius: 12,
+    backgroundColor: '#fff',
     borderColor: '#d7bcc0',
     borderWidth: 1,
     marginBottom: 5
@@ -57,20 +59,37 @@ const styles = StyleSheet.create({
     top: 36,
     alignItems: 'center',
   },
-  button: {
+  signUpButton: {
     height: 45,
     width: '70%',
-    backgroundColor: '#6FA4AF',
-    borderColor: '#9FAAB9',
-    borderWidth: 1,
+    backgroundColor: '#fff',
+    borderColor: '#d8723e',
+    borderWidth: 2,
     borderRadius: 12,
     marginBottom: 10,
     // alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  buttonText: {
+  loginButton: {
+    height: 45,
+    width: '70%',
+    backgroundColor: '#fff',
+    borderColor: '#63a952',
+    borderWidth: 2,
+    borderRadius: 12,
+    marginBottom: 10,
+    // alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  loginButtonText: {
     fontSize: 18,
-    color: 'white',
+    color: '#63a952',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+  },
+  signUpButtonText: {
+    fontSize: 18,
+    color: '#d8723e',
     alignSelf: 'center',
     fontFamily: 'open-sans-bold',
   },
@@ -189,11 +208,11 @@ export default class LoginScreen extends Component {
             options={options}
           />
           <View style={{ width: 300, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-            <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
-              <Text style={styles.buttonText}>Log In</Text>
+            <TouchableHighlight style={styles.loginButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>
+              <Text style={styles.loginButtonText}>Log In</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.button} onPress={this._SignUp} underlayColor='#99d9f4'>
-              <Text style={styles.buttonText}>Sign Up!</Text>
+            <TouchableHighlight style={styles.signUpButton} onPress={this._SignUp} underlayColor='#99d9f4'>
+              <Text style={styles.signUpButtonText}>Sign Up!</Text>
             </TouchableHighlight>
           </View>
         </View>
