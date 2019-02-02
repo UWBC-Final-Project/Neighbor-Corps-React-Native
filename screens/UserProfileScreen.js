@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
 import { Font } from 'expo';
 import API from '../utils/API';
+import Task from "../components/Task";
 import t from 'tcomb-form-native';
 var _ = require('lodash');
 import { NavigationActions } from "react-navigation";
@@ -212,6 +213,7 @@ export default class UserProfileScreen extends Component {
     page: "Your Profile", // Header title text
     formShowing: false,
     // MongoDB info
+    // Current user's properties
     user: [],
     _id: "",
     firstName: "",
@@ -224,11 +226,25 @@ export default class UserProfileScreen extends Component {
     zipcode: "",
     terms: "",
     meritscore: 0,
+
+    // Task properties
+    tasks: [],
+    title: "",
+    description: "",
+    imageURL: "",
+    position: [], // save what we grasp from Google map pinned location
+
   }
 
   // When the component mounts, load all Tasks and save them to this.state.User
   componentDidMount() {
     this.loadUser();
+    this.loadTasks();
+  }
+
+  constructor(props){
+    super(props);
+    this.loadTasks = this.loadTasks.bind(this);
   }
 
   toggleForm = () => {
@@ -258,6 +274,22 @@ export default class UserProfileScreen extends Component {
         })
       })
   }
+
+    // Loads all Tasks by the currrent user and sets them to this.state.Tasks
+    loadTasks = () => {
+      API.getTasksByCurrentUser()
+        .then(res =>
+          this.setState({
+            tasks: res.data,
+            title: "",
+            description: "",
+            imageURL: "",
+            position: "",
+            _id: ""
+          }),
+        )
+        .catch(err => console.log(err));
+    };
 
   // Logout 
   handleSubmit = () => {
@@ -292,6 +324,15 @@ export default class UserProfileScreen extends Component {
           console.log(error);
         });
     }
+  }
+
+  // Navigate to Single Task view
+  passNav = (targetID, props) => {
+    console.log(targetID, props);
+    this.props.navigation.navigate('SingleTaskScreen', {
+      taskID: targetID,
+      taskProps: props,
+    });
   }
 
   // _CreateTaskBtn = () => {
@@ -331,7 +372,7 @@ export default class UserProfileScreen extends Component {
               </TouchableHighlight>
             </View>
             :
-            <View style={{ width: 400, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+            <View style={{ width: 400, flexDirection: 'column' }}>
               <Card>
 
                 <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
@@ -350,13 +391,25 @@ export default class UserProfileScreen extends Component {
               <TouchableHighlight style={styles.updateButton} onPress={this.toggleForm} underlayColor='#99d9f4'>
                 <Text style={styles.updateButtonText}>Update Your Information</Text>
               </TouchableHighlight>
-              <Card>
-                <Text>My Tasks History</Text>
-                <CardItem><Text>Sample task</Text></CardItem>
-              </Card>
-            </View>
-          }
 
+              {/* CURRENT USER'S TASK HISTORY START HERE */}
+              <Container>
+                <Content>
+                  {this.state.tasks.length ? (
+                    <List>
+                      {this.state.tasks.map(task => {
+                        return (
+                          <Task key={task._id} taskProps={task} stackNav={this.passNav}/>
+                        );
+                      })}
+                    </List>
+                  ) : (
+                      <Text>No Results to Display</Text>
+                    )}
+                </Content>
+              </Container>
+            </View>            
+          }
         </Content>
       </View>
     )
