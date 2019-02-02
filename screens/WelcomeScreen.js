@@ -12,32 +12,32 @@ import Headerjs from '../components/Header';
 // Base style
 const styles = StyleSheet.create({
   neighborCorps: {
-    width: 300,
-    height: 100,
+    width: 327,
+    height: 63,
     color: '#63a952',
     fontFamily: 'open-sans-light',
-    fontSize: 36,
-    lineHeight: 36,
+    fontSize: 46,
+    lineHeight: 46,
     top: 60,
   },
   lendA: {
-    width: 300,
-    height: 40,
+    width: 333,
+    height: 46,
     color: '#63a952',
     fontFamily: 'open-sans-regular',
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 46,
-    top: 10,
+    top: 36,
   },
   logo: {
     width: 292,
     height: 229,
-    top: 60,
+    top: 50,
   },
   MapBrowseButton: {
     width: 223,
     height: 61,
-    top: 142,
+    top: 85,
   },
   accountLinks: {
     flex: 1,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     height: 90,
     width: 240,
     justifyContent: 'space-between',
-    top: 220,
+    top: 150,
     // alignItems: 'center' 
   },
   loginbutton: {
@@ -85,23 +85,21 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
         {
           this.state.fontLoaded
             ? (
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <View>
                 <Text style={styles.neighborCorps}>Neighbor Corps</Text>
                 <Text style={styles.lendA}>Lend a hand for a better neighborhood.</Text>
               </View>
             )
             : null
         }
-        <View style={{width: '80%', height: 200}}>
-          <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
-        </View>
 
+        <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
         <TouchableHighlight
-          onPress={() => this.props.navigation.navigate('TasksMapView')}
+          onPress={() => this.props.navigation.navigate('TasksScreen')}
           style={styles.MapBrowseButton} >
           <Image
             source={require('../assets/images/MapBrowseButton.png')}
