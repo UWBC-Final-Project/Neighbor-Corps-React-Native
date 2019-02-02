@@ -71,9 +71,12 @@ export default class SingleTaskScreen extends Component {
 
   state = {
     page: "Task View",
-    thisTask: [],
+    thisTask: {},
     comments: [],
     username: '',
+    // Task Completion is default to false
+    // ie. Uncompleted
+    taskCompletion: false
   }
 
   componentDidMount() {
@@ -85,9 +88,26 @@ export default class SingleTaskScreen extends Component {
       .catch(err => console.log(err))
   }
 
+  // Use ES6 function style as below
+  // or else add a this.updateTaskCompletion = this.updateTaskCompletion.bind(this) in the constructor
+  updateTaskCompletion = () => {
+    API.updateTask(this.state.thisTask._id)
+      .then(res => 
+        this.setState ({
+          taskCompletion: true
+        })
+      )
+      .catch(err => console.log(err));
+  }
+
   getTask(taskId) {
     API.getTask(taskId)
-      .then(res => this.setState({ thisTask: res }))
+      .then(res => {
+        this.setState({ 
+          thisTask: res.data,
+          taskCompletion: res.data.taskCompletion
+        });
+    })
       .catch(err => console.log(err));
   }
 
@@ -132,12 +152,27 @@ export default class SingleTaskScreen extends Component {
   }
 
   render() {
+    // console.log("this.state.taskCompletion: " + this.state.taskCompletion);
     return (
       <Container>
         <Header page={this.state.page} />
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
           <Task taskProps={this.props.navigation.state.params.taskProps} singleView={true} />
+          
+          {/* Task Completion button */}
+          {this.state.taskCompletion === false ?
+            <Button 
+              onPress={this.updateTaskCompletion} 
+              title = "Uncompleted"
+            />
+            :
+            <Button
+              title="Completed"
+            />
+
+          }
+          
           {this.state.comments.length
             ? (
               <List>
@@ -151,6 +186,7 @@ export default class SingleTaskScreen extends Component {
             :
             <Text>No comments yet . . .</Text>
           }
+
           {/* "I saw this too" button component that also triggers usersInvolved count */}
           {/* <VerifyButton addUserInteraction={this.addUserInteraction}/> */}
           <Text>{"\n\n"}</Text>
@@ -163,6 +199,7 @@ export default class SingleTaskScreen extends Component {
             />
 
           }
+
 
 
         </Content>

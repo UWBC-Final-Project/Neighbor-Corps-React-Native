@@ -103,7 +103,7 @@ export default class WelcomeScreen extends Component {
 
           <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
           <TouchableHighlight
-            onPress={() => this.props.navigation.navigate('TasksMapView')}
+            onPress={() => this.props.navigation.navigate('TaskMap')}
             style={styles.MapBrowseButton} >
             <Image
               source={require('../assets/images/MapBrowseButton.png')}

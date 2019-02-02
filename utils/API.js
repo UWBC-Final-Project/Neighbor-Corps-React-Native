@@ -3,6 +3,7 @@ import axios from "axios";
 const heroku = 'https://young-sands-49140.herokuapp.com'
 
 
+
 export default {
 
   // ======== USER AUTHENTICATION ======== 
@@ -49,6 +50,15 @@ export default {
   getTasksByCurrentUser: function() {
     return axios.get(heroku + "/api/tasks/currentUser");
   },
+
+  // Update Task
+  updateTask: function(id) {
+    return axios({
+      method: 'put',
+      headers: { 'content-type': 'application/json' },
+      url: heroku + '/api/tasks/' + id,
+    });
+  }, 
 
   // // Gets all books
   // getBooks: function() {
