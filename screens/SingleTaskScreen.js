@@ -17,14 +17,16 @@ import { NavigationActions } from "react-navigation";
 export default class SingleTaskScreen extends Component {
   constructor(props) {
     super(props);
+    this.updateTasks = this.updateTasks.bind(this);
     // this._pickFromCamera = this._pickFromCamera.bind(this); // example for future reference
   }
 
   state = {
     page: "Task View",
-    thisTask: [],
+    thisTask: {},
     comments: [],
     username: '',
+    taskCompletion: false
   }
 
   componentDidMount() {
@@ -36,9 +38,24 @@ export default class SingleTaskScreen extends Component {
       .catch(err => console.log(err))
   }
 
+  updateTasks() {
+    API.updateTask(this.state.thisTask._id)
+      .then(res => 
+        this.setState ({
+          taskCompletion: true
+        })
+      )
+      .catch(err => console.log(err));
+  }
+
   getTask(taskId) {
     API.getTask(taskId)
-      .then(res => this.setState({ thisTask: res }))
+      .then(res => {
+        this.setState({ 
+          thisTask: res.data,
+          taskCompletion: res.data.taskCompletion
+        });
+    })
       .catch(err => console.log(err));
   }
 
@@ -83,6 +100,7 @@ export default class SingleTaskScreen extends Component {
   }
 
   render() {
+    console.log("this.state.taskCompletion: " + this.state.taskCompletion);
     return (
       <Container>
         <Header page={this.state.page} />
@@ -102,6 +120,17 @@ export default class SingleTaskScreen extends Component {
             :
             <Text>No comments yet . . .</Text>
           }
+          {this.state.taskCompletion === false ?
+            <Button 
+              onPress={this.updateTasks} 
+              title = "Uncompleted"
+            />
+            :
+            <Button
+              title="Completed"
+            />
+
+          }
           {/* "I saw this too" button component that also triggers usersInvolved count */}
           {/* <VerifyButton addUserInteraction={this.addUserInteraction}/> */}
           <Text>{"\n\n"}</Text>
@@ -114,6 +143,7 @@ export default class SingleTaskScreen extends Component {
             />
 
           }
+
 
 
         </Content>

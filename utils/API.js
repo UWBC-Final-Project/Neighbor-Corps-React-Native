@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const heroku = 'https://young-sands-49140.herokuapp.com'
+// const heroku = 'https://young-sands-49140.herokuapp.com'
+const heroku = 'http://localhost:3001'
 
 
 export default {
@@ -49,6 +50,14 @@ export default {
   getTasksByCurrentUser: function() {
     return axios.get(heroku + "/api/tasks/currentUser");
   },
+
+  updateTask: function(id) {
+    return axios({
+      method: 'put',
+      headers: { 'content-type': 'application/json' },
+      url: heroku + '/api/tasks/' + id,
+    });
+  }, 
 
   // // Gets all books
   // getBooks: function() {

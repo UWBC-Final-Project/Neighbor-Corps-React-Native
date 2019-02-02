@@ -15,6 +15,7 @@ export default class UploadPhoto extends React.Component {
   };
 
   componentDidMount() {
+    this.setState({ image: null })
     this._pickFromCamera();
   }
 
@@ -63,7 +64,9 @@ export default class UploadPhoto extends React.Component {
 
             navigate('MediaGPS', {
               getImageURL: imgURL,
-            })
+            },
+            this.setState({ image: null })
+            )
             console.log("image captured", imgURL)
 
           }).catch(err=>console.log(err))
@@ -116,7 +119,9 @@ export default class UploadPhoto extends React.Component {
 
             navigate('MediaGPS', {
               getImageURL: imgURL,
-            })
+            },
+            this.setState({ image: null })
+            )
             console.log("image captured", imgURL)
             // this.props.returnURL(data.secure_url);
             // return data.secure_url
