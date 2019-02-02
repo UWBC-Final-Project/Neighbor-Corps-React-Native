@@ -201,6 +201,7 @@ export default class UserProfileScreen extends Component {
   state = {
     page: "Your Profile", // Header title text
     formShowing: false,
+    fontLoaded: false,
     // MongoDB info
     user: [],
     _id: "",
@@ -217,8 +218,14 @@ export default class UserProfileScreen extends Component {
   }
 
   // When the component mounts, load all Tasks and save them to this.state.User
-  componentDidMount() {
-    this.loadUser();
+  async componentDidMount() {
+    await Font.loadAsync({
+      'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
+      'open-sans-light': require('../assets/fonts/OpenSans-Light.ttf'),
+      'open-sans-regular': require('../assets/fonts/OpenSans-Regular.ttf'),
+    });
+
+    this.setState({ fontLoaded: true });
   }
 
   toggleForm = () => {
