@@ -1,15 +1,44 @@
 import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
+import { Container, Content, Item, Input, Label, Text } from 'native-base';
+import { TouchableHighlight, StyleSheet, Image, View } from 'react-native';
+import Header from '../components/Header';
+import { NavigationActions } from "react-navigation";
 import { Font } from 'expo';
-import { Container, CardItem, ScrollView, Content, Item, Input, Labelzz, Header, Title, Button, Left, Right, Body, Center, Icon, Thumbnail, ImageBackground } from 'native-base';
-import { Image, View, Text, Linking, TouchableHighlight, StyleSheet } from 'react-native';
+import API from '../utils/API';
+import t from 'tcomb-form-native';
+var _ = require('lodash');
 
-import Headerjs from '../components/Header';
+// clone the default stylesheet
+const formStyles = _.cloneDeep(t.form.Form.stylesheet);
+// overriding the textbox styles:
+formStyles.textbox = {
+  normal: {
+    color: '#555',
+    fontSize: 24,
+    height: 55,
+    width: 300,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    backgroundColor: '#fff',
+    borderColor: '#bbb',
+    borderWidth: 1,
+    marginBottom: 5
+  },
+  error: {
+    color: '#d7bcc0',
+    fontSize: 24,
+    height: 55,
+    width: 300, 
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    backgroundColor: '#fff',
+    borderColor: '#d7bcc0',
+    borderWidth: 1,
+    marginBottom: 5
+  },
+}
 
-// const reactStyles = require('../react_native_styles/styles');
-// const styles = reactStyles.default;
-
-// Base style
 const styles = StyleSheet.create({
   neighborCorps: {
     width: 327,
@@ -28,47 +57,103 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 46,
     top: 36,
+    alignItems: 'center',
+  },
+  signUpButton: {
+    height: 45,
+    width: '70%',
+    backgroundColor: '#fff',
+    borderColor: '#d8723e',
+    borderWidth: 2,
+    borderRadius: 12,
+    marginBottom: 10,
+    // alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  loginButton: {
+    height: 45,
+    width: '70%',
+    backgroundColor: '#fff',
+    borderColor: '#63a952',
+    borderWidth: 2,
+    borderRadius: 12,
+    marginBottom: 10,
+    // alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  loginButtonText: {
+    fontSize: 18,
+    color: '#63a952',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+  },
+  signUpButtonText: {
+    fontSize: 18,
+    color: '#d8723e',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
   },
   logo: {
     width: 292,
     height: 229,
-    top: 50,
+    top: 100,
   },
-  MapBrowseButton: {
-    width: 223,
-    height: 61,
-    top: 85,
+  userIcon: {
+    alignItems: 'center',
+    width: 70,
+    height: 70,
+    top: 60,
+    marginBottom: 80
   },
-  accountLinks: {
-    flex: 1,
-    flexDirection: 'row',
-    height: 90,
-    width: 240,
-    justifyContent: 'space-between',
-    top: 150,
-    // alignItems: 'center' 
-  },
-  loginbutton: {
-    width: 54,
-    height: 88,
-    justifyContent: 'flex-start',
-    top: 0,
-  },
-  signupbutton: {
-    width: 68,
-    height: 89,
-    justifyContent: 'flex-start',
-    top: 0,
-  },
+  form: {
+    width: 309,
+    height: 75,
+    borderRadius: 9,
+    borderColor: '#d3d3d3',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    backgroundColor: '#ffffff',
+  }
 })
 
-export default class WelcomeScreen extends Component {
-  constructor(props) {
-    super(props)
-  }
+const Form = t.form.Form;
 
+var Email = t.refinement(t.String, function (s) {
+  return /@/.test(s);
+});
+
+const User = t.struct({
+  email: Email,
+  username: t.String,
+  password: t.String,
+});
+
+const options = {
+  fields: {
+    email: {
+      stylesheet: formStyles,
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      error: 'Insert a valid email',
+      textContentType: 'emailAddress'
+    },
+    username: {
+      stylesheet: formStyles,
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      textContentType: 'username'
+    },
+    password: {
+      stylesheet: formStyles,
+      secureTextEntry: true,
+      textContentType: 'password',
+    }
+  }
+};
+
+export default class LoginScreen extends Component {
   state = {
-    page: "Welcome",
+    page: "Sign Up",
     fontLoaded: false,
   }
 
@@ -81,48 +166,77 @@ export default class WelcomeScreen extends Component {
 
     this.setState({ fontLoaded: true });
   }
+// Handles updating component state when the Task types into the input field
+handleInputChange = event => {
+  const { name, value } = event.target;
+  this.setState({
+    [name]: value
+  });
+};
+
+// When the form is submitted, use the API.saveTask method to save the Task data
+// Then reload Tasks from the database
+handleFormSubmit = event => {
+  event.preventDefault();
+
+  API.saveUser({
+    
+  })
+    .catch(err => console.log(err));
+  console.log("saved")
+};
+
+// supplied by tutorial for tcomb-form-native
+handleSubmit = () => {
+  const value = this.refs.form.getValue(); // use that ref to get the form value
+  console.log('value: ', value);
+  API.signUp(value)
+    .then((response) => {
+      // console.log(response)
+      if(response.status == 200) {
+        // this.props.navigation.navigate('UserProfileScreen');
+        
+        //added by jia
+        const navigateAction = NavigationActions.navigate({
+          routeName: "Home",
+          // params: { data: userObj }
+        });
+        this.props.navigation.dispatch(navigateAction);
+
+      }
+      else {
+        //print status text somewhere so user can see that login failed
+      }
+    })
+    .catch((error) => {
+      //print status text somewhere so user can see that login failed
+      console.log(error);
+    });
+}
 
   render() {
     return (
-
       <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
-        {
-          this.state.fontLoaded
-            ? (
-              <View>
-                <Text style={styles.neighborCorps}>Neighbor Corps</Text>
-                <Text style={styles.lendA}>Lend a hand for a better neighborhood.</Text>
-              </View>
-            )
-            : null
-        }
-
-        <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
-        <TouchableHighlight
-          onPress={() => this.props.navigation.navigate('TasksScreen')}
-          style={styles.MapBrowseButton} >
-          <Image
-            source={require('../assets/images/MapBrowseButton.png')}
+        <View style={{ width: 300, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+          <View style={styles.userIcon} >
+            <Image source={require('../assets/images/SignUp.png')} />
+            
+          </View>
+          
+          {/* <Text style={styles.lendA}>Log In to Neighbor Corps</Text> */}
+          <Form
+            style={styles.form}
+            ref="form"
+            type={User}
+            options={options}
           />
-        </TouchableHighlight>
-        <View style={styles.accountLinks}>
-          <TouchableHighlight
-            onPress={() => this.props.navigation.navigate('LoginScreen')}
-            style={styles.loginbutton} >
-            <Image
-              source={require('../assets/images/LoginButton.png')}
-            />
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => this.props.navigation.navigate('SignUpScreen')}
-            style={styles.signupbutton} >
-            <Image
-              source={require('../assets/images/SignUpButton.png')}
-            />
-          </TouchableHighlight>
+          <View style={{ width: 300, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+            <TouchableHighlight style={styles.signUpButton} onPress={this._SignUp} underlayColor='#99d9f4'>
+              <Text style={styles.signUpButtonText}>Sign Up!</Text>
+            </TouchableHighlight>
+          </View>
         </View>
-
       </View>
-    )
+    );
   }
-} 
+}
