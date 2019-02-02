@@ -134,7 +134,7 @@ export default class SingleTaskScreen extends Component {
   render() {
     return (
       <Container>
-        <Header page={this.state.page} />
+        <Header page={this.state.page} /> 
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
           <Task taskProps={this.props.navigation.state.params.taskProps} singleView={true} />

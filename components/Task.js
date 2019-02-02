@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, Platform, View, TouchableHighlight } from 'react-native';
 import { Card, CardItem, Thumbnail, Text, Button, Left, Body, List } from 'native-base';
 import { Font, Icon } from 'expo';
+import Moment from 'react-moment';
 
 // Base style
 const styles = StyleSheet.create({
@@ -34,37 +35,27 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.46)',
     textShadowOffset: { width: 3, height: 0 },
     textShadowRadius: 6,
-    fontSize: 40,
-    lineHeight: 40,
+    fontSize: 30,
+    lineHeight: 30,
     left: 10,
   },
-  lendA: {
+  description: {
     width: 333,
-    height: 46,
-    color: '#63a952',
+    // height: 46,
+    color: '#222',
     fontFamily: 'open-sans-regular',
-    fontSize: 18,
-    lineHeight: 46,
-    top: 36,
+    fontSize: 16,
+    lineHeight: 16,
+    marginBottom: 16,
+    marginTop: 14,
   },
+  buttonArea: {
+    backgroundColor: '#bbb',
+  },  
   logo: {
     width: 292,
     height: 229,
     top: 100,
-  },
-  MapBrowseButton: {
-    width: 223,
-    height: 61,
-    top: 142,
-  },
-  accountLinks: {
-    flex: 1,
-    flexDirection: 'row',
-    height: 90,
-    width: 240,
-    justifyContent: 'space-between',
-    top: 220,
-    // alignItems: 'center' 
   },
   loginbutton: {
     width: 54,
@@ -109,6 +100,7 @@ export default class Task extends Component {
         key={this.props.taskProps._id}>
 
         {this.state.fontLoaded ?
+          // Visible at all times
           <TouchableHighlight onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
             <View style={{ flex: 1, backgroundColor: '#eee', height: 200 }}>
               <View style={styles.imageZone}>
@@ -128,21 +120,27 @@ export default class Task extends Component {
         }
 
         {this.props.singleView ?
-          // Visible at all times
-          <CardItem>
-            <Button transparent textStyle={{ color: '#87838B' }}>
-              {/* <Icon name="eye" /> */}
-              <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={20} />
-              <Text>7</Text>
-              {/* replace with dynamic property once up and running in the database */}
-              {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
-            </Button>
-            <Button transparent textStyle={{ color: '#87838B' }}>
-              {/* <Icon name="flag" /> */}
-              <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-flag' : 'md-flag'} size={20} />
-              <Text>Confirm Issue</Text>
-            </Button>
-          </CardItem>
+          // Visible in the Single View
+          <View>
+            <CardItem>
+              <Text style={styles.description}>{this.props.taskProps.description}</Text>
+            </CardItem>
+            <CardItem style={styles.buttonArea}>
+              <Button transparent textStyle={{ color: '#87838B' }}>
+                {/* <Icon name="eye" /> */}
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={16} />
+                <Text>7</Text>
+                {/* replace with dynamic property once up and running in the database */}
+                {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
+              </Button>
+              <Button transparent textStyle={{ color: '#87838B' }}>
+                {/* <Icon name="flag" /> */}
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-flag' : 'md-flag'} size={16} />
+                <Text>Confirm Issue</Text>
+              </Button>
+            </CardItem>
+
+          </View>
           :
           // Visible only in List of Tasks
           <CardItem>
@@ -159,6 +157,10 @@ export default class Task extends Component {
                 {/* <Icon name="right" /> */}
                 <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-arrow-round-forward' : 'md-arrow-round-forward'} size={20} />
                 <Text>Details</Text>
+              </Button>
+              <Button transparent textStyle={{ color: '#87838B' }}>
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-arrow-round-forward' : 'md-arrow-round-forward'} size={20} />
+                <Text>{this.props.taskProps.postDate}</Text>
               </Button>
             </Left>
           </CardItem>
