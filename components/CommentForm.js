@@ -43,7 +43,13 @@ export default class CommentScreen extends Component {
   handleSubmit = () => {
     const value = this.refs.form.getValue(); // use that ref to get the form value
     console.log(value);
-    this.props.saveComment(value);
+    if(value === null){
+      alert("Please enter text and then submit");
+    }
+    else{
+      this.props.saveComment(value);
+    }
+    
   }
 
   render() {
