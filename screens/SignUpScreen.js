@@ -234,6 +234,9 @@ handleSubmit = () => {
             <TouchableHighlight style={styles.signUpButton} onPress={this._SignUp} underlayColor='#99d9f4'>
               <Text style={styles.signUpButtonText}>Sign Up!</Text>
             </TouchableHighlight>
+            <TouchableHighlight style={styles.loginButton} onPress={() => this.props.navigation.navigate('WelcomeScreen')} underlayColor='#99d9f4'>
+            <Text style={styles.loginButtonText}>Not ready yet</Text>
+          </TouchableHighlight>
           </View>
         </View>
       </View>
