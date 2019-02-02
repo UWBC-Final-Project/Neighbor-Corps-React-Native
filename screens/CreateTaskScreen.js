@@ -65,7 +65,7 @@ export default class CreateTaskScreen extends Component {
 
   _createTask = async (event) => {
 
-    this.props.navigation.navigate('TasksScreen')
+    this.props.navigation.navigate('Home')
 
     event.preventDefault();
     var value = this.refs.form.getValue();
