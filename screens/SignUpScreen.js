@@ -7,7 +7,12 @@ import { NavigationActions } from "react-navigation";
 import { Font } from 'expo';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
+import validator from 'validator';
 var _ = require('lodash');
+
+// Line below is for use with 'validator' package
+// isEmail(str [, options])
+// validator.isEmail('foo@bar.com'); //=> true
 
 // clone the default stylesheet
 const formStyles = _.cloneDeep(t.form.Form.stylesheet);
