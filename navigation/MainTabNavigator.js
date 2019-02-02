@@ -84,6 +84,7 @@ const NewTaskStack = createStackNavigator({
 NewTaskStack.navigationOptions = {
   tabBarLabel: 'Create Task',
   // tabBarVisible: false,
+  initialRouteName: 'UploadPhoto',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}

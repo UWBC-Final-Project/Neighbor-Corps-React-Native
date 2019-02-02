@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
+import { Card, CardItem, Thumbnail, Text, Button, Left, Body, List } from 'native-base';
 
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
+
+import { Icon } from 'expo';
+import { Platform } from 'react-native';
+
 
 export default class Task extends Component {
   constructor(props) {
@@ -39,13 +43,15 @@ export default class Task extends Component {
           // Visible at all times
           <CardItem>
             <Button transparent textStyle={{ color: '#87838B' }}>
-              <Icon name="eye" />
+              {/* <Icon name="eye" /> */}
+              <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={20} />
               <Text>7</Text>
               {/* replace with dynamic property once up and running in the database */}
               {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
             </Button>
             <Button transparent textStyle={{ color: '#87838B' }}>
-              <Icon name="flag" />
+              {/* <Icon name="flag" /> */}
+              <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-flag' : 'md-flag'} size={20} />
               <Text>Confirm Issue</Text>
             </Button>
           </CardItem>
@@ -54,14 +60,16 @@ export default class Task extends Component {
           <CardItem>
             <Left>
               <Button transparent textStyle={{ color: '#87838B' }}>
-                <Icon name="eye" />
+                {/* <Icon name="eye" /> */}
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={20} />
                 <Text>7</Text>
                 {/* replace with dynamic property once up and running in the database */}
                 {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
               </Button>
               <Button transparent textStyle={{ color: '#87838B' }}
                 onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
-                <Icon name="right" />
+                {/* <Icon name="right" /> */}
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-arrow-round-forward' : 'md-arrow-round-forward'} size={20} />
                 <Text>Details</Text>
               </Button>
             </Left>
