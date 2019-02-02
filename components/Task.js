@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet } from 'react-native';
-import { Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
+import { Image, StyleSheet, Platform, View, TouchableHighlight } from 'react-native';
+import { Card, CardItem, Thumbnail, Text, Button, Left, Body, List } from 'native-base';
+import { Font, Icon } from 'expo';
 
 // Base style
 const styles = StyleSheet.create({
@@ -12,6 +13,30 @@ const styles = StyleSheet.create({
     fontSize: 46,
     lineHeight: 46,
     top: 60,
+  },
+  imageZone: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: 200,
+  },
+  taskImage: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
+  taskTitle: {
+    textAlign: 'left',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    fontFamily: 'open-sans-extraBold',
+    color: '#fff',
+    textShadowColor: 'rgba(0, 0, 0, 0.46)',
+    textShadowOffset: { width: 3, height: 0 },
+    textShadowRadius: 6,
+    fontSize: 40,
+    lineHeight: 40,
+    left: 10,
   },
   lendA: {
     width: 333,
@@ -55,47 +80,66 @@ const styles = StyleSheet.create({
   },
 })
 
+
 export default class Task extends Component {
   constructor(props) {
     super(props)
   }
 
+  state = {
+    fontLoaded: false,
+  }
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
+      'open-sans-extraBold': require('../assets/fonts/OpenSans-ExtraBold.ttf'),
+      'open-sans-light': require('../assets/fonts/OpenSans-Light.ttf'),
+      'open-sans-regular': require('../assets/fonts/OpenSans-Regular.ttf'),
+    });
+
+    this.setState({ fontLoaded: true });
+  }
+
   render() {
     return (
+
       <Card
         style={{ flex: 0 }}
         key={this.props.taskProps._id}>
-        <CardItem >
-          <Left >
-            <Thumbnail source={{ uri: 'https://allthatsinteresting.com/wordpress/wp-content/uploads/2015/10/nanjing-littering-in-china.jpg' }} />
-            <Body>
-              <Text>{this.props.taskProps.title}</Text>
-              <Text note>{this.props.taskProps.postDate}</Text>
-              <Text>Posted By: {this.props.taskProps.postedBy.username}</Text>
-            </Body>
-          </Left>
-        </CardItem>
-        <CardItem>
-          <Body>
-            <Image source={{ uri: this.props.taskProps.imageURL }}
-              style={{ height: 200, width: 300, flex: 1, marginLeft: 35 }}
-            />
-            <Text>
-              {this.props.taskProps.description}
-            </Text>
-          </Body>
-        </CardItem>
+
+        {this.state.fontLoaded ?
+          <TouchableHighlight onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
+            <View style={{ flex: 1, backgroundColor: '#eee', height: 200 }}>
+              <View style={styles.imageZone}>
+                <Image
+                  style={styles.taskImage}
+                  source={{ uri: this.props.taskProps.imageURL }}
+                />
+              </View>
+              <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-end', }}>
+                <Text style={styles.taskTitle}>
+                  {this.props.taskProps.title}
+                </Text>
+              </View>
+            </View>
+          </TouchableHighlight>
+          : null
+        }
+
         {this.props.singleView ?
           // Visible at all times
           <CardItem>
             <Button transparent textStyle={{ color: '#87838B' }}>
-              <Icon name="eye" />
+              {/* <Icon name="eye" /> */}
+              <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={20} />
               <Text>7</Text>
               {/* replace with dynamic property once up and running in the database */}
               {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
             </Button>
             <Button transparent textStyle={{ color: '#87838B' }}>
-              <Icon name="flag" />
+              {/* <Icon name="flag" /> */}
+              <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-flag' : 'md-flag'} size={20} />
               <Text>Confirm Issue</Text>
             </Button>
           </CardItem>
@@ -104,14 +148,16 @@ export default class Task extends Component {
           <CardItem>
             <Left>
               <Button transparent textStyle={{ color: '#87838B' }}>
-                <Icon name="eye" />
+                {/* <Icon name="eye" /> */}
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={20} />
                 <Text>7</Text>
                 {/* replace with dynamic property once up and running in the database */}
                 {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
               </Button>
               <Button transparent textStyle={{ color: '#87838B' }}
                 onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
-                <Icon name="right" />
+                {/* <Icon name="right" /> */}
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-arrow-round-forward' : 'md-arrow-round-forward'} size={20} />
                 <Text>Details</Text>
               </Button>
             </Left>
