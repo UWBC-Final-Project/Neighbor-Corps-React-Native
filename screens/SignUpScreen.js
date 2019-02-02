@@ -231,7 +231,7 @@ handleSubmit = () => {
             options={options}
           />
           <View style={{ width: 300, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-            <TouchableHighlight style={styles.signUpButton} onPress={this._SignUp} underlayColor='#99d9f4'>
+            <TouchableHighlight style={styles.signUpButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>
               <Text style={styles.signUpButtonText}>Sign Up!</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.loginButton} onPress={() => this.props.navigation.navigate('WelcomeScreen')} underlayColor='#99d9f4'>
