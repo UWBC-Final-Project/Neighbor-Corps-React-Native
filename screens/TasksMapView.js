@@ -97,7 +97,9 @@ constructor(props){
 			.then(res => {
 				markers = [];
 
-				for (i = 0; i < res.data.length; i++) {
+
+        // will put back i < res.data.length when bad data cleaned up (should delete records with position starting 11)
+				for (i = 0; i < 11; i++) {
 					element = res.data[i];
 					coordinate = element.position[0].coordinate;
 
