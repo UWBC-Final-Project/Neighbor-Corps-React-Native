@@ -1,12 +1,52 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
 import Task from "../components/Task";
 import API from '../utils/API';
 
-const reactStyles = require('../react_native_styles/styles');
-const styles = reactStyles.default;
+// Base style
+const styles = StyleSheet.create({
+  header: {
+    // flex: 1,
+    // flexDirection: 'column',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // width: '100%',
+    height: 80,
+    marginBottom: 80,
+  },
+  headerTitle: {
+    width: 327,
+    height: 63,
+    color: '#63a952',
+    fontFamily: 'open-sans-light',
+    fontSize: 46,
+    lineHeight: 46,
+    top: 60,
+  },
+  accountLinks: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 90,
+    width: 240,
+    justifyContent: 'space-between',
+    top: 220,
+    // alignItems: 'center' 
+  },
+  loginbutton: {
+    width: 54,
+    height: 88,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+  signupbutton: {
+    width: 68,
+    height: 89,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+})
 
 export default class Tasks extends Component {
 
@@ -61,7 +101,7 @@ export default class Tasks extends Component {
   render() {
     return (
       <Container>
-        <Header page={this.state.page} />
+        <Header page={this.state.page} style={styles.header} />
         <Content>
           {this.state.tasks.length ? (
             <List>

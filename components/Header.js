@@ -6,20 +6,48 @@ import { Header, Title } from 'native-base';
 import API from '../utils/API';
 import { Icon } from 'react-native-elements';
 
+// Base style
 const styles = StyleSheet.create({
-  container: {
-    
-  },
   header: {
-    color: 'blue',
-    fontWeight: 'bold',
+    // flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // width: '100%',
     height: 40,
+    marginBottom: 26,
   },
-  userIcon: {
-    alignSelf: 'flex-end'
-
-  }
-});
+  headerTitle: {
+    // width: 327,
+    // height: 63,
+    color: '#63a952',
+    fontFamily: 'open-sans-light',
+    fontSize: 46,
+    lineHeight: 46,
+    top: 20,
+  },
+  accountLinks: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 90,
+    width: 240,
+    justifyContent: 'space-between',
+    top: 220,
+    // alignItems: 'center' 
+  },
+  loginbutton: {
+    width: 54,
+    height: 88,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+  signupbutton: {
+    width: 68,
+    height: 89,
+    justifyContent: 'flex-start',
+    top: 0,
+  },
+})
 
 export default class HeaderMultipleIconExample extends Component {
   constructor(props) {
@@ -40,18 +68,9 @@ export default class HeaderMultipleIconExample extends Component {
   render() {
     return (
 
-      <Header style={styles.header}>
-        <Title>{this.props.page}</Title>
-        {this.state.user ?
-          <Icon></Icon>
-          :
-          <Icon
-            style={styles.userIcon}
-            name='user-x'
-            type='feather' />
-        }
-
-      </Header>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>{this.props.page}</Text>
+      </View>
     );
   }
 }
