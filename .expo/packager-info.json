@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 16330,
+  "expoServerNgrokUrl": "https://bc-wiq.futurethang.neighbor-corps-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.bc-wiq.futurethang.neighbor-corps-react-native.exp.direct",
+  "ngrokPid": 16349
 }

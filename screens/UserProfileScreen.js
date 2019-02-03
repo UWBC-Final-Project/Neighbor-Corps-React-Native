@@ -57,14 +57,12 @@ const styles = StyleSheet.create({
     lineHeight: 46,
     top: 60,
   },
-  lendA: {
-    width: 333,
-    height: 46,
+  welcome: {
     color: '#63a952',
     fontFamily: 'open-sans-regular',
-    fontSize: 18,
-    lineHeight: 46,
-    top: 36,
+    fontSize: 16,
+    // lineHeight: 46,
+    top: 8,
     alignItems: 'center',
   },
   logOutButton: {
@@ -74,8 +72,9 @@ const styles = StyleSheet.create({
     borderColor: '#d8723e',
     borderWidth: 2,
     borderRadius: 12,
+    marginTop: 10,
     marginBottom: 10,
-    // alignSelf: 'stretch',
+    alignSelf: 'center',
     justifyContent: 'center'
   },
   updateButton: {
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 12,
     marginBottom: 10,
-    // alignSelf: 'stretch',
+    alignSelf: 'center',
     justifyContent: 'center'
   },
   updateButtonText: {
@@ -112,6 +111,17 @@ const styles = StyleSheet.create({
     height: 70,
     top: 60,
     marginBottom: 80
+  },
+  category: {
+    fontSize: 14,
+    color: '#63a952',
+    alignSelf: 'flex-start',
+    fontFamily: 'open-sans-bold',
+  },
+  content: {
+    color: '#333',
+    marginBottom: 8,
+    marginTop: 4
   },
   form: {
     width: 309,
@@ -178,10 +188,8 @@ const options = {
     },
     aboutMe: {
       stylesheet: formStyles,
-      
-      textContentType: 'about me',
     },
-    terms: {
+      terms: {
       label: 'Agree to Terms',
     },
   }
@@ -323,6 +331,7 @@ export default class UserProfileScreen extends Component {
         .catch((error) => {
           console.log(error);
         });
+        this.toggleForm();
     }
   }
 
@@ -357,7 +366,7 @@ export default class UserProfileScreen extends Component {
 
           {/* // KPH toggle the edit user form fields */}
           {this.state.formShowing ?
-            <View style={{ width: 400, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+            <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
               <Form
                 style={styles.form}
                 ref="form"
@@ -372,16 +381,16 @@ export default class UserProfileScreen extends Component {
               </TouchableHighlight>
             </View>
             :
-            <View style={{ width: 400, flexDirection: 'column' }}>
+            <View style={{ flexDirection: 'column' }}>
               <Card>
 
-                <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
-                <CardItem><Text>Email: {this.state.email}</Text></CardItem>
-                <CardItem><Text>First Name: {this.state.firstName}</Text></CardItem>
-                <CardItem><Text>Last Name: {this.state.lastName}</Text></CardItem>
-                <CardItem><Text>Phone: {this.state.phone}</Text></CardItem>
-                <CardItem><Text>About Me: {this.state.aboutMe}</Text></CardItem>
-                <CardItem><Text>Zipcode: {this.state.zipcode}</Text></CardItem>
+                <CardItem><Text style={styles.welcome}>Welcome <Text style={{fontFamily: 'open-sans-bold', color: '#63a952',}}>{this.state.username}!</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>Email: <Text style={styles.content}>{this.state.email}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>First Name: <Text style={styles.content}>{this.state.firstName}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>Last Name: <Text style={styles.content}>{this.state.lastName}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>Phone: <Text style={styles.content}>{this.state.phone}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>About Me: <Text style={styles.content}>{this.state.aboutMe}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>Zipcode: <Text style={styles.content}>{this.state.zipcode}</Text></Text></CardItem>
               </Card>
 
               <TouchableHighlight style={styles.logOutButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>

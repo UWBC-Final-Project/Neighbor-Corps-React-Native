@@ -55,7 +55,7 @@ export default class CommentScreen extends Component {
             <Text style={styles.username}>
               {this.props.props.postedBy.username} says
             </Text>
-            <Text style={{color: '#333', marginBottom: 8, margintop: 4}}>{this.props.props.comment}</Text>
+            <Text style={{color: '#333', marginBottom: 8, marginTop: 4}}>{this.props.props.comment}</Text>
             <Text style={{ color: '#666', fontSize: 10 }}>Posted on: {this.props.props.postDate}</Text>
             {/* <DeleteBtn onClick={() => this.deleteTask(task._id)} /> */}
           </Body>
