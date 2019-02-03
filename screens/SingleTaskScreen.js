@@ -211,7 +211,7 @@ export default class SingleTaskScreen extends Component {
 
           {/* "I saw this too" button component that also triggers usersInvolved count */}
           {/* <VerifyButton addUserInteraction={this.addUserInteraction}/> */}
-          <Text>{"\n\n"}</Text>
+          <Text>{"\n"}</Text>
           {this.state.username ?
             <CommentForm saveComment={this.saveComment} />
             :
@@ -219,11 +219,7 @@ export default class SingleTaskScreen extends Component {
               onPress={this._LoginSignUp}
               title="Log In to Comment"
             />
-
           }
-
-
-
         </Content>
       </Container>
     );

@@ -123,6 +123,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 4
   },
+  noTaskText: {
+    fontSize: 14,
+    color: '#63a952',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+    marginTop: 10,
+  },
   form: {
     width: 309,
     height: 75,
@@ -144,9 +151,6 @@ const User = t.struct({
   lastName: t.maybe(t.String),
   email: t.maybe(t.String),
   phone: t.maybe(t.Number),
-  // username cannot be changed as it is the primary key
-  // Alternatively, we can give user an option to change screen name/ nickname
-  // userName: t.maybe(t.String),
   password: t.maybe(t.String),
   aboutMe: t.maybe(t.String),
   zipcode: t.maybe(t.Number),
@@ -218,7 +222,7 @@ removeNull = (obj) => {
 
 export default class UserProfileScreen extends Component {
   state = {
-    page: "Your Profile", // Header title text
+    page: "Profile", // Header title text
     formShowing: false,
     // MongoDB info
     // Current user's properties
@@ -383,7 +387,6 @@ export default class UserProfileScreen extends Component {
             :
             <View style={{ flexDirection: 'column' }}>
               <Card>
-
                 <CardItem><Text style={styles.welcome}>Welcome <Text style={{fontFamily: 'open-sans-bold', color: '#63a952',}}>{this.state.username}!</Text></Text></CardItem>
                 <CardItem><Text style={styles.category}>Email: <Text style={styles.content}>{this.state.email}</Text></Text></CardItem>
                 <CardItem><Text style={styles.category}>First Name: <Text style={styles.content}>{this.state.firstName}</Text></Text></CardItem>
@@ -413,7 +416,7 @@ export default class UserProfileScreen extends Component {
                       })}
                     </List>
                   ) : (
-                      <Text>No Results to Display</Text>
+                      <Text style={styles.noTaskText}>No tasks created yet!</Text>
                     )}
                 </Content>
               </Container>
