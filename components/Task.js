@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   buttonArea: {
     backgroundColor: '#eee',
-  },  
+  },
   logo: {
     width: 292,
     height: 229,
@@ -68,6 +68,13 @@ const styles = StyleSheet.create({
     height: 89,
     justifyContent: 'flex-start',
     top: 0,
+  },
+  username: {
+    fontSize: 14,
+    color: '#fff',
+    alignSelf: 'flex-start',
+    fontFamily: 'open-sans-bold',
+    left: 10,
   },
 })
 
@@ -101,7 +108,8 @@ export default class Task extends Component {
 
         {this.state.fontLoaded ?
           // Visible at all times
-          <TouchableHighlight onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
+          <TouchableHighlight
+            onPress={!this.props.singleView ? () => this.props.stackNav(this.props.taskProps._id, this.props.taskProps) : null}>
             <View style={{ flex: 1, backgroundColor: '#eee', height: 200 }}>
               <View style={styles.imageZone}>
                 <Image
@@ -109,10 +117,11 @@ export default class Task extends Component {
                   source={{ uri: this.props.taskProps.imageURL }}
                 />
               </View>
-              <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-end', }}>
+              <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-end', marginBottom: 5 }}>
                 <Text style={styles.taskTitle}>
                   {this.props.taskProps.title}
                 </Text>
+                <Text style={styles.username}>Posted by: {this.props.taskProps.postedBy.username}</Text>
               </View>
             </View>
           </TouchableHighlight>
@@ -128,14 +137,14 @@ export default class Task extends Component {
             <CardItem style={styles.buttonArea}>
               <Button transparent textStyle={{ color: '#87838B' }}>
                 {/* <Icon name="eye" /> */}
-                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={16} stlye={{ color: '#87838B' }}/>
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={16} stlye={{ color: '#87838B' }} />
                 <Text>7</Text>
                 {/* replace with dynamic property once up and running in the database */}
                 {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
               </Button>
               <Button transparent textStyle={{ color: '#87838B' }}>
                 {/* <Icon name="flag" /> */}
-                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-flag' : 'md-flag'} size={16} stlye={{ color: '#87838B' }}/>
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-flag' : 'md-flag'} size={16} stlye={{ color: '#87838B' }} />
                 <Text>Confirm Issue</Text>
               </Button>
               <Button transparent textStyle={{ color: '#87838B' }}>
@@ -158,7 +167,7 @@ export default class Task extends Component {
               <Button transparent textStyle={{ color: '#87838B' }}
                 onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
                 {/* <Icon name="right" /> */}
-                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-information-circle' : 'md-information-circle'} size={20} stlye={{ color: '#87838B' }}/>
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-information-circle' : 'md-information-circle'} size={20} stlye={{ color: '#87838B' }} />
                 <Text>Details</Text>
               </Button>
               <Button transparent textStyle={{ color: '#87838B' }}>
