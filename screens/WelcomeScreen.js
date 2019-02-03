@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { Font } from 'expo';
 import { Container, CardItem, Content, Item, Input, Labelzz, Header, Title, Button, Left, Right, Body, Center, Icon, Thumbnail, ImageBackground } from 'native-base';
-import { Image, View, Text, ScrollView, Linking, TouchableHighlight, StyleSheet } from 'react-native';
+import { Image, View, Text, ScrollView, Linking, TouchableHighlight, StyleSheet, AppRegistry } from 'react-native';
 
 import Headerjs from '../components/Header';
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans-light',
     fontSize: 46,
     lineHeight: 46,
-    top: 60,
+    top: 20,
   },
   lendA: {
     width: 333,
@@ -27,17 +27,16 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans-regular',
     fontSize: 18,
     lineHeight: 46,
-    top: 36,
   },
   logo: {
     width: 292,
     height: 229,
-    top: 100,
+    top: 5,
   },
   MapBrowseButton: {
     width: 223,
     height: 61,
-    top: 142,
+    top: 5,
   },
   accountLinks: {
     flex: 1,
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
     height: 90,
     width: 240,
     justifyContent: 'space-between',
-    top: 220,
+    top: 20,
     // alignItems: 'center' 
   },
   loginbutton: {
@@ -59,6 +58,11 @@ const styles = StyleSheet.create({
     height: 89,
     justifyContent: 'flex-start',
     top: 0,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: Center,
   },
 })
 
@@ -84,7 +88,7 @@ export default class WelcomeScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
           {
             this.state.fontLoaded
@@ -99,7 +103,7 @@ export default class WelcomeScreen extends Component {
 
           <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
           <TouchableHighlight
-            onPress={() => this.props.navigation.navigate('TasksMapView')}
+            onPress={() => this.props.navigation.navigate('TaskMap')}
             style={styles.MapBrowseButton} >
             <Image
               source={require('../assets/images/MapBrowseButton.png')}
@@ -124,6 +128,10 @@ export default class WelcomeScreen extends Component {
 
         </View>
       </ScrollView>
-    )
+    );
   }
 } 
+
+AppRegistry.registerComponent(
+  'NeighborCorps',
+  () => WelcomeScreen);

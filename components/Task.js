@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   buttonArea: {
-    backgroundColor: '#bbb',
+    backgroundColor: '#eee',
   },  
   logo: {
     width: 292,
@@ -128,15 +128,18 @@ export default class Task extends Component {
             <CardItem style={styles.buttonArea}>
               <Button transparent textStyle={{ color: '#87838B' }}>
                 {/* <Icon name="eye" /> */}
-                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={16} />
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'} size={16} stlye={{ color: '#87838B' }}/>
                 <Text>7</Text>
                 {/* replace with dynamic property once up and running in the database */}
                 {/* <Text>seen by {this.props.taskProps.usersInvolved}</Text> */}
               </Button>
               <Button transparent textStyle={{ color: '#87838B' }}>
                 {/* <Icon name="flag" /> */}
-                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-flag' : 'md-flag'} size={16} />
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-flag' : 'md-flag'} size={16} stlye={{ color: '#87838B' }}/>
                 <Text>Confirm Issue</Text>
+              </Button>
+              <Button transparent textStyle={{ color: '#87838B' }}>
+                <Moment element={Text} format="MM/DD/YYYY">{this.props.taskProps.postDate}</Moment>
               </Button>
             </CardItem>
 
@@ -155,12 +158,11 @@ export default class Task extends Component {
               <Button transparent textStyle={{ color: '#87838B' }}
                 onPress={() => this.props.stackNav(this.props.taskProps._id, this.props.taskProps)}>
                 {/* <Icon name="right" /> */}
-                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-arrow-round-forward' : 'md-arrow-round-forward'} size={20} />
+                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-information-circle' : 'md-information-circle'} size={20} stlye={{ color: '#87838B' }}/>
                 <Text>Details</Text>
               </Button>
               <Button transparent textStyle={{ color: '#87838B' }}>
-                <Icon.Ionicons name={Platform.OS === 'ios' ? 'ios-arrow-round-forward' : 'md-arrow-round-forward'} size={20} />
-                <Text>{this.props.taskProps.postDate}</Text>
+                <Moment element={Text} format="MM/DD/YYYY">{this.props.taskProps.postDate}</Moment>
               </Button>
             </Left>
           </CardItem>
