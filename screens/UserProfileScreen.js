@@ -374,7 +374,6 @@ export default class UserProfileScreen extends Component {
             :
             <View style={{ width: 400, flexDirection: 'column' }}>
               <Card>
-
                 <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
                 <CardItem><Text>Email: {this.state.email}</Text></CardItem>
                 <CardItem><Text>First Name: {this.state.firstName}</Text></CardItem>
