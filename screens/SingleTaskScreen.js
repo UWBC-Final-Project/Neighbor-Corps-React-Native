@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import Header from '../components/Header';
 import Task from '../components/Task';
 import CommentForm from '../components/CommentForm';
