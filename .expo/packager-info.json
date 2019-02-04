@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://6p-zun.anonymous.neighbor-corps-react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.6p-zun.anonymous.neighbor-corps-react-native.exp.direct",
-  "ngrokPid": 17708
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 18638,
+  "expoServerNgrokUrl": "https://6p-zun.futurethang.neighbor-corps-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.6p-zun.futurethang.neighbor-corps-react-native.exp.direct",
+  "ngrokPid": 18657
 }

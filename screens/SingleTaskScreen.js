@@ -82,6 +82,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: 'open-sans-bold',
   },
+  noCommentsText: {
+    fontSize: 14,
+    color: '#bbb',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+  },
 })
 
 export default class SingleTaskScreen extends Component {
@@ -208,7 +214,7 @@ export default class SingleTaskScreen extends Component {
               </List>
             )
             :
-            <Text>No comments yet . . .</Text>
+            <Text style={styles.noCommentsText}>No comments yet . . .</Text>
           }
 
           {/* "I saw this too" button component that also triggers usersInvolved count */}
