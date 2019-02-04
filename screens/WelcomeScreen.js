@@ -6,50 +6,55 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 // Base style
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
+    height: hp('100%'),
     flex: 1,
-    backgroundColor: 'gray',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  responsiveBox: {
-    width: wp('84.5%'),
-    height: hp('17%'),
-    borderWidth: 2,
-    borderColor: 'orange',
     flexDirection: 'column',
-    justifyContent: 'space-around' 
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
-  text: {
-    color: 'white'
+  titleBox: {
+    flex: 1, 
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   neighborCorps: {
     width: wp('84.5%'),
-    // height: 'auto',
     color: '#63a952',
     fontFamily: 'open-sans-light',
     fontSize: hp('5%'),
     lineHeight: hp('5%'),
     top: 20,
+    textAlign: 'center',
   },
   lendA: {
     width: wp('84.5%'),
-    // height: 'auto',
     color: '#63a952',
     fontFamily: 'open-sans-regular',
     fontSize: hp('2%'),
-    lineHeight: hp('2%'),
-    top: 20,
+    // lineHeight: hp('2%'),
+    top: 25,
+    textAlign: 'center',
+  },
+  logoBox: {
+    flex: 2,
   },
   logo: {
     width: wp('80%'),
     height: hp('30%'),
-    top: hp('5%'),
+    // top: hp('5%'),
+  },
+  mapButtonBox: {
+    flex: 1,
   },
   MapBrowseButton: {
     width: 223,
     height: 61,
-    top: 25,
+    // top: 25,
+  },
+  userButtonsBox: {
+    flex: 1,
   },
   accountLinks: {
     flex: 1,
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     height: 90,
     width: 240,
     justifyContent: 'space-between',
-    top: 60,
+    // top: 60,
     // alignItems: 'center' 
   },
   loginbutton: {
@@ -71,13 +76,6 @@ const styles = StyleSheet.create({
     height: 89,
     justifyContent: 'flex-start',
     top: 0,
-  },
-  contentContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-
   },
 })
 
@@ -104,7 +102,8 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+
+        <View style={styles.titleBox}>
           {
             this.state.fontLoaded
               ? (
@@ -115,8 +114,11 @@ export default class WelcomeScreen extends Component {
               )
               : null
           }
-
+        </View>
+        <View style={styles.logoBox}>
           <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
+        </View>
+        <View style={styles.mapButtonBox}>
           <TouchableHighlight
             onPress={() => this.props.navigation.navigate('TaskMap')}
             style={styles.MapBrowseButton} >
@@ -124,6 +126,8 @@ export default class WelcomeScreen extends Component {
               source={require('../assets/images/MapBrowseButton.png')}
             />
           </TouchableHighlight>
+        </View>
+        <View style={styles.userButtonsBox}>
           <View style={styles.accountLinks}>
             <TouchableHighlight
               onPress={() => this.props.navigation.navigate('LoginScreen')}
@@ -140,7 +144,6 @@ export default class WelcomeScreen extends Component {
               />
             </TouchableHighlight>
           </View>
-
         </View>
       </ScrollView>
     );
