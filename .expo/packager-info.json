@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 17511,
-  "expoServerNgrokUrl": "https://bc-wiq.futurethang.neighbor-corps-react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.bc-wiq.futurethang.neighbor-corps-react-native.exp.direct",
-  "ngrokPid": 17530
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://bc-wiq.anonymous.neighbor-corps-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.bc-wiq.anonymous.neighbor-corps-react-native.exp.direct",
+  "ngrokPid": 99720
 }

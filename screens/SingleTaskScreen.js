@@ -112,7 +112,7 @@ export default class SingleTaskScreen extends Component {
   // Use ES6 function style as below
   // or else add a this.updateTaskCompletion = this.updateTaskCompletion.bind(this) in the constructor
   updateTaskCompletion = () => {
-    API.updateTask(this.state.thisTask._id)
+    API.updateTask(this.state.thisTask._id, true)
       .then(res =>
         this.setState({
           taskCompletion: true
@@ -126,6 +126,8 @@ export default class SingleTaskScreen extends Component {
       .then(res => {
         this.setState({
           thisTask: res.data,
+          // change the taskCompletion value display to match with the taskCompletion value in the database
+          // without this line, it will always default to false
           taskCompletion: res.data.taskCompletion
         });
       })
