@@ -3,6 +3,7 @@ import { Image, View, TouchableHighlight, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
 import { Font } from 'expo';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import API from '../utils/API';
 import Task from "../components/Task";
 import t from 'tcomb-form-native';
@@ -16,8 +17,8 @@ formStyles.textbox = {
   normal: {
     color: '#555',
     fontSize: 24,
-    height: 55,
-    width: 330,
+    height: 50,
+    width: wp('90%'),
     paddingHorizontal: 14,
     borderRadius: 12,
     backgroundColor: '#fff',

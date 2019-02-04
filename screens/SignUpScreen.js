@@ -3,6 +3,7 @@ import { Container, Content, Item, Input, Label, Text } from 'native-base';
 import { TouchableHighlight, StyleSheet, Image, View } from 'react-native';
 import { NavigationActions } from "react-navigation";
 import { Font } from 'expo';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 import validator from 'validator';
@@ -16,8 +17,8 @@ formStyles.textbox = {
   normal: {
     color: '#555',
     fontSize: 24,
-    height: 55,
-    width: 300,
+    height: 50,
+    width: wp('80%'),
     paddingHorizontal: 14,
     borderRadius: 12,
     backgroundColor: '#fff',
@@ -102,8 +103,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 70,
     height: 70,
-    top: 60,
-    marginBottom: 80
+    top: hp('5%'),
+    marginBottom: hp('5%')
   },
   form: {
     width: 309,
@@ -238,7 +239,7 @@ handleSubmit = () => {
               <Text style={styles.signUpButtonText}>Sign Up!</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.loginButton} onPress={() => this.props.navigation.navigate('WelcomeScreen')} underlayColor='#99d9f4'>
-            <Text style={styles.loginButtonText}>Not ready yet</Text>
+            <Text style={styles.loginButtonText}>I'm not ready yet</Text>
           </TouchableHighlight>
           </View>
         </View>
