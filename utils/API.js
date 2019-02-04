@@ -2,8 +2,6 @@ import axios from "axios";
 
 // const heroku = 'https://young-sands-49140.herokuapp.com'
 const heroku = "http://localhost:3001"
-
-
 export default {
 
   // ======== USER AUTHENTICATION ======== 
@@ -102,7 +100,12 @@ export default {
   },
   // Gets all Tasks
   getTasks: function() {
-    return axios.get(heroku + "/api/tasks");
+    return axios.get(heroku + "/api/tasks", {
+      // Only display tasks that are uncompleted
+      params: { 
+        taskCompletion: false 
+      } 
+    });
   },
   // Gets the Task with the given id
   getTask: function(id) {
