@@ -61,11 +61,34 @@ export default class Tasks extends Component {
     isLoading: true,
   };
 
+  // This is to solve the issue where taskscreen needed to be refreshed everytime a new task is created or when there is a change in the task's state
+  // React Navigation mounted the component the first visit, and it remains mounted at that screen even after user navigate to another screen
+  // https://reactnavigation.org/docs/en/navigation-prop.html#addlistener-subscribe-to-updates-to-navigation-lifecycle
+  // addListener - Subscribe to updates to navigation lifecycle
+  // React Navigation emits events to screen components that subscribe to them:
+  // didFocus - the screen focused (if there was a transition, the transition completed)
+  // In this case, run this.loadTasks() only after the Task View screen is focused.
+  // Everytime user goes to Task View screen, the screen will have all task loaded.
+  didFocusSubscription = this.props.navigation.addListener(
+    'didFocus',
+    () => {
+      console.log("********* didFocus - TasksScreen *********");
+      this.loadTasks();
+    }
+  )
+
   // When the component mounts, load all Tasks and save them to this.state.Tasks
   componentDidMount() {
     this.loadTasks();
     console.log(this.state.tasks);
   }
+
+  // Remove the didFocusSubscription listener before the component is unmounted
+  componentWillUnmount() {
+    didFocusSubscription.remove();
+  }
+
+
 
   constructor(props) {
     super(props);

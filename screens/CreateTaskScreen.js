@@ -65,12 +65,9 @@ export default class CreateTaskScreen extends Component {
 
   _createTask = async (event) => {
 
-    this.props.navigation.navigate('Home')
-
     event.preventDefault();
     var value = this.refs.form.getValue();
     
-
     if (value) {
 
       this.setState({
@@ -84,10 +81,14 @@ export default class CreateTaskScreen extends Component {
         position: JSON.parse(this.props.navigation.state.params.getTaskLocation),
         postedBy: this.state.postedBy
 
-      })
-        .catch(err => console.log(err));
+      }).catch(err => console.log(err));
+      
       console.log("I'm called ")
       console.log(this.state);
+      
+      // In tcomb-form-native, if validation fails, value will be null.
+      // Navigate to target screen after validation from tcomb, or else validation fails but the screen still navigates resulting in null data being created. 
+      this.props.navigation.navigate('Home');
     }
     else {
       disabled = this.state.validity
