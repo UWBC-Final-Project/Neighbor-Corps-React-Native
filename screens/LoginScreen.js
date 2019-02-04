@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import { Container, Content, Item, Input, Label, Text } from 'native-base';
 import { TouchableHighlight, StyleSheet, Image, View } from 'react-native';
-import Header from '../components/Header';
 import { NavigationActions } from "react-navigation";
 import { Font } from 'expo';
 import API from '../utils/API';

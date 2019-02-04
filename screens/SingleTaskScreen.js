@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import Header from '../components/Header';
 import Task from '../components/Task';
 import CommentForm from '../components/CommentForm';
@@ -79,6 +78,12 @@ const styles = StyleSheet.create({
   activeTaskText: {
     fontSize: 14,
     color: '#d8723e',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+  },
+  noCommentsText: {
+    fontSize: 14,
+    color: '#bbb',
     alignSelf: 'center',
     fontFamily: 'open-sans-bold',
   },
@@ -208,7 +213,7 @@ export default class SingleTaskScreen extends Component {
               </List>
             )
             :
-            <Text>No comments yet . . .</Text>
+            <Text style={styles.noCommentsText}>No comments yet . . .</Text>
           }
 
           {/* "I saw this too" button component that also triggers usersInvolved count */}
