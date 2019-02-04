@@ -82,11 +82,12 @@ export default class Tasks extends Component {
           description: "",
           imageURL: "",
           position: "",
-          _id: ""
+          _id: "",
+          // This is to ensure tasks are loaded first before setting the loading screen to false
+          isLoading: false
         }),
       )
       .catch(err => console.log(err));
-    this.setState({ isLoading: false })
   };
 
 
@@ -105,7 +106,9 @@ export default class Tasks extends Component {
       <Container>
         <Header page={this.state.page} style={styles.header} />
         <Content>
-          {this.state.tasks.length ? (
+          {/* If the state of loading is false (ie. screen is not loading), start displaying tasks */}
+          {/* Previously, if this.state.length is true, start displaying tasks. If there were no task, screen would continue loading forever. !this.state.isLoading solves this issue. */}
+          { !this.state.isLoading ? (
             <List>
               {this.state.tasks.map(task => {
                 return (

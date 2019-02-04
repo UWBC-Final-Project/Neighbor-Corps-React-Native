@@ -52,31 +52,19 @@ export default {
   },
 
   // Update Task
-  updateTask: function(id) {
+  updateTask: function(id, isComplete) {
     return axios({
       method: 'put',
       headers: { 'content-type': 'application/json' },
       url: heroku + '/api/tasks/' + id,
+      // Data will display accordingly to whether isComplete is set to true or false
+      // In this project, only UNCOMPLETED (isComplete: false) tasks will be displayed on task feed
+      data: {
+        taskCompletion: isComplete
+      }
     });
   }, 
 
-  // // Gets all books
-  // getBooks: function() {
-  //   return axios.get(heroku + "/api/books");
-  // },
-  // // Gets the book with the given id
-  // getBook: function(id) {
-  //   return axios.get(heroku + "/api/books/" + id);
-  // },
-  // // Deletes the book with the given id
-  // deleteBook: function(id) {
-  //   return axios.delete(heroku + "/api/books/" + id);
-  // },
-  // // Saves a book to the database
-  // saveBook: function(bookData) {
-  //   return axios.post(heroku + "/api/books", bookData);
-  // },
-  // ---->  KPH Adding Boilerplate to get to the express API
   // Gets all Users
   getUsers: function() {
     return axios.get(heroku + "/api/users");
@@ -99,7 +87,11 @@ export default {
   },
   // Gets all Tasks
   getTasks: function() {
-    return axios.get(heroku + "/api/tasks");
+    return axios.get(heroku + "/api/tasks", {
+      params: {
+        taskCompletion: false
+      }
+    });
   },
   // Gets the Task with the given id
   getTask: function(id) {
