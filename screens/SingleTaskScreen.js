@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import Header from '../components/Header';
 import Task from '../components/Task';
 import CommentForm from '../components/CommentForm';
 import Comment from '../components/Comment';
-import { Image, View, ScrollView, Linking, StyleSheet } from 'react-native';
-import { Container, Content, TouchableHighlight, Text, List, Body } from 'native-base';
+import { Image, View, ScrollView, TouchableHighlight, StyleSheet, Button } from 'react-native';
+import { Container, Content, Text, List, Body } from 'native-base';
 import API from '../utils/API';
-import { Button } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
 
 // Base style
@@ -49,17 +47,45 @@ const styles = StyleSheet.create({
     top: 220,
     // alignItems: 'center' 
   },
-  loginbutton: {
-    width: 54,
-    height: 88,
-    justifyContent: 'flex-start',
-    top: 0,
+  completedButton: {
+    height: 35,
+    width: '70%',
+    backgroundColor: '#fff',
+    borderColor: '#63a952',
+    borderWidth: 2,
+    borderRadius: 12,
+    marginBottom: 10,
+    // alignSelf: 'stretch',
+    justifyContent: 'center'
   },
-  signupbutton: {
-    width: 68,
-    height: 89,
-    justifyContent: 'flex-start',
-    top: 0,
+  completedButtonText: {
+    fontSize: 14,
+    color: '#63a952',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+  },
+  activeTask: {
+    height: 35,
+    width: '70%',
+    backgroundColor: '#fff',
+    borderColor: '#d8723e',
+    borderWidth: 2,
+    borderRadius: 12,
+    marginBottom: 10,
+    // alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  activeTaskText: {
+    fontSize: 14,
+    color: '#d8723e',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+  },
+  noCommentsText: {
+    fontSize: 14,
+    color: '#bbb',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
   },
 })
 
@@ -91,9 +117,9 @@ export default class SingleTaskScreen extends Component {
   // Use ES6 function style as below
   // or else add a this.updateTaskCompletion = this.updateTaskCompletion.bind(this) in the constructor
   updateTaskCompletion = () => {
-    API.updateTask(this.state.thisTask._id)
-      .then(res => 
-        this.setState ({
+    API.updateTask(this.state.thisTask._id, true)
+      .then(res =>
+        this.setState({
           taskCompletion: true
         })
       )
@@ -103,11 +129,13 @@ export default class SingleTaskScreen extends Component {
   getTask(taskId) {
     API.getTask(taskId)
       .then(res => {
-        this.setState({ 
+        this.setState({
           thisTask: res.data,
+          // change the taskCompletion value display to match with the taskCompletion value in the database
+          // without this line, it will always default to false
           taskCompletion: res.data.taskCompletion
         });
-    })
+      })
       .catch(err => console.log(err));
   }
 
@@ -159,20 +187,21 @@ export default class SingleTaskScreen extends Component {
         <Content>
           {/* KPH Repeated via Copy/Paste here but would render with a Mapped return from the DB in the future */}
           <Task taskProps={this.props.navigation.state.params.taskProps} singleView={true} />
-          
+
           {/* Task Completion button */}
           {this.state.taskCompletion === false ?
-            <Button 
-              onPress={this.updateTaskCompletion} 
-              title = "Uncompleted"
-            />
+            <View style={{ width: '100%', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+              <TouchableHighlight
+                onPress={this.updateTaskCompletion}
+                style={styles.activeTask}
+              >
+                <Text style={styles.activeTaskText}>Active Task</Text>
+              </TouchableHighlight>
+            </View>
             :
-            <Button
-              title="Completed"
-            />
-
+            <Text style={styles.completedButtonText}>Completed On DD/MM/YYY</Text>
           }
-          
+
           {this.state.comments.length
             ? (
               <List>
@@ -184,12 +213,12 @@ export default class SingleTaskScreen extends Component {
               </List>
             )
             :
-            <Text>No comments yet . . .</Text>
+            <Text style={styles.noCommentsText}>No comments yet . . .</Text>
           }
 
           {/* "I saw this too" button component that also triggers usersInvolved count */}
           {/* <VerifyButton addUserInteraction={this.addUserInteraction}/> */}
-          <Text>{"\n\n"}</Text>
+          <Text>{"\n"}</Text>
           {this.state.username ?
             <CommentForm saveComment={this.saveComment} />
             :
@@ -197,11 +226,7 @@ export default class SingleTaskScreen extends Component {
               onPress={this._LoginSignUp}
               title="Log In to Comment"
             />
-
           }
-
-
-
         </Content>
       </Container>
     );

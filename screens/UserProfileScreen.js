@@ -3,6 +3,7 @@ import { Image, View, TouchableHighlight, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
 import { Font } from 'expo';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import API from '../utils/API';
 import Task from "../components/Task";
 import t from 'tcomb-form-native';
@@ -16,8 +17,8 @@ formStyles.textbox = {
   normal: {
     color: '#555',
     fontSize: 24,
-    height: 55,
-    width: 330,
+    height: 50,
+    width: wp('90%'),
     paddingHorizontal: 14,
     borderRadius: 12,
     backgroundColor: '#fff',
@@ -57,14 +58,12 @@ const styles = StyleSheet.create({
     lineHeight: 46,
     top: 60,
   },
-  lendA: {
-    width: 333,
-    height: 46,
+  welcome: {
     color: '#63a952',
     fontFamily: 'open-sans-regular',
-    fontSize: 18,
-    lineHeight: 46,
-    top: 36,
+    fontSize: 16,
+    // lineHeight: 46,
+    top: 8,
     alignItems: 'center',
   },
   logOutButton: {
@@ -74,8 +73,9 @@ const styles = StyleSheet.create({
     borderColor: '#d8723e',
     borderWidth: 2,
     borderRadius: 12,
+    marginTop: 10,
     marginBottom: 10,
-    // alignSelf: 'stretch',
+    alignSelf: 'center',
     justifyContent: 'center'
   },
   updateButton: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 12,
     marginBottom: 10,
-    // alignSelf: 'stretch',
+    alignSelf: 'center',
     justifyContent: 'center'
   },
   updateButtonText: {
@@ -113,6 +113,24 @@ const styles = StyleSheet.create({
     top: 60,
     marginBottom: 80
   },
+  category: {
+    fontSize: 14,
+    color: '#63a952',
+    alignSelf: 'flex-start',
+    fontFamily: 'open-sans-bold',
+  },
+  content: {
+    color: '#333',
+    marginBottom: 8,
+    marginTop: 4
+  },
+  noTaskText: {
+    fontSize: 14,
+    color: '#63a952',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
+    marginTop: 10,
+  },
   form: {
     width: 309,
     height: 75,
@@ -134,9 +152,6 @@ const User = t.struct({
   lastName: t.maybe(t.String),
   email: t.maybe(t.String),
   phone: t.maybe(t.Number),
-  // username cannot be changed as it is the primary key
-  // Alternatively, we can give user an option to change screen name/ nickname
-  // userName: t.maybe(t.String),
   password: t.maybe(t.String),
   aboutMe: t.maybe(t.String),
   zipcode: t.maybe(t.Number),
@@ -178,10 +193,8 @@ const options = {
     },
     aboutMe: {
       stylesheet: formStyles,
-      
-      textContentType: 'about me',
     },
-    terms: {
+      terms: {
       label: 'Agree to Terms',
     },
   }
@@ -210,7 +223,7 @@ removeNull = (obj) => {
 
 export default class UserProfileScreen extends Component {
   state = {
-    page: "Your Profile", // Header title text
+    page: "Profile", // Header title text
     formShowing: false,
     // MongoDB info
     // Current user's properties
@@ -323,6 +336,7 @@ export default class UserProfileScreen extends Component {
         .catch((error) => {
           console.log(error);
         });
+        this.toggleForm();
     }
   }
 
@@ -357,7 +371,7 @@ export default class UserProfileScreen extends Component {
 
           {/* // KPH toggle the edit user form fields */}
           {this.state.formShowing ?
-            <View style={{ width: 400, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+            <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
               <Form
                 style={styles.form}
                 ref="form"
@@ -372,8 +386,9 @@ export default class UserProfileScreen extends Component {
               </TouchableHighlight>
             </View>
             :
-            <View style={{ width: 400, flexDirection: 'column' }}>
+            <View style={{ flexDirection: 'column' }}>
               <Card>
+<<<<<<< HEAD
                 <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
                 <CardItem><Text>Email: {this.state.email}</Text></CardItem>
                 <CardItem><Text>First Name: {this.state.firstName}</Text></CardItem>
@@ -381,6 +396,15 @@ export default class UserProfileScreen extends Component {
                 <CardItem><Text>Phone: {this.state.phone}</Text></CardItem>
                 <CardItem><Text>About Me: {this.state.aboutMe}</Text></CardItem>
                 <CardItem><Text>Zipcode: {this.state.zipcode}</Text></CardItem>
+=======
+                <CardItem><Text style={styles.welcome}>Welcome <Text style={{fontFamily: 'open-sans-bold', color: '#63a952',}}>{this.state.username}!</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>Email: <Text style={styles.content}>{this.state.email}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>First Name: <Text style={styles.content}>{this.state.firstName}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>Last Name: <Text style={styles.content}>{this.state.lastName}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>Phone: <Text style={styles.content}>{this.state.phone}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>About Me: <Text style={styles.content}>{this.state.aboutMe}</Text></Text></CardItem>
+                <CardItem><Text style={styles.category}>Zipcode: <Text style={styles.content}>{this.state.zipcode}</Text></Text></CardItem>
+>>>>>>> 51ba10c832ee57cf09501e7d138bee2d29702f57
               </Card>
 
               <TouchableHighlight style={styles.logOutButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>
@@ -403,7 +427,7 @@ export default class UserProfileScreen extends Component {
                       })}
                     </List>
                   ) : (
-                      <Text>No Results to Display</Text>
+                      <Text style={styles.noTaskText}>No tasks created yet!</Text>
                     )}
                 </Content>
               </Container>

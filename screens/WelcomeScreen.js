@@ -1,43 +1,60 @@
 import React, { Component } from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import { Font } from 'expo';
-import { Container, CardItem, Content, Item, Input, Labelzz, Header, Title, Button, Left, Right, Body, Center, Icon, Thumbnail, ImageBackground } from 'native-base';
-import { Image, View, Text, ScrollView, Linking, TouchableHighlight, StyleSheet } from 'react-native';
-
-import Headerjs from '../components/Header';
-
-// const reactStyles = require('../react_native_styles/styles');
-// const styles = reactStyles.default;
+import { Center } from 'native-base';
+import { Image, View, Text, ScrollView, Linking, TouchableHighlight, StyleSheet, AppRegistry } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 // Base style
 const styles = StyleSheet.create({
+  contentContainer: {
+    height: hp('100%'),
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  titleBox: {
+    flex: 1, 
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
   neighborCorps: {
-    width: 327,
-    height: 63,
+    width: wp('84.5%'),
     color: '#63a952',
     fontFamily: 'open-sans-light',
-    fontSize: 46,
-    lineHeight: 46,
-    top: 60,
+    fontSize: hp('5%'),
+    lineHeight: hp('5%'),
+    top: 20,
+    textAlign: 'center',
   },
   lendA: {
-    width: 333,
-    height: 46,
+    width: wp('84.5%'),
     color: '#63a952',
     fontFamily: 'open-sans-regular',
-    fontSize: 18,
-    lineHeight: 46,
-    top: 36,
+    fontSize: hp('2%'),
+    // lineHeight: hp('2%'),
+    top: 25,
+    textAlign: 'center',
+  },
+  logoBox: {
+    flex: 2,
   },
   logo: {
-    width: 292,
-    height: 229,
-    top: 100,
+    width: wp('80%'),
+    height: hp('30%'),
+    // top: hp('5%'),
+  },
+  mapButtonBox: {
+    flex: 1,
   },
   MapBrowseButton: {
     width: 223,
     height: 61,
-    top: 142,
+    // top: 25,
+  },
+  userButtonsBox: {
+    flex: 1,
   },
   accountLinks: {
     flex: 1,
@@ -45,7 +62,7 @@ const styles = StyleSheet.create({
     height: 90,
     width: 240,
     justifyContent: 'space-between',
-    top: 220,
+    // top: 60,
     // alignItems: 'center' 
   },
   loginbutton: {
@@ -84,8 +101,9 @@ export default class WelcomeScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={{ flex: 1 }}>
-        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+
+        <View style={styles.titleBox}>
           {
             this.state.fontLoaded
               ? (
@@ -96,8 +114,11 @@ export default class WelcomeScreen extends Component {
               )
               : null
           }
-
+        </View>
+        <View style={styles.logoBox}>
           <Image source={require('../assets/images/PKLogo_transparent.png')} style={styles.logo} />
+        </View>
+        <View style={styles.mapButtonBox}>
           <TouchableHighlight
             onPress={() => this.props.navigation.navigate('TasksMapView')}
             style={styles.MapBrowseButton} >
@@ -105,6 +126,8 @@ export default class WelcomeScreen extends Component {
               source={require('../assets/images/MapBrowseButton.png')}
             />
           </TouchableHighlight>
+        </View>
+        <View style={styles.userButtonsBox}>
           <View style={styles.accountLinks}>
             <TouchableHighlight
               onPress={() => this.props.navigation.navigate('LoginScreen')}
@@ -121,9 +144,12 @@ export default class WelcomeScreen extends Component {
               />
             </TouchableHighlight>
           </View>
-
         </View>
       </ScrollView>
     )
   }
-} 
+}
+
+AppRegistry.registerComponent(
+  'NeighborCorps',
+  () => WelcomeScreen);

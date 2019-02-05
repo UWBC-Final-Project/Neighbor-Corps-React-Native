@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import Header from '../components/Header';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, List } from 'native-base';
 import Task from "../components/Task";
@@ -58,7 +58,24 @@ export default class Tasks extends Component {
     description: "",
     imageURL: "",
     position: [], // save what we grasp from Google map pinned location
+    isLoading: true,
   };
+
+  // This is to solve the issue where taskscreen needed to be refreshed everytime a new task is created or when there is a change in the task's state
+  // React Navigation mounted the component the first visit, and it remains mounted at that screen even after user navigate to another screen
+  // https://reactnavigation.org/docs/en/navigation-prop.html#addlistener-subscribe-to-updates-to-navigation-lifecycle
+  // addListener - Subscribe to updates to navigation lifecycle
+  // React Navigation emits events to screen components that subscribe to them:
+  // didFocus - the screen focused (if there was a transition, the transition completed)
+  // In this case, run this.loadTasks() only after the Task View screen is focused.
+  // Everytime user goes to Task View screen, the screen will have all task loaded.
+  didFocusSubscription = this.props.navigation.addListener(
+    'didFocus',
+    () => {
+      console.log("********* didFocus - TasksScreen *********");
+      this.loadTasks();
+    }
+  )
 
   // When the component mounts, load all Tasks and save them to this.state.Tasks
   componentDidMount() {
@@ -66,11 +83,18 @@ export default class Tasks extends Component {
     console.log(this.state.tasks);
   }
 
-  constructor(props){
+  // Remove the didFocusSubscription listener before the component is unmounted
+  componentWillUnmount() {
+    didFocusSubscription.remove();
+  }
+
+
+
+  constructor(props) {
     super(props);
     this.loadTasks = this.loadTasks.bind(this);
   }
-  
+
   // Loads all Tasks  and sets them to this.state.Tasks
   loadTasks = () => {
     API.getTasks()
@@ -81,15 +105,17 @@ export default class Tasks extends Component {
           description: "",
           imageURL: "",
           position: "",
-          _id: ""
+          _id: "",
+          // This is to ensure tasks are loaded first before setting the loading screen to false
+          isLoading: false
         }),
       )
       .catch(err => console.log(err));
   };
 
 
- 
-   passNav = (targetID, props) => {
+
+  passNav = (targetID, props) => {
     console.log(targetID, props);
     this.props.navigation.navigate('SingleTaskScreen', {
       taskID: targetID,
@@ -103,16 +129,20 @@ export default class Tasks extends Component {
       <Container>
         <Header page={this.state.page} style={styles.header} />
         <Content>
-          {this.state.tasks.length ? (
+          {/* If the state of loading is false (ie. screen is not loading), start displaying tasks */}
+          {/* Previously, if this.state.length is true, start displaying tasks. If there were no task, screen would continue loading forever. !this.state.isLoading solves this issue. */}
+          { !this.state.isLoading ? (
             <List>
               {this.state.tasks.map(task => {
                 return (
-                  <Task key={task._id} taskProps={task} stackNav={this.passNav}/>
+                  <Task key={task._id} taskProps={task} stackNav={this.passNav} />
                 );
               })}
             </List>
           ) : (
-              <Text>No Results to Display</Text>
+              <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Image style={{marginTop: 120}} source={require('../assets/images/loading.gif')} />
+              </View>
             )}
         </Content>
       </Container>
