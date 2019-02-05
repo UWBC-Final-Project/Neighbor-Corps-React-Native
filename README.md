@@ -4,6 +4,8 @@
 
 ##### Neighbor Corps is a MERN stack mobile app built using React Native for iOS.
 
+This repo contains the app's front end. The Heroku-deplyed API can be seen ![here] (https://github.com/UWBC-Final-Project/Neighbor-Corps-API).
+
 Our app serves as a community task-sharing platform, enabling neighbors to be better stewards by flagging opportunities for improvement in their immediate vicinity, and responding with hands-on involvement making for cleaner, safer, and more enjoyable neighborhoods!
 
 This app utilizes a Maps API with GPS tagging to allow anyone to indicate an opportunity for community improvement, like clearing rubbish, removing broken glass, or clearing storm grates. Flagging a location is quick and easy to complete as a passer-by, and adds the task to a public ledger that other users within the vicinity can view. 
