@@ -239,7 +239,7 @@ handleSubmit = () => {
               <Text style={styles.signUpButtonText}>Sign Up!</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.loginButton} onPress={() => this.props.navigation.navigate('WelcomeScreen')} underlayColor='#99d9f4'>
-            <Text style={styles.loginButtonText}>I'm not ready yet</Text>
+            <Text style={styles.loginButtonText}>Go Back</Text>
           </TouchableHighlight>
           </View>
         </View>

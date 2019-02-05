@@ -177,8 +177,8 @@ export default class LoginScreen extends Component {
       });
   }
 
-  _SignUp = () => {
-    this.props.navigation.navigate('SignUpScreen')
+  _GoBack = () => {
+    this.props.navigation.navigate('WelcomeScreen')
   }
 
   // onPress = () => {
@@ -209,8 +209,8 @@ export default class LoginScreen extends Component {
             <TouchableHighlight style={styles.loginButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>
               <Text style={styles.loginButtonText}>Log In</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.signUpButton} onPress={this._SignUp} underlayColor='#99d9f4'>
-              <Text style={styles.signUpButtonText}>Sign Up!</Text>
+            <TouchableHighlight style={styles.signUpButton} onPress={this._GoBack} underlayColor='#99d9f4'>
+              <Text style={styles.signUpButtonText}>Go Back</Text>
             </TouchableHighlight>
           </View>
         </View>
