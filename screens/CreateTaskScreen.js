@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Item, Input, Icon } from 'native-base';
-import { AppRegistry, StyleSheet, View, TouchableHighlight, Alert, Modal, Button, TextInput} from 'react-native';
+import { AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
 import Header from '../components/Header';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
-import UploadPhoto from './UploadPhoto'
 import Axios from 'axios';
 
 const Form = t.form.Form;
@@ -18,23 +17,9 @@ const Task = t.struct({
 
 const reactStyles = require('../react_native_styles/styles');
 const styles = reactStyles.default;
-const styles1 = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  modalContainer: {
- 
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'white'
-  },
-  innerContainer: {
-    alignItems: 'center',
-  },
-});
+
 export default class CreateTaskScreen extends Component {
- 
+
   // Setting our component's initial state
   state = {
     page: "Create New Task",
@@ -44,21 +29,9 @@ export default class CreateTaskScreen extends Component {
     description: "",
     imageURL: "",
     position: "", // save what we grasp from Google map pinned location
-    postedBy: "",
-    modalVisible: false,
+    postedBy: ""
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {text: ''};
-  // }
-  // openModal() {
-  //   this.setState({modalVisible:true});
-  // }
 
-  // closeModal() {
-  //   this.setState({modalVisible:false});
-  // }
- 
   toggleCamera = () => {	
     this.setState(prevState => ({	
       cameraShowing: !prevState.cameraShowing	
@@ -87,36 +60,17 @@ export default class CreateTaskScreen extends Component {
   //   const { name, value } = event.target;
   //   this.setState({
   //     [name]: value
-    
   //   });
   // };
-  // handleSubmit = () => {
-  // const value = this.refs.form.getValue(); // use that ref to get the form value  
-  // }
-  
+
   _createTask = async (event) => {
-    Alert.alert(
-      'Saving the Task',
-      'Are you sure you want to save it?',
-      [
-        // {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'Yes', onPress: () => {this._createTask}},
-      ],
-      {cancelable: false},
-    );
-    
-    if(Alert.text === 'Yes'){
-      console.log("confirmed");
-    // this.props.navigation.navigate('UserProfileScreen');
+
+    this.props.navigation.navigate('TasksScreen')
 
     event.preventDefault();
     var value = this.refs.form.getValue();
-  
+    
+
     if (value) {
 
       this.setState({
@@ -130,8 +84,7 @@ export default class CreateTaskScreen extends Component {
         position: JSON.parse(this.props.navigation.state.params.getTaskLocation),
         postedBy: this.state.postedBy
 
-       })
-      //.then(res => setState({taskID: res.taskID}))
+      })
         .catch(err => console.log(err));
       console.log("I'm called ")
       console.log(this.state);
@@ -141,18 +94,19 @@ export default class CreateTaskScreen extends Component {
       console.log("disable button");
     }
   }
-  }
   render() {
     return (
       <Container>
         <Header page={this.state.page} />
         <Content>
           <View>
-          <UploadPhoto />
-            <Form ref="form" type={Task} />
+            <Form
+              ref="form"
+              type={Task}
+            />
             <TouchableHighlight style={styles.button}
-              // onPress={this._createTask} //from jia
-              onPress={this._createTask}>
+              onPress={this._createTask} //from jia
+              underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Save</Text>
             </TouchableHighlight>
 

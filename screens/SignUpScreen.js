@@ -7,7 +7,9 @@ import { NavigationActions } from "react-navigation";
 import { Font } from 'expo';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
+import validator from 'validator';
 var _ = require('lodash');
+
 
 // clone the default stylesheet
 const formStyles = _.cloneDeep(t.form.Form.stylesheet);
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const Form = t.form.Form;
+var Form = t.form.Form;
 
 var Email = t.refinement(t.String, function (s) {
   return /@/.test(s);
@@ -128,7 +130,7 @@ const User = t.struct({
   password: t.String,
 });
 
-const options = {
+var options = {
   fields: {
     email: {
       stylesheet: formStyles,
@@ -186,26 +188,29 @@ handleFormSubmit = event => {
   console.log("saved")
 };
 
+// Line below is for use with 'validator' package
+// isEmail(str [, options])
+// validator.isEmail('foo@bar.com'); //=> true
+
 // supplied by tutorial for tcomb-form-native
 handleSubmit = () => {
-  const value = this.refs.form.getValue(); // use that ref to get the form value
-  console.log('value: ', value);
+  var value = this.refs.form.getValue(); // use that ref to get the form value
+  // console.log('value: ', value);
   API.signUp(value)
     .then((response) => {
       // console.log(response)
-      if(response.status == 200) {
+      if(response.status == 200 && validator.isEmail(value.email)) {
+        
         // this.props.navigation.navigate('UserProfileScreen');
         
         //added by jia
         const navigateAction = NavigationActions.navigate({
           routeName: "Home",
           // params: { data: userObj }
+          action: NavigationActions.navigate({ routeName: 'Home' }),
         });
         this.props.navigation.dispatch(navigateAction);
 
-      }
-      else {
-        //print status text somewhere so user can see that login failed
       }
     })
     .catch((error) => {
@@ -231,7 +236,7 @@ handleSubmit = () => {
             options={options}
           />
           <View style={{ width: 300, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-            <TouchableHighlight style={styles.signUpButton} onPress={this._SignUp} underlayColor='#99d9f4'>
+            <TouchableHighlight style={styles.signUpButton} onPress={this.handleSubmit} underlayColor='#99d9f4' >
               <Text style={styles.signUpButtonText}>Sign Up!</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.loginButton} onPress={() => this.props.navigation.navigate('WelcomeScreen')} underlayColor='#99d9f4'>
