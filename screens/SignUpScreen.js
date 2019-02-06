@@ -144,7 +144,7 @@ var options = {
       autoCorrect: false,
       maxLength: 20,
       help: 'Username must be 8-20 characters',
-      error: 'Username must be 8-20 characters',
+      // error: 'Username must be 8-20 characters',
       textContentType: 'username'
     },
     password: {
@@ -152,7 +152,7 @@ var options = {
       secureTextEntry: true,
       maxLength: 20,
       help: 'Password must be 8-20 characters',
-      error: 'Password must be 8-20 characters',
+      // error: 'Password must be 8-20 characters',
       textContentType: 'password'
     }
   }
