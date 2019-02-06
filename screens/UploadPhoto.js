@@ -120,13 +120,28 @@ export default class UploadPhoto extends React.Component {
   state = {
     image: null,
     hasCameraPermission: null,
+    refreshing: false,
   };
 
+  willFocusSubscription = this.props.navigation.addListener(
+    'willFocus',
+    () => {
+      console.log("********* didFocus- Media Capture *********");
+      // this.setState({ image: null })
+      // this._pickFromCamera();
+      this.setState({refreshing: true})
+      this.setState({ image: null })
+    }
+  )
+
   componentDidMount() {
-    this.setState({ image: null })
+    // this.setState({ image: null })
     this._pickFromCamera();
   }
 
+  componentWillUnmount() {
+    willFocusSubscription.remove();
+  }
 
   _pickImageGallery = async () => {
 
@@ -166,6 +181,7 @@ export default class UploadPhoto extends React.Component {
           // return data.secure_url
 
           this.setState({ image: data.secure_url })
+          
           const { navigate } = this.props.navigation;
 
           imgURL = this.state.image
