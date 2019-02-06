@@ -157,23 +157,28 @@ export default class LoginScreen extends Component {
     console.log('value: ', value);
     API.logIn(value)
       .then((response) => {
-        if (response.status == 200) {
-          console.log(response)
-
-          //added by jia
-          const navigateAction = NavigationActions.navigate({
-            routeName: "Home",
-            // params: { data: userObj }
-          });
-          this.props.navigation.dispatch(navigateAction);
+        console.log("RESPONSE.STATUS", response.status)
+        if (response.status === 200) {
+          console.log("RESPONSE: ",response)
+          // Error messages:
+          // User types non-existent or wrong username: "Username does not exist"
+          // User types incorrect password: "Incorrect password"
+          if (response.data.error) {
+            alert (response.data.error);
+          } else {
+            //added by jia
+            const navigateAction = NavigationActions.navigate({
+              routeName: "Home",
+              // params: { data: userObj }
+            });
+            this.props.navigation.dispatch(navigateAction);
+          }
 
         }
-        // else {
-        //   //print status text somewhere so user can see that login failed
-        // }
+
       })
       .catch((error) => {
-        console.log(error);
+        console.log("ERROR", error);
       });
   }
 
