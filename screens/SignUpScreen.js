@@ -9,7 +9,6 @@ import t from 'tcomb-form-native';
 import validator from 'validator';
 var _ = require('lodash');
 
-
 // clone the default stylesheet
 const formStyles = _.cloneDeep(t.form.Form.stylesheet);
 // overriding the textbox styles:
@@ -135,19 +134,22 @@ var options = {
       stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
-      error: 'Insert a valid email',
+      placeholder: 'e.g: abc@gmail.com',
+      error: 'Please insert a valid email',
       textContentType: 'emailAddress'
     },
     username: {
       stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
+      error: 'Username must be 8-20 characters',
       textContentType: 'username'
     },
     password: {
       stylesheet: formStyles,
       secureTextEntry: true,
-      textContentType: 'password',
+      error: 'Password must be 8-20 characters',
+      textContentType: 'password'
     }
   }
 };
@@ -187,10 +189,6 @@ handleFormSubmit = event => {
   console.log("saved")
 };
 
-// Line below is for use with 'validator' package
-// isEmail(str [, options])
-// validator.isEmail('foo@bar.com'); //=> true
-
 // supplied by tutorial for tcomb-form-native
 handleSubmit = () => {
   var value = this.refs.form.getValue(); // use that ref to get the form value
@@ -198,8 +196,11 @@ handleSubmit = () => {
   API.signUp(value)
     .then((response) => {
       // console.log(response)
-      if(response.status == 200 && validator.isEmail(value.email)) {
-        
+      if(response.status == 200 
+      && validator.isEmail(value.email)
+      && validator.isLength(value.username, 8, 20)
+      && validator.isLength(value.password, 8, 20)
+      ) { 
         // this.props.navigation.navigate('UserProfileScreen');
         
         //added by jia
@@ -214,7 +215,7 @@ handleSubmit = () => {
     })
     .catch((error) => {
       //print status text somewhere so user can see that login failed
-      console.log(error);
+      // console.log(error);
     });
 }
 

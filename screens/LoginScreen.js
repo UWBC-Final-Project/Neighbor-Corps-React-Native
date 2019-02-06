@@ -5,6 +5,7 @@ import { NavigationActions } from "react-navigation";
 import { Font } from 'expo';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
+import validator from 'validator';
 var _ = require('lodash');
 
 // clone the default stylesheet
@@ -118,19 +119,23 @@ const Form = t.form.Form;
 
 const Login = t.struct({
   username: t.String,
-  password: t.String
+  password: t.String,
 });
 
-const options = {
+var options = {
   fields: {
     username: {
       stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
+      error: 'Invalid username',
+      textContentType: 'username'
     },
     password: {
       stylesheet: formStyles,
       secureTextEntry: true,
+      error: 'Invalid password',
+      textContentType: 'password'
     }
   }
 };
@@ -152,34 +157,34 @@ export default class LoginScreen extends Component {
   }
 
   // supplied by tutorial for tcomb-form-native
-  handleSubmit = () => {
-    const value = this.refs.form.getValue(); // use that ref to get the form value
-    console.log('value: ', value);
-    API.logIn(value)
-      .then((response) => {
-        if (response.status == 200) {
-          console.log(response)
+handleSubmit = () => {
+  var value = this.refs.form.getValue(); // use that ref to get the form value
+  // console.log('value: ', value);
+  API.logIn(value)
+    .then((response) => {
+      // console.log(response)
+      if(response.status == 200 ) {
+        
+        // this.props.navigation.navigate('UserProfileScreen');
+        
+        //added by jia
+        const navigateAction = NavigationActions.navigate({
+          routeName: "Home",
+          // params: { data: userObj }
+          action: NavigationActions.navigate({ routeName: 'Home' }),
+        });
+        this.props.navigation.dispatch(navigateAction);
 
-          //added by jia
-          const navigateAction = NavigationActions.navigate({
-            routeName: "Home",
-            // params: { data: userObj }
-          });
-          this.props.navigation.dispatch(navigateAction);
-
-        }
-        // else {
-        //   //print status text somewhere so user can see that login failed
-        // }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  _GoBack = () => {
-    this.props.navigation.navigate('WelcomeScreen')
-  }
+      }
+      // else {
+      //   return(error);
+      // }
+    })
+    .catch((error) => {
+      //print status text somewhere so user can see that login failed
+      console.log(error);
+    });
+}
 
   // onPress = () => {
   //   // call getValue() to get the values of the form
@@ -209,7 +214,7 @@ export default class LoginScreen extends Component {
             <TouchableHighlight style={styles.loginButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>
               <Text style={styles.loginButtonText}>Log In</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.signUpButton} onPress={this._GoBack} underlayColor='#99d9f4'>
+            <TouchableHighlight style={styles.signUpButton} onPress={() => this.props.navigation.navigate('WelcomeScreen')} underlayColor='#99d9f4'>
               <Text style={styles.signUpButtonText}>Go Back</Text>
             </TouchableHighlight>
           </View>
