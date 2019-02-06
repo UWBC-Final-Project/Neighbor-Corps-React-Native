@@ -401,7 +401,7 @@ export default class UserProfileScreen extends Component {
               </TouchableHighlight>
 
               <TouchableHighlight style={styles.updateButton} onPress={this.toggleForm} underlayColor='#99d9f4'>
-                <Text style={styles.updateButtonText}>Update Your Information</Text>
+                <Text style={styles.updateButtonText}>Update My Info</Text>
               </TouchableHighlight>
 
               {/* CURRENT USER'S TASK HISTORY START HERE */}
