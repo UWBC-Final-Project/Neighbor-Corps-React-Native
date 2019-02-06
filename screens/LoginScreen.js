@@ -186,10 +186,6 @@ export default class LoginScreen extends Component {
       });
   }
 
-  _SignUp = () => {
-    this.props.navigation.navigate('SignUpScreen')
-  }
-
   // onPress = () => {
   //   // call getValue() to get the values of the form
   //   var value = this.refs.form.getValue();

@@ -142,16 +142,16 @@ var options = {
       stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
-      maxLength: 20,
-      help: 'Username must be 8-20 characters',
+      maxLength: 15,
+      error: 'Username must be 5-15 characters',
       // error: 'Username must be 8-20 characters',
       textContentType: 'username'
     },
     password: {
       stylesheet: formStyles,
       secureTextEntry: true,
-      maxLength: 20,
-      help: 'Password must be 8-20 characters',
+      maxLength: 15,
+      error: 'Password must be 5-15 characters',
       // error: 'Password must be 8-20 characters',
       textContentType: 'password'
     }
@@ -195,7 +195,7 @@ handleFormSubmit = event => {
 
 // supplied by tutorial for tcomb-form-native
 handleSubmit = () => {
-  var value = this.refs.form.getValue(); // use that ref to get the form value
+  const value = this.refs.form.getValue(); // use that ref to get the form value
   // console.log('value: ', value);
   API.signUp(value)
     .then((response) => {
@@ -203,7 +203,7 @@ handleSubmit = () => {
       // Error messages"
       // "This email already exists. Please try another one."
       // "Username already exists."
-      console.log("RESPONSE", response)
+      console.log("RESPONSE.STATUS", response.status)
       // && validator.isLength(value.username, 8, 20)
       // && validator.isLength(value.password, 8, 20)
       if(response.status == 200 && validator.isEmail(value.email)) {
@@ -212,9 +212,9 @@ handleSubmit = () => {
         } else {
           //added by jia
           const navigateAction = NavigationActions.navigate({
-            routeName: "Home",
+            routeName: "Home"
             // params: { data: userObj }
-            action: NavigationActions.navigate({ routeName: 'Home' }),
+            // action: NavigationActions.navigate({ routeName: 'Home' }),
           });
           this.props.navigation.dispatch(navigateAction);
         }
