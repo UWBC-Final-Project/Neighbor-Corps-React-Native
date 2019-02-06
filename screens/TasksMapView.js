@@ -1,63 +1,53 @@
 import React, { Component } from "react";
 import {
-  AppRegistry, StyleSheet, Text, View, ScrollView, Animated, Image, Dimensions, TouchableOpacity,
+  AppRegistry, StyleSheet, Text, View, ScrollView, Animated, Image, Dimensions, TouchableOpacity, Slider, Button
 } from "react-native";
 import MapView from "react-native-maps";
 import API from '../utils/API';
+import { Constants, Location, Permissions } from 'expo';
+
+import Task from "../components/Task";
+
+import geolib from 'geolib'
+
+import { CardItem } from "native-base";
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
-const CARD_WIDTH = CARD_HEIGHT - 50;
+const CARD_WIDTH = CARD_HEIGHT - 40;
 
-//custom region data - placeholders (just playing around)
-
-const regionData =
- [{
-  northSeattle: {
-    latitude: 47.608013,
-    longitude: -122.335167,
-    latitudeDelta: 0.04864195044303443,
-    longitudeDelta: 0.040142817690068,
-  },
-  southSeattle: {
-    latitude: 37.773972,
-    longitude: -122.431297,
-    latitudeDelta: 0.04864195044303443,
-    longitudeDelta: 0.040142817690068,
-  },
-  bellevue: {
-    latitude: 47.610378,
-    longitude: -122.200676,
-    latitudeDelta: 0.04864195044303443,
-    longitudeDelta: 0.040142817690068,
-  },
-}]
 
 export default class TasksMapView extends Component {
 
-constructor(props){
+  constructor(props) {
     super(props);
     this.loadTasks = this.loadTasks.bind(this);
-    }
+    this._go = this._go.bind(this);
+  }
 
   state = {
+    isHidden: false,
     markers: [],
-    region: {
-      latitude: 47.608013,
-      longitude: -122.335167,
-      latitudeDelta: 0.04864195044303443,
-      longitudeDelta: 0.040142817690068,
-    },
+    region: null,
+    targetMarker: null,
+    locationResult: null,
+    location: {coords: { latitude: 37.78825, longitude: -122.4324}},
+    //change distance interval here
+    selectedDist: 0.5,
+    minDistance: 0,
+    maxDistance: 20,
   };
-
 
   componentWillMount() {
     this.index = 0;
     this.animation = new Animated.Value(0); 
   }
 
-
   componentDidMount() {
+
+    // get current location
+    this._getLocationAsync();
+
     // call our task api
     this.loadTasks();
 
@@ -67,14 +57,15 @@ constructor(props){
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
       if (index >= this.state.markers.length) {
         index = this.state.markers.length - 1;
+       
       }
       if (index <= 0) {
         index = 0;
       }
-
-      clearTimeout(this.regionTimeout);
-      this.regionTimeout = setTimeout(() => {
-        if (this.index !== index) {
+      
+  clearTimeout(this.regionTimeout);
+    this.regionTimeout = setTimeout(() => {
+       if (this.index !== index) {
           this.index = index;
           const { coordinate } = this.state.markers[index];
           this.map.animateToRegion(
@@ -90,49 +81,151 @@ constructor(props){
     });
   }
 
+  // Loads current location
+  _getLocationAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied'
+      });
+      return;
+    }
+
+    const location = await Location.getCurrentPositionAsync({});
+    this.setState({ locationResult: JSON.stringify(location), location, });
+
+    lat = this.state.location.coords["latitude"];
+    long = this.state.location.coords["longitude"];
+    
+    this.setState({
+      targetMarker: 
+        {
+          latitude: lat,
+          longitude: long,
+        },
+      region: {
+        latitude: lat,
+        longitude: long,
+        latitudeDelta: 0.04864195044303443,
+        longitudeDelta: 0.040142817690068,
+
+      }
+    })
+
+  // console.log(this.state.region)
+  };
+
  // Loads all Tasks  and sets them to this.state.Tasks
  loadTasks = async () => {
-		
+
+/*
+ * add filters options in a modal or slidebar:
+   -currently, just setup a button for user to select distance (testing purpose)
+   -status conditions
+   - UI: add react-rangeslider for user to select distance
+
+ * if there's no matched task found in the area, display a button for user to create tasks
+
+ * enable a few options for getting the origin (map focus)
+   - add user input for saving a saved pin and display as a drowndown box
+   - currently, we just get user current location
+
+ *each task card sorted by distance from the origin
+
+
+*/
     await API.getTasks() 
 			.then(res => {
 				markers = [];
 
+        var distView = this.state.selectedDist
+        
+        // filters out task without position
+        res.data = res.data.filter(task => task.position.length != 0);
 
-        // will put back i < res.data.length when bad data cleaned up (should delete records with position starting 11)
-				for (i = 0; i < 11; i++) {
-					element = res.data[i];
-					coordinate = element.position[0].coordinate;
 
-					marker = {
+
+        center = {latitude: this.state.targetMarker.latitude,
+                  longitude: this.state.targetMarker.longitude};
+
+				for (i = 0; i < res.data.length; i++) {
+					task = res.data[i];
+					coordinate = task.position[0].coordinate;
+        
+          // used Geolib to calcuate distances in meters
+          // get reference here: https://www.npmjs.com/package/geolib
+
+          
+          pos = {latitude: coordinate.latitude,
+                 longitude: coordinate.longitude};
+          distInMeters = geolib.getDistance(center, pos);
+
+          
+          distInMiles = geolib.convertUnit('mi', distInMeters, 2)
+
+          marker = {
 						coordinate: coordinate,
-						title: element.title,
-					  description: element.description,
-            image: {uri: element.imageURL},
-            taskID: element._id
+						title: task.title,
+					  description: task.description,
+            image: {uri: task.imageURL},
+            _id: task._id,
+            distance: distInMiles
 					}
-					markers.push(marker);
 
+          
+          if(distInMiles <= distView) {
+            markers.push(marker);
+            
+          }
 				}
+      
+        // sort by distance 
+        this.setState({
+            markers: markers.sort(function (a, b) {
+              return a.distance - b.distance;
+            })
+          })
+        })
+      .catch(err => console.log(err));
+      
 
-				this.setState({
-					markers: markers
-				})
-			})
-			.catch(err => console.log(err));
+    // const { navigate } = this.props.navigation;
+    
+    // const targetID = this.state.markers._id
+
+    // navigate('SingleTaskView', {
+    //   getTaskId: targetID,
+    // },
+    //   // this.setState({ image: null })
+    // )
+
+    //   console.log(this.state.markers)
 	};  
   
-  // temporarily change the region over here, testing purposes  
   _handleMapRegionChange = () => {
-    this.setState({ region: regionData[0]  });
+    this.setState({ region: this.state.region});
   };
   
+  _go() {
+    this.setState({isHidden: !this.state.isHidden})
+    this.loadTasks();
+  }
+  
+  // passNav = (targetID, props) => {
+  //   console.log(targetID, props);
+  //   this.props.navigation.navigate('SingleTaskScreen', {
+  //     _id: targetID,
+  //     taskProps: props,
+  //   });
+  // }
 
   render() {
+
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
         index * CARD_WIDTH,
-        ((index + 1) * CARD_WIDTH),
+        ((index + 1) * CARD_WIDTH), 
       ];
       const scale = this.animation.interpolate({
         inputRange,
@@ -146,25 +239,44 @@ constructor(props){
       });
       return { scale, opacity };
     });
-
     return (
       <View style={styles.container}>
-        <MapView
-          ref={map => this.map = map}
-          initialRegion={this.state.region}
-          style={styles.container}
-        >
+        <View style={styles.goView}>
+        {this.state.isHidden ?      
+        <View style={styles.slidercontainer}>
+          <Slider
+            style={{ width: 300}}
+            step={0.5}
+            minimumValue={this.state.minDistance}
+            maximumValue={this.state.maxDistance}
+            value={this.state.selectedDist}
+            onValueChange={val => this.setState({ selectedDist: val })} 
+            thumbTintColor='rgb(255, 152, 0)'
+            maximumTrackTintColor='#d3d3d3' 
+            minimumTrackTintColor='rgb(255, 152, 0)'
+            />
+
+            {console.log(this.state)}
+
+            {/* miles display */}
+            <View style={styles.textCon}>
+              <Text style={styles.colorOne}>{this.state.minDistance} mi</Text>
+              <Text style={styles.colorTwo}>
+                  {this.state.selectedDist + ' mi'}
+              </Text>
+              <Text style={styles.colorOne}>{this.state.maxDistance} mi</Text>
+            </View>
+            </View>
+            : null}
+            <Button style={styles.goBtn} title={this.state.isHidden ? "GO" : "SET"} onPress={this._go} />
+        </View>
+
+        <MapView ref={map => this.map = map}
+                 initialRegion={this.state.region}
+                 style={styles.container}>
           {this.state.markers.map((marker, index) => {
-            const scaleStyle = {
-              transform: [
-                {
-                  scale: interpolations[index].scale,
-                },
-              ],
-            };
-            const opacityStyle = {
-              opacity: interpolations[index].opacity,
-            };
+            const scaleStyle = {transform: [{scale: interpolations[index].scale}]};
+            const opacityStyle = {opacity: interpolations[index].opacity,};
             return (
               <MapView.Marker key={index} coordinate={marker.coordinate}>
                 <Animated.View style={[styles.markerWrap, opacityStyle]}>
@@ -175,11 +287,13 @@ constructor(props){
             );
           })}
         </MapView>
+
         <Animated.ScrollView
           horizontal
-          scrollEventThrottle={1}
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={CARD_WIDTH}
+          scrollEventThrottle={16}
+          showsHorizontalScrollIndicacor={true}
+          snapToInterval={2}
+      
           onScroll={Animated.event(
             [
               {
@@ -190,35 +304,30 @@ constructor(props){
                 },
               },
             ],
-            { useNativeDriver: true }
+            { useNativeDriver: true },
           )}
           style={styles.scrollView}
           contentContainerStyle={styles.endPadding}
+          
         >
-          {this.state.markers.map((marker, index) => (
-            <View style={styles.card} key={index}>
-              <Image
-                source={marker.image}
-                style={styles.cardImage}
-                resizeMode="cover"
-              />
-              <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>
-                  {marker.description}
-                </Text>
-
-                {/* showing the task id for linking */}
-
-                <Text numberOfLines={1} >
-                 id is here: {marker.taskID}
-                </Text>
-
-              </View>
+        {this.state.markers.map((marker, index) => (
+          <View key={index} style={(x= this.animation)? styles.card: styles.cardOne} > 
+            <Image
+              source={marker.image}
+              style={styles.cardImage}
+              resizeMode="cover"
+            />
+            <View style={styles.textContent}>
+              <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
+              <Text numberOfLines={1} style={styles.cardDescription}>
+                {marker.description}
+              </Text>
             </View>
-          ))}
+          </View>
+        ))}
         </Animated.ScrollView>
       </View>
+
     );
   }
 }
@@ -232,15 +341,29 @@ const styles = StyleSheet.create({
     bottom: 30,
     left: 0,
     right: 0,
-    paddingVertical: 10,
+    paddingVertical: 0,
   },
   endPadding: {
     paddingRight: width - CARD_WIDTH,
+    // borderTopColor: 'rgb(255, 152, 0)'
   },
   card: {
     padding: 10,
     elevation: 2,
     backgroundColor: "#FFF",
+    marginHorizontal: 10,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: { x: 2, y: -2 },
+    height: CARD_HEIGHT,
+    width: CARD_WIDTH,
+    overflow: "hidden",
+  },
+  cardOne: {
+    padding: 10,
+    elevation: 2,
+    backgroundColor: "rgba(130,4,150, 0.9)",
     marginHorizontal: 10,
     shadowColor: "#000",
     shadowRadius: 5,
@@ -287,6 +410,62 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)",
   },
+  button: {
+    alignItems: 'center',
+    padding: 10,
+  },
+  selected: {
+    borderColor: "rgba(130,4,150, 0.5)",
+  },
+  //Slider style
+  slidercontainer: {
+    // flex: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#000',
+    marginBottom: 20,
+    marginTop: 50
+  },
+  textCon: {
+    width: 320,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  colorOne: {
+      color: '#30BC76'
+  },
+  colorTwo: {
+      color: 'rgb(255, 152, 0)'
+  },
+  green: {
+    backgroundColor: '#00ff00'
+  },
+  red: {
+    backgroundColor: '#ff0000'
+  },
+
+  goBtn: {
+backgroundColor: 'transparent'
+  },
+
+goView: {
+
+  // backgroundColor: 'rgba(52, 52, 52, 0.8)',
+  // // opacity: 0.8,
+
+  // backgroundColor: 'transparent'
+
+  backgroundColor: '#00000000',
+
+  // position: 'absolute',
+  top: 0,
+  overflow: "hidden",
+}
+
 });
 
+
+
 AppRegistry.registerComponent("mapfocus", () => screens);
+
+
