@@ -357,7 +357,6 @@ export default class UserProfileScreen extends Component {
   // }
   render() {
     return (
-
       <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
         <Header page={this.state.page} />
         <Content>
