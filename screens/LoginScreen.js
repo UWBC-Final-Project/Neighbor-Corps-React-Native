@@ -5,6 +5,7 @@ import { NavigationActions } from "react-navigation";
 import { Font } from 'expo';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
+import validator from 'validator';
 var _ = require('lodash');
 
 // clone the default stylesheet
@@ -118,19 +119,23 @@ const Form = t.form.Form;
 
 const Login = t.struct({
   username: t.String,
-  password: t.String
+  password: t.String,
 });
 
-const options = {
+var options = {
   fields: {
     username: {
       stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
+      error: 'Invalid username',
+      textContentType: 'username'
     },
     password: {
       stylesheet: formStyles,
       secureTextEntry: true,
+      error: 'Invalid password',
+      textContentType: 'password'
     }
   }
 };
@@ -151,7 +156,6 @@ export default class LoginScreen extends Component {
     this.setState({ fontLoaded: true });
   }
 
-  // supplied by tutorial for tcomb-form-native
   handleSubmit = () => {
     const value = this.refs.form.getValue(); // use that ref to get the form value
     console.log('value: ', value);
@@ -214,8 +218,8 @@ export default class LoginScreen extends Component {
             <TouchableHighlight style={styles.loginButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>
               <Text style={styles.loginButtonText}>Log In</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.signUpButton} onPress={this._SignUp} underlayColor='#99d9f4'>
-              <Text style={styles.signUpButtonText}>Sign Up!</Text>
+            <TouchableHighlight style={styles.signUpButton} onPress={() => this.props.navigation.navigate('WelcomeScreen')} underlayColor='#99d9f4'>
+              <Text style={styles.signUpButtonText}>Go Back</Text>
             </TouchableHighlight>
           </View>
         </View>

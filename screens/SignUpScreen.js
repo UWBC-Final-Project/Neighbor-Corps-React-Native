@@ -9,7 +9,6 @@ import t from 'tcomb-form-native';
 import validator from 'validator';
 var _ = require('lodash');
 
-
 // clone the default stylesheet
 const formStyles = _.cloneDeep(t.form.Form.stylesheet);
 // overriding the textbox styles:
@@ -17,7 +16,7 @@ formStyles.textbox = {
   normal: {
     color: '#555',
     fontSize: 24,
-    height: 50,
+    height: 35,
     width: wp('80%'),
     paddingHorizontal: 14,
     borderRadius: 12,
@@ -135,19 +134,26 @@ var options = {
       stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
-      error: 'Insert a valid email',
+      placeholder: 'e.g: abc@gmail.com',
+      error: 'Please insert a valid email',
       textContentType: 'emailAddress'
     },
     username: {
       stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
+      maxLength: 20,
+      help: 'Username must be 8-20 characters',
+      // error: 'Username must be 8-20 characters',
       textContentType: 'username'
     },
     password: {
       stylesheet: formStyles,
       secureTextEntry: true,
-      textContentType: 'password',
+      maxLength: 20,
+      help: 'Password must be 8-20 characters',
+      // error: 'Password must be 8-20 characters',
+      textContentType: 'password'
     }
   }
 };
@@ -187,20 +193,19 @@ handleFormSubmit = event => {
   console.log("saved")
 };
 
-// Line below is for use with 'validator' package
-// isEmail(str [, options])
-// validator.isEmail('foo@bar.com'); //=> true
-
 // supplied by tutorial for tcomb-form-native
 handleSubmit = () => {
   var value = this.refs.form.getValue(); // use that ref to get the form value
   // console.log('value: ', value);
   API.signUp(value)
     .then((response) => {
+
       // Error messages"
       // "This email already exists. Please try another one."
       // "Username already exists."
       console.log("RESPONSE", response)
+      // && validator.isLength(value.username, 8, 20)
+      // && validator.isLength(value.password, 8, 20)
       if(response.status == 200 && validator.isEmail(value.email)) {
         if (response.data.error) {
           alert (response.data.error);
@@ -217,7 +222,7 @@ handleSubmit = () => {
     })
     .catch((error) => {
       //print status text somewhere so user can see that login failed
-      console.log(error);
+      // console.log(error);
     });
 }
 
@@ -242,7 +247,7 @@ handleSubmit = () => {
               <Text style={styles.signUpButtonText}>Sign Up!</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.loginButton} onPress={() => this.props.navigation.navigate('WelcomeScreen')} underlayColor='#99d9f4'>
-            <Text style={styles.loginButtonText}>I'm not ready yet</Text>
+            <Text style={styles.loginButtonText}>Go Back</Text>
           </TouchableHighlight>
           </View>
         </View>
