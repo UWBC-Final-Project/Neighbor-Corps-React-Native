@@ -199,22 +199,25 @@ handleSubmit = () => {
   // console.log('value: ', value);
   API.signUp(value)
     .then((response) => {
-      // console.log(response)
-      if(response.status == 200 
-      && validator.isEmail(value.email)
-      && validator.isLength(value.username, 8, 20)
-      && validator.isLength(value.password, 8, 20)
-      ) { 
-        // this.props.navigation.navigate('UserProfileScreen');
-        
-        //added by jia
-        const navigateAction = NavigationActions.navigate({
-          routeName: "Home",
-          // params: { data: userObj }
-          action: NavigationActions.navigate({ routeName: 'Home' }),
-        });
-        this.props.navigation.dispatch(navigateAction);
 
+      // Error messages"
+      // "This email already exists. Please try another one."
+      // "Username already exists."
+      console.log("RESPONSE", response)
+      // && validator.isLength(value.username, 8, 20)
+      // && validator.isLength(value.password, 8, 20)
+      if(response.status == 200 && validator.isEmail(value.email)) {
+        if (response.data.error) {
+          alert (response.data.error);
+        } else {
+          //added by jia
+          const navigateAction = NavigationActions.navigate({
+            routeName: "Home",
+            // params: { data: userObj }
+            action: NavigationActions.navigate({ routeName: 'Home' }),
+          });
+          this.props.navigation.dispatch(navigateAction);
+        }
       }
     })
     .catch((error) => {

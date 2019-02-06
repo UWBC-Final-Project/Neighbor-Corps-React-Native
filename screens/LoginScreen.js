@@ -156,35 +156,39 @@ export default class LoginScreen extends Component {
     this.setState({ fontLoaded: true });
   }
 
-  // supplied by tutorial for tcomb-form-native
-handleSubmit = () => {
-  var value = this.refs.form.getValue(); // use that ref to get the form value
-  // console.log('value: ', value);
-  API.logIn(value)
-    .then((response) => {
-      // console.log(response)
-      if(response.status == 200 ) {
-        
-        // this.props.navigation.navigate('UserProfileScreen');
-        
-        //added by jia
-        const navigateAction = NavigationActions.navigate({
-          routeName: "Home",
-          // params: { data: userObj }
-          action: NavigationActions.navigate({ routeName: 'Home' }),
-        });
-        this.props.navigation.dispatch(navigateAction);
+  handleSubmit = () => {
+    const value = this.refs.form.getValue(); // use that ref to get the form value
+    console.log('value: ', value);
+    API.logIn(value)
+      .then((response) => {
+        console.log("RESPONSE.STATUS", response.status)
+        if (response.status === 200) {
+          console.log("RESPONSE: ",response)
+          // Error messages:
+          // User types non-existent or wrong username: "Username does not exist"
+          // User types incorrect password: "Incorrect password"
+          if (response.data.error) {
+            alert (response.data.error);
+          } else {
+            //added by jia
+            const navigateAction = NavigationActions.navigate({
+              routeName: "Home",
+              // params: { data: userObj }
+            });
+            this.props.navigation.dispatch(navigateAction);
+          }
 
-      }
-      // else {
-      //   return(error);
-      // }
-    })
-    .catch((error) => {
-      //print status text somewhere so user can see that login failed
-      console.log(error);
-    });
-}
+        }
+
+      })
+      .catch((error) => {
+        console.log("ERROR", error);
+      });
+  }
+
+  _SignUp = () => {
+    this.props.navigation.navigate('SignUpScreen')
+  }
 
   // onPress = () => {
   //   // call getValue() to get the values of the form
