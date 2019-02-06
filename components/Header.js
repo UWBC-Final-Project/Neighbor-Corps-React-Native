@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import { Header, Title } from 'native-base';
-// import { Header, Title, Button, ThemeProvider } from 'react-native-elements';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import API from '../utils/API';
 import { Icon } from 'react-native-elements';
 
@@ -13,8 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    // width: '100%',
-    height: 40,
+    width: wp('90%'),
     marginBottom: 26,
   },
   headerTitle: {
@@ -22,9 +21,10 @@ const styles = StyleSheet.create({
     // height: 63,
     color: '#63a952',
     fontFamily: 'open-sans-light',
-    fontSize: 46,
+    fontSize: hp('7%'),
     lineHeight: 46,
     top: 20,
+    textAlign: 'center',
   },
   accountLinks: {
     flex: 1,
