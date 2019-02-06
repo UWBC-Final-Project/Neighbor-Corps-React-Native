@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
 import { Container, Header, Content, Card, CardItem, Body, Text } from 'native-base'
+import Moment from 'react-moment';
 
 // Base style
 const styles = StyleSheet.create({
@@ -56,7 +57,7 @@ export default class CommentScreen extends Component {
               {this.props.props.postedBy.username} says
             </Text>
             <Text style={{color: '#333', marginBottom: 8, marginTop: 4}}>{this.props.props.comment}</Text>
-            <Text style={{ color: '#666', fontSize: 10 }}>Posted on: {this.props.props.postDate}</Text>
+            <Moment element={Text} format="MM/DD/YYYY" style={{ color: '#666', fontSize: 10 }}>{this.props.props.postDate}</Moment>
             {/* <DeleteBtn onClick={() => this.deleteTask(task._id)} /> */}
           </Body>
         </CardItem>
