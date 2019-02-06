@@ -16,7 +16,7 @@ formStyles.textbox = {
   normal: {
     color: '#555',
     fontSize: 24,
-    height: 50,
+    height: 35,
     width: wp('80%'),
     paddingHorizontal: 14,
     borderRadius: 12,
@@ -142,12 +142,16 @@ var options = {
       stylesheet: formStyles,
       autoCapitalize: 'none',
       autoCorrect: false,
+      maxLength: 20,
+      help: 'Username must be 8-20 characters',
       error: 'Username must be 8-20 characters',
       textContentType: 'username'
     },
     password: {
       stylesheet: formStyles,
       secureTextEntry: true,
+      maxLength: 20,
+      help: 'Password must be 8-20 characters',
       error: 'Password must be 8-20 characters',
       textContentType: 'password'
     }
