@@ -13,7 +13,7 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 40;
 
-export default class TasksMapView extends Component {
+export default class PublicMap extends Component {
 
   constructor(props) {
     super(props);
@@ -115,21 +115,6 @@ export default class TasksMapView extends Component {
  // Loads all Tasks  and sets them to this.state.Tasks
  loadTasks = async () => {
 
-/* planning and improvements
- * add filters options in a modal or slidebar:
-   -currently, just setup a button for user to select distance (testing purpose)
-   -status conditions
-   - UI: add react-rangeslider for user to select distance
-
- * if there's no matched task found in the area, display a button for user to create tasks
-
- * enable a few options for getting the origin (map focus)
-   - add user input for saving a saved pin and display as a drowndown box
-   - currently, we just get user current location
-
- *each task card sorted by distance from the origin
-
-*/
     await API.getTasks() 
 			.then(res => {
 				markers = [];
@@ -188,18 +173,6 @@ export default class TasksMapView extends Component {
         })
       .catch(err => console.log(err));
       
-
-    // const { navigate } = this.props.navigation;
-    
-    // const targetID = this.state.markers._id
-
-    // navigate('SingleTaskView', {
-    //   getTaskId: targetID,
-    // },
-    //   // this.setState({ image: null })
-    // )
-
-    //   console.log(this.state.markers)
 	};  
   
   _handleMapRegionChange = () => {
@@ -212,22 +185,6 @@ export default class TasksMapView extends Component {
   }
   
  _detail = () =>  {
-  const { navigate } = this.props.navigation;
-
-
-  const task_id = this.state.markers[0]._id
-
-  navigate('WelcomeScreen', {getTask_id: task_id})
-
-
-
-  console.log("im pressed", task_id )
-
-      // get current location
-      this._getLocationAsync();
-
-      // call our task api
-      this.loadTasks();
 
  }
 
@@ -330,9 +287,10 @@ export default class TasksMapView extends Component {
 
         {this.state.markers.map((marker, index) => (     
          <TouchableOpacity key={index} style={(x= this.animation)? styles.card: styles.cardOne} 
-          onPress={() => this.props.navigation.navigate('SingleTaskScreen', { 
-            taskProps: marker
-          })}> 
+         title="Go Sign In"
+         onPress={() => 
+            alert("Please Sign In")
+         } > 
             <Image
               source={{ uri: marker.imageURL }}
               style={styles.cardImage}

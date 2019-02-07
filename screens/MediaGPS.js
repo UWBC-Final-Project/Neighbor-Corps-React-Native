@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Content, Item, Input, Label, Text } from 'native-base';
-import {View, Button, StyleSheet } from 'react-native';
+import {View, Button, StyleSheet, TouchableHighlight } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
@@ -103,11 +103,14 @@ export default class MediaGPS extends Component {
 
     if (this.state.errorMessage) {
       text = this.state.errorMessage;
-      // high the map and buttons
+      // hide the map and buttons
     }
 
     return (
       <Container>
+        <Text style={mapStyles.loginButtonText}>
+        Drop a Pin
+        </Text>
       <View style={mapStyles.container}>
         <MapView
           style={{ 
@@ -123,6 +126,7 @@ export default class MediaGPS extends Component {
           }}
           onPress={this.handlePress}
         >
+        
         {this.state.markers.map((marker, index) => {
           return (
             <MapView.Marker key={index} coordinate={marker.coordinate}>
@@ -133,14 +137,14 @@ export default class MediaGPS extends Component {
 
         </MapView>
       
-        <Text>
-          Location: {text}
+        <Text style={mapStyles.loginButtonText}>
+         {text}
         </Text>
 
-        <Button
-          title="Next" //confirm the task location, if Yes, direct to "Next"
-          onPress={this._goToTaskForm}
-        /> 
+        <TouchableHighlight style={mapStyles.loginButton} onPress={this._goToTaskForm} underlayColor='#99d9f4'>
+          <Text style={mapStyles.loginButtonText}>Next</Text>
+        </TouchableHighlight>
+
 
       </View>
       </Container>
@@ -162,5 +166,22 @@ const mapStyles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#34495e',
+  },
+  loginButton: {
+    height: 45,
+    width: '70%',
+    backgroundColor: '#fff',
+    borderColor: '#63a952',
+    borderWidth: 2,
+    borderRadius: 12,
+    marginBottom: 10,
+    // alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  loginButtonText: {
+    fontSize: 18,
+    color: '#63a952',
+    alignSelf: 'center',
+    fontFamily: 'open-sans-bold',
   },
 });
