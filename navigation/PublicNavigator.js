@@ -16,7 +16,7 @@ import SignUpScreen from '../screens/SignUpScreen';
 
 //Tasks View
 import TasksScreen from '../screens/TasksScreen';
-import TasksMapView from '../screens/TasksMapView';
+import PublicMap from '../screens/PublicMap';
 
 const PublicStack = createStackNavigator({
   WelcomeScreen: WelcomeScreen,
@@ -32,7 +32,7 @@ const PublicStack = createStackNavigator({
     screen: TasksScreen,
   },
   TaskMap:{
-    screen: TasksMapView,
+    screen: PublicMap,
   },
 });
 
