@@ -193,20 +193,19 @@ handleFormSubmit = event => {
   console.log("saved")
 };
 
-// supplied by tutorial for tcomb-form-native
 handleSubmit = () => {
   const value = this.refs.form.getValue(); // use that ref to get the form value
-  // console.log('value: ', value);
+  console.log('value: ', value);
   API.signUp(value)
     .then((response) => {
-
       // Error messages"
       // "This email already exists. Please try another one."
       // "Username already exists."
       console.log("RESPONSE.STATUS", response.status)
-      // && validator.isLength(value.username, 8, 20)
-      // && validator.isLength(value.password, 8, 20)
-      if(response.status == 200 && validator.isEmail(value.email)) {
+
+      if(response.status === 200 && validator.isEmail(value.email)) {
+        console.log("RESPONSE: ", response)
+
         if (response.data.error) {
           alert (response.data.error);
         } else {
@@ -222,7 +221,7 @@ handleSubmit = () => {
     })
     .catch((error) => {
       //print status text somewhere so user can see that login failed
-      // console.log(error);
+      console.log("ERROR", error);
     });
 }
 

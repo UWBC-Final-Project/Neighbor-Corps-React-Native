@@ -3,7 +3,7 @@
   "packagerPid": null,
   "devToolsPort": 19002,
   "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://qe-a5g.anonymous.neighbor-corps-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.qe-a5g.anonymous.neighbor-corps-react-native.exp.direct",
+  "ngrokPid": 53765
 }

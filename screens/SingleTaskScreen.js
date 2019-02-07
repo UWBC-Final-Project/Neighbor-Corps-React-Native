@@ -102,12 +102,22 @@ export default class SingleTaskScreen extends Component {
     username: '',
     // Task Completion is default to false
     // ie. Uncompleted
-    taskCompletion: false
+    taskCompletion: false,
+    // task_id: this.props.navigation.state.params.getTask
   }
 
   componentDidMount() {
-    this.getTask(this.props.navigation.state.params.taskProps._id);
-    this.getTasksComments(this.props.navigation.state.params.taskProps._id);
+    this.getTask(
+      this.props.navigation.state.params.taskProps._id 
+      // ||  
+      // this.props.navigation.state.params.getTask
+      );
+    this.getTasksComments(
+      this.props.navigation.state.params.taskProps._id
+      // ||
+      // this.props.navigation.state.params.getTask
+      
+      );
     API.getCurrentUser()
       .then(res => this.setState({ username: res.data.username }))
       .then(console.log(this.state.user))

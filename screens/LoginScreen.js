@@ -162,8 +162,9 @@ export default class LoginScreen extends Component {
     API.logIn(value)
       .then((response) => {
         console.log("RESPONSE.STATUS", response.status)
+
         if (response.status === 200) {
-          console.log("RESPONSE: ",response)
+          console.log("RESPONSE: ", response)
           // Error messages:
           // User types non-existent or wrong username: "Username does not exist"
           // User types incorrect password: "Incorrect password"
