@@ -143,16 +143,16 @@ var options = {
       autoCapitalize: 'none',
       autoCorrect: false,
       maxLength: 15,
-      error: 'Username must be 5-15 characters',
-      // error: 'Username must be 8-20 characters',
+      // error: 'Username must be 5-15 characters',
+      help: 'Username must be 5-15 characters',
       textContentType: 'username'
     },
     password: {
       stylesheet: formStyles,
       secureTextEntry: true,
       maxLength: 15,
-      error: 'Password must be 5-15 characters',
-      // error: 'Password must be 8-20 characters',
+      // error: 'Password must be 5-15 characters',
+      help: 'Password must be 5-15 characters',
       textContentType: 'password'
     }
   }
