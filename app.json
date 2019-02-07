@@ -1,7 +1,16 @@
 {
   "expo": {
-    "name": "sample_native_app",
-    "slug": "sample_native_app",
+    "name": "neighbor_corps",
+    "slug": "neighbor_corps",
+    "description": "Our app serves as a community task-sharing platform, enabling neighbors to be better stewards 
+    by flagging opportunities for improvement in their immediate vicinity, and responding with hands-on involvement 
+    making for cleaner, safer, and more enjoyable neighborhoods! This app utilizes a Maps API with GPS tagging to 
+    allow anyone to indicate an opportunity for community improvement, like clearing rubbish, removing broken glass, 
+    or clearing storm grates. Flagging a location is quick and easy to complete as a passer-by, and adds the task to a 
+    public ledger that other users within the vicinity can view. The user who flagged the issue can return themselves 
+    later on to complete the task, or other users can take it upon themselves to either resolve or expand upon the need 
+    at hand. By flagging, adding notes to, and completing tasks in their neighborhood, users gain merit as community 
+    leaders, and play a role in making stronger, better connected communities.",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
