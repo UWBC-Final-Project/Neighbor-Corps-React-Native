@@ -17,6 +17,7 @@
     "expo-cli": "^2.7.1",
     "expo-location": "^2.0.1",
     "expo-permissions": "^2.0.0",
+    "geolib": "^2.0.24",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "native-base": "^2.10.0",

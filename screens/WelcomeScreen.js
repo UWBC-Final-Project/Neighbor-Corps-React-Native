@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Font } from 'expo';
 import { Center } from 'native-base';
-import { Image, View, Text, ScrollView, Linking, TouchableHighlight, StyleSheet, AppRegistry } from 'react-native';
+import { Image, View, Text, ScrollView, Linking, TouchableHighlight, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 // Base style
@@ -148,8 +148,12 @@ export default class WelcomeScreen extends Component {
       </ScrollView>
     )
   }
+<<<<<<< HEAD
 }
 
 AppRegistry.registerComponent(
   'NeighborCorps',
   () => WelcomeScreen);
+=======
+}
+>>>>>>> f629c659de42366fc131084bc3dc81f97bf1b422
