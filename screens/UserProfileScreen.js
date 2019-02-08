@@ -388,23 +388,13 @@ export default class UserProfileScreen extends Component {
             :
             <View style={{ flexDirection: 'column' }}>
               <Card>
-<<<<<<< HEAD
-                <CardItem><Text>Welcome {this.state.username}!</Text></CardItem>
-                <CardItem><Text>Email: {this.state.email}</Text></CardItem>
-                <CardItem><Text>First Name: {this.state.firstName}</Text></CardItem>
-                <CardItem><Text>Last Name: {this.state.lastName}</Text></CardItem>
-                <CardItem><Text>Phone: {this.state.phone}</Text></CardItem>
-                <CardItem><Text>About Me: {this.state.aboutMe}</Text></CardItem>
-                <CardItem><Text>Zipcode: {this.state.zipcode}</Text></CardItem>
-=======
-                <CardItem><Text style={styles.welcome}>Welcome <Text style={{fontFamily: 'open-sans-bold', color: '#63a952',}}>{this.state.username}!</Text></Text></CardItem>
+                <CardItem><Text style={styles.welcome}>Welcome <Text style={{fontFamily: 'open-sans-bold', color: '#63a952',}}>{this.state.username}</Text></Text></CardItem>
                 <CardItem><Text style={styles.category}>Email: <Text style={styles.content}>{this.state.email}</Text></Text></CardItem>
                 <CardItem><Text style={styles.category}>First Name: <Text style={styles.content}>{this.state.firstName}</Text></Text></CardItem>
                 <CardItem><Text style={styles.category}>Last Name: <Text style={styles.content}>{this.state.lastName}</Text></Text></CardItem>
                 <CardItem><Text style={styles.category}>Phone: <Text style={styles.content}>{this.state.phone}</Text></Text></CardItem>
                 <CardItem><Text style={styles.category}>About Me: <Text style={styles.content}>{this.state.aboutMe}</Text></Text></CardItem>
                 <CardItem><Text style={styles.category}>Zipcode: <Text style={styles.content}>{this.state.zipcode}</Text></Text></CardItem>
->>>>>>> 51ba10c832ee57cf09501e7d138bee2d29702f57
               </Card>
 
               <TouchableHighlight style={styles.logOutButton} onPress={this.handleSubmit} underlayColor='#99d9f4'>

@@ -61,8 +61,8 @@ export default class UploadPhoto extends React.Component {
 
             imgURL = this.state.image
 
-            navigate('MediaGPS', {
-              getImageURL: imgURL,
+            navigate({
+              passImageURL: imgURL
             })
             console.log("image captured", imgURL)
 
@@ -114,9 +114,9 @@ export default class UploadPhoto extends React.Component {
 
             imgURL = this.state.image
 
-            navigate('MediaGPS', {
-              getImageURL: imgURL,
-            })
+            // navigate('MediaGPS', {
+            //   getImageURL: imgURL,
+            // })
             console.log("image captured", imgURL)
             // this.props.returnURL(data.secure_url);
             // return data.secure_url
@@ -144,7 +144,8 @@ export default class UploadPhoto extends React.Component {
         />       
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-      </View>
+    </View>
+  
     );
   }
 

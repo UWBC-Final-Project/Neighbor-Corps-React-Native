@@ -39,9 +39,6 @@
       </Text>
     </Body>
   </CardItem>
-
-  ///////////////////////////
-
   <CardItem>
     <Button transparent textStyle={{ color: '#87838B' }}>
       {/* <Icon name="eye" /> */}

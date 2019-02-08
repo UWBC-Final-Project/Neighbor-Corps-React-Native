@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import API from '../utils/API';
 import t from 'tcomb-form-native';
 import Axios from 'axios';
+import UploadPhoto from './UploadPhoto';
+import MediaGPS from './MediaGPS';
 
 const Form = t.form.Form;
 
@@ -28,7 +30,8 @@ export default class CreateTaskScreen extends Component {
     title: "",
     description: "",
     imageURL: "",
-    position: "", // save what we grasp from Google map pinned location
+    position: "", 
+    // save what we grasp from Google map pinned location
     postedBy: ""
   };
 
@@ -53,6 +56,7 @@ export default class CreateTaskScreen extends Component {
       }))
     .then(console.log(this.state.postedBy))
     .catch(err => console.log(err))
+    
   }
 
   // // Handles updating component state when the Task types into the input field
@@ -65,9 +69,13 @@ export default class CreateTaskScreen extends Component {
 
   _createTask = async (event) => {
 
+    this.props.navigation.navigate('TasksScreen')
+    const img = this.props.navigation.state.params.passImageURL
+
     event.preventDefault();
     var value = this.refs.form.getValue();
     
+
     if (value) {
 
       this.setState({
@@ -77,18 +85,14 @@ export default class CreateTaskScreen extends Component {
       API.saveTask({
         title: value.title,
         description: value.description,
-        imageURL: this.props.navigation.state.params.passImageURL,
+        imageURL: img,
         position: JSON.parse(this.props.navigation.state.params.getTaskLocation),
         postedBy: this.state.postedBy
 
-      }).catch(err => console.log(err));
-      
+      })
+        .catch(err => console.log(err));
       console.log("I'm called ")
       console.log(this.state);
-      
-      // In tcomb-form-native, if validation fails, value will be null.
-      // Navigate to target screen after validation from tcomb, or else validation fails but the screen still navigates resulting in null data being created. 
-      this.props.navigation.navigate('Home');
     }
     else {
       disabled = this.state.validity
@@ -101,6 +105,8 @@ export default class CreateTaskScreen extends Component {
         <Header page={this.state.page} />
         <Content>
           <View>
+          <UploadPhoto />
+          <MediaGPS />
             <Form
               ref="form"
               type={Task}
@@ -116,18 +122,19 @@ export default class CreateTaskScreen extends Component {
                 ? this.state.postedBy
                 : 'No Username Passed'}
             </Text>
-            <Text style={styles.TextStyle}>
-              {this.props.navigation.state.params.passImageURL
-                ? this.props.navigation.state.params.passImageURL
+          <Text style={styles.TextStyle}>
+              {this.state.imageURL
+                ? this.state.imageURL
                 : 'No Value Passed'}
             </Text>
 
 
             <Text style={styles.TextStyle}>
-              {this.props.navigation.state.params.getTaskLocation
-                ? this.props.navigation.state.params.getTaskLocation
+              {this.state.position
+                ? this.state.position
                 : 'No Value Passed'}
             </Text>
+          
 
           </View>
 

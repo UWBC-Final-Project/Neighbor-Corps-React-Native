@@ -22,7 +22,7 @@ export default class MediaGPS extends Component {
     errorMessage: null,
     position: [],
     markers: [],
-    taskImage: "",
+    // taskImage: "",
   };
 
   componentDidMount() {
@@ -81,14 +81,12 @@ export default class MediaGPS extends Component {
 
     const pos = JSON.stringify(this.state.markers);
 
-    const img = this.props.navigation.state.params.getImageURL
+    // const img = this.props.navigation.state.params.getImageURL
 
     console.log("whats up")
     console.log(this.state)
 
-    navigate('CreateTaskScreen', {getTaskLocation: pos,
-    passImageURL: img}
-    )
+    navigate({getTaskLocation: pos})
 
     // console.log("im here", JSON.stringify(this.state.markers))
     // console.log(this.state.markers)
@@ -137,10 +135,11 @@ export default class MediaGPS extends Component {
           Location: {text}
         </Text>
 
-        <Button
-          title="Next" //confirm the task location, if Yes, direct to "Next"
-          onPress={this._goToTaskForm}
-        /> 
+{        // <Button
+        //   title="Next" //confirm the task location, if Yes, direct to "Next"
+        //   onPress={this._goToTaskForm}
+        // /> 
+      }
 
       </View>
       </Container>

@@ -66,15 +66,15 @@ MapStack.navigationOptions = {
 
 // New Task (UploadPhoto)
 const NewTaskStack = createStackNavigator({
-  // upload photo first
-  UploadPhoto:{
-    screen: UploadPhoto,
-  },
-  // then confirm or drop location
-  MediaGPS:{
-    screen: MediaGPS,
-  }, 
-  // fill out the form 
+ // upload photo first
+  // UploadPhoto:{
+  //   screen: UploadPhoto,
+  // },
+  // // then confirm or drop location
+  // MediaGPS:{
+  //   screen: MediaGPS,
+  // }, 
+  // // fill out the form 
   CreateTaskScreen:{
     screen: CreateTaskScreen,
   } 

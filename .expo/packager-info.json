@@ -1,1 +1,9 @@
-{}
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 3844,
+  "expoServerNgrokUrl": "https://x5-txa.anonymous.neighbor-corps-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.x5-txa.anonymous.neighbor-corps-react-native.exp.direct",
+  "ngrokPid": 16112
+}
